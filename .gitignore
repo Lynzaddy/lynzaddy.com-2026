@@ -1,1 +1,11 @@
+# IGNORE THE FOLLOWING FILES AND FOLDERS
+/.logs
+/mu-plugins
+/plugins
+/upgrade
+/upgrade-temp-backup
+/uploads
+/wflogs
+
+
 
