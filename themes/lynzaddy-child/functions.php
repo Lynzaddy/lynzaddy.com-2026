@@ -15,7 +15,6 @@
 
 defined('ABSPATH') || exit;
 
-
 /* ============================================================
    1 & 2. ENQUEUE PARENT + CHILD STYLESHEETS
    ============================================================ */
@@ -24,7 +23,6 @@ add_action('wp_enqueue_scripts', 'lynzaddy_enqueue_styles');
 
 function lynzaddy_enqueue_styles()
 {
-
     // Parent theme stylesheet
     wp_enqueue_style(
         'hello-elementor-style',
@@ -50,7 +48,6 @@ function lynzaddy_enqueue_styles()
     );
 }
 
-
 /* ============================================================
    3. PRECONNECT TO GOOGLE FONTS
       Adds <link rel="preconnect"> in <head> for faster
@@ -64,7 +61,6 @@ function lynzaddy_preconnect_fonts()
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 }
-
 
 /* ============================================================
    4. BRAND CSS VARIABLES — Inline fallback
@@ -102,7 +98,6 @@ function lynzaddy_css_variables()
     </style>
 <?php
 }
-
 
 /* ============================================================
    5. SCROLL REVEAL SCRIPT
@@ -145,7 +140,6 @@ function lynzaddy_scroll_reveal_script()
 <?php
 }
 
-
 /* ============================================================
    6. STICKY HEADER SCROLL CLASS
       Adds .scrolled to <body> when user scrolls past 40px.
@@ -180,7 +174,6 @@ function lynzaddy_sticky_header_script()
     </script>
 <?php
 }
-
 
 /* ============================================================
    7. THEME SUPPORT
@@ -223,7 +216,6 @@ function lynzaddy_theme_support()
     ]);
 }
 
-
 /* ============================================================
    8. ELEMENTOR — CUSTOM FONT REGISTRATION
       Registers Playfair Display, DM Sans, and JetBrains Mono
@@ -240,7 +232,6 @@ function lynzaddy_elementor_fonts($additional_fonts)
     $additional_fonts['JetBrains Mono']   = 'googlefonts';
     return $additional_fonts;
 }
-
 
 /* ============================================================
    9. OPTIONAL UTILITIES
