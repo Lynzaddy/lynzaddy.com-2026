@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Process — Lynzaddy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --slate: #4A5568; --mist: #8C95A1; --rule: #E2E5E9;
+    --light: #EEF2F7; --paper: #F9F8F6; --white: #FFFFFF;
+    --red-faint: #FDF0EE; --red-mid: #C0392B;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --ease: 0.22s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--midnight); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(13,27,42,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07); box-shadow: 0 4px 30px rgba(0,0,0,0.2); }
+  nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+  .nav-logo { font-family: var(--display); font-size: 1.45rem; font-weight: 800; line-height: 1; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo .lynz { color: #fff; }
+  .nav-logo .addy { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.06em; font-weight: 500; transition: color var(--ease); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--white) !important; padding: 0.55rem 1.4rem; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--copper) !important; }
+
+  /* SHARED */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  .section-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+  .section-tag::after { content: ''; width: 32px; height: 1px; background: var(--copper); }
+  .section-tag.light { color: rgba(255,255,255,0.35); }
+  .section-tag.light::after { background: rgba(255,255,255,0.2); }
+  .lead { font-size: 1.05rem; color: var(--slate); line-height: 1.85; margin-top: 1rem; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; }
+  .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
+
+
+  /* ══════════════════════════════════════════
+     1. HERO
+  ══════════════════════════════════════════ */
+  #hero {
+    background: var(--midnight); min-height: 58vh;
+    display: flex; align-items: flex-end;
+    padding-bottom: 5rem; padding-top: 10rem;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 65% 70% at 85% 15%, rgba(44,95,138,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 55% at 10% 85%, rgba(212,148,58,0.09) 0%, transparent 55%);
+  }
+  #hero::after {
+    content: 'LYNZADDY · PROCESS';
+    position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%) rotate(90deg);
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.05); white-space: nowrap; pointer-events: none;
+  }
+
+  /* Big decorative word behind headline */
+  .hero-bg-word {
+    position: absolute; bottom: -1rem; right: -0.5rem;
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(7rem, 18vw, 18rem); line-height: 1; letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.025); pointer-events: none; white-space: nowrap;
+    user-select: none;
+  }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 800px; }
+  .hero-breadcrumb { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-breadcrumb a { color: inherit; text-decoration: none; transition: color var(--ease); }
+  .hero-breadcrumb a:hover { color: var(--gold); }
+  .hero-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+  .hero-breadcrumb .current { color: var(--gold); }
+
+  .hero-headline {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95; letter-spacing: -0.03em; color: var(--white);
+  }
+  .hero-headline em { color: var(--gold); font-style: italic; }
+
+  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 560px; margin-top: 1.5rem; }
+
+  /* Four step pills in hero */
+  .hero-steps {
+    display: flex; align-items: center; gap: 0; margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-step-pill {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    padding: 0.45rem 1rem; border: 1px solid rgba(255,255,255,0.1);
+    border-right: none; transition: all var(--ease);
+  }
+  .hero-step-pill:last-child { border-right: 1px solid rgba(255,255,255,0.1); }
+  .hero-step-pill em { color: var(--gold); font-style: italic; font-family: var(--display); font-size: 0.8rem; font-weight: 800; }
+  .hero-step-pill:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+
+
+  /* ══════════════════════════════════════════
+     2. WHY IT MATTERS — the cost of no process
+  ══════════════════════════════════════════ */
+  #why-matters { background: var(--cream); padding: 6rem 0; }
+
+  .wm-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .wm-left { }
+  .wm-left h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 2.9rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .wm-left h2 em { color: var(--gold); font-style: italic; }
+  .wm-left .lead { max-width: 440px; }
+
+  /* Problems list — what goes wrong without a process */
+  .wm-problems {
+    display: flex; flex-direction: column; gap: 1px;
+    background: #DDD8CF;
+  }
+
+  .wm-problem {
+    background: var(--cream); padding: 1.25rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    position: relative; overflow: hidden;
+    transition: background var(--ease);
+  }
+  .wm-problem:hover { background: #EDE7DA; }
+
+  .wm-problem-icon {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(192,57,43,0.1); color: var(--red-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; margin-top: 0.1rem; font-weight: 700;
+  }
+
+  .wm-problem-text {
+    font-size: 0.875rem; color: var(--slate); line-height: 1.65;
+  }
+  .wm-problem-text strong { color: var(--midnight); display: block; font-size: 0.9rem; margin-bottom: 0.2rem; }
+
+  /* Gold bar that slides in on hover */
+  .wm-problem::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0; background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .wm-problem:hover::before { width: 2px; }
+
+
+  /* ══════════════════════════════════════════
+     3. PROCESS STEP SECTIONS — conversation style
+     Each step is a full-width section, alternating bg
+  ══════════════════════════════════════════ */
+
+  /* Shared step section styles */
+  .process-step-section { padding: 7rem 0; position: relative; overflow: hidden; }
+
+  /* Step background alternation */
+  .step-bg-white  { background: var(--white); }
+  .step-bg-paper  { background: var(--paper); }
+  .step-bg-dark   { background: var(--midnight); }
+  .step-bg-steel  { background: var(--steel); }
+
+  /* Large decorative step number — background watermark */
+  .step-watermark {
+    position: absolute; top: 50%; right: -0.05em;
+    transform: translateY(-50%);
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(14rem, 28vw, 28rem); line-height: 1;
+    letter-spacing: -0.05em; pointer-events: none;
+    user-select: none; z-index: 0;
+  }
+  .step-bg-white  .step-watermark,
+  .step-bg-paper  .step-watermark { color: rgba(0,0,0,0.028); }
+  .step-bg-dark   .step-watermark,
+  .step-bg-steel  .step-watermark { color: rgba(255,255,255,0.03); }
+
+  /* Inner content grid: left = question+label, right = answer */
+  .step-inner {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 6rem; align-items: start; position: relative; z-index: 1;
+  }
+
+  /* LEFT COLUMN */
+  .step-left { position: sticky; top: 100px; }
+
+  .step-number-row {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+  }
+  .step-num-circle {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 1.4rem; letter-spacing: -0.03em; flex-shrink: 0;
+  }
+  /* Light bg steps */
+  .step-bg-white  .step-num-circle,
+  .step-bg-paper  .step-num-circle { background: var(--midnight); color: var(--gold); }
+  /* Dark bg steps */
+  .step-bg-dark   .step-num-circle,
+  .step-bg-steel  .step-num-circle { background: rgba(255,255,255,0.07); color: var(--gold); border: 1px solid rgba(255,255,255,0.1); }
+
+  .step-phase-label {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .step-bg-white  .step-phase-label,
+  .step-bg-paper  .step-phase-label { color: var(--mist); }
+  .step-bg-dark   .step-phase-label,
+  .step-bg-steel  .step-phase-label { color: rgba(255,255,255,0.28); }
+
+  /* The client's unspoken question */
+  .step-question {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem); line-height: 1.2;
+    letter-spacing: -0.025em; margin-bottom: 1.5rem;
+  }
+  .step-bg-white  .step-question,
+  .step-bg-paper  .step-question { color: var(--midnight); }
+  .step-bg-dark   .step-question,
+  .step-bg-steel  .step-question { color: var(--white); }
+
+  /* Who's asking label */
+  .step-asker {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .step-bg-white  .step-asker,
+  .step-bg-paper  .step-asker { color: var(--mist); }
+  .step-bg-dark   .step-asker,
+  .step-bg-steel  .step-asker { color: rgba(255,255,255,0.25); }
+
+  /* Step name as answer */
+  .step-name-answer {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3.5rem, 6vw, 5rem); line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  .step-bg-white  .step-name-answer,
+  .step-bg-paper  .step-name-answer { color: rgba(0,0,0,0.07); }
+  .step-bg-dark   .step-name-answer,
+  .step-bg-steel  .step-name-answer { color: rgba(255,255,255,0.06); }
+
+  .step-name-answer em {
+    color: var(--gold); font-style: italic;
+    opacity: 1;
+  }
+
+  /* RIGHT COLUMN */
+  .step-right { }
+
+  .step-answer-label {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .step-bg-white  .step-answer-label,
+  .step-bg-paper  .step-answer-label { color: var(--copper); }
+  .step-bg-dark   .step-answer-label,
+  .step-bg-steel  .step-answer-label { color: var(--gold); }
+  .step-answer-label::after { content: ''; width: 24px; height: 1px; background: currentColor; }
+
+  .step-answer-heading {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.25rem;
+  }
+  .step-bg-white  .step-answer-heading,
+  .step-bg-paper  .step-answer-heading { color: var(--midnight); }
+  .step-bg-dark   .step-answer-heading,
+  .step-bg-steel  .step-answer-heading { color: var(--white); }
+  .step-answer-heading em { color: var(--gold); font-style: italic; }
+
+  .step-answer-body {
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .step-answer-body p {
+    font-size: 0.975rem; line-height: 1.85;
+  }
+  .step-bg-white  .step-answer-body p,
+  .step-bg-paper  .step-answer-body p { color: var(--slate); }
+  .step-bg-dark   .step-answer-body p,
+  .step-bg-steel  .step-answer-body p { color: rgba(255,255,255,0.5); }
+  .step-answer-body p strong { color: var(--midnight); }
+  .step-bg-dark   .step-answer-body p strong,
+  .step-bg-steel  .step-answer-body p strong { color: var(--white); }
+
+  /* What you get — deliverables for this step */
+  .step-deliverables {
+    border-top: 1px solid;
+    padding-top: 2rem;
+  }
+  .step-bg-white  .step-deliverables,
+  .step-bg-paper  .step-deliverables { border-color: var(--rule); }
+  .step-bg-dark   .step-deliverables,
+  .step-bg-steel  .step-deliverables { border-color: rgba(255,255,255,0.08); }
+
+  .step-del-label {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .step-bg-white  .step-del-label,
+  .step-bg-paper  .step-del-label { color: var(--mist); }
+  .step-bg-dark   .step-del-label,
+  .step-bg-steel  .step-del-label { color: rgba(255,255,255,0.25); }
+
+  .step-del-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: transparent;
+  }
+  .step-bg-white  .step-del-grid { background: var(--rule); }
+  .step-bg-paper  .step-del-grid { background: var(--rule); }
+  .step-bg-dark   .step-del-grid { background: rgba(255,255,255,0.06); }
+  .step-bg-steel  .step-del-grid { background: rgba(255,255,255,0.06); }
+
+  .step-del-item {
+    padding: 1rem 1.25rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    transition: background var(--ease);
+  }
+  .step-bg-white  .step-del-item { background: var(--white); }
+  .step-bg-paper  .step-del-item { background: var(--paper); }
+  .step-bg-dark   .step-del-item { background: var(--midnight); }
+  .step-bg-steel  .step-del-item { background: var(--steel); }
+
+  .step-bg-white  .step-del-item:hover { background: var(--paper); }
+  .step-bg-paper  .step-del-item:hover { background: #EEECE8; }
+  .step-bg-dark   .step-del-item:hover { background: #111e2d; }
+  .step-bg-steel  .step-del-item:hover { background: #172f4e; }
+
+  .del-check { color: var(--gold); font-size: 0.7rem; flex-shrink: 0; margin-top: 0.15rem; font-weight: 700; }
+
+  .del-text {
+    font-size: 0.85rem; line-height: 1.55;
+  }
+  .step-bg-white  .del-text,
+  .step-bg-paper  .del-text { color: var(--midnight); }
+  .step-bg-dark   .del-text,
+  .step-bg-steel  .del-text { color: rgba(255,255,255,0.6); }
+
+  /* "What goes wrong without this" note */
+  .step-without {
+    margin-top: 1.75rem; padding: 1.25rem 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    border-left: 2px solid rgba(192,57,43,0.4);
+    background: rgba(192,57,43,0.05);
+  }
+  .step-without-icon { color: rgba(192,57,43,0.6); font-size: 0.8rem; flex-shrink: 0; font-weight: 700; margin-top: 0.15rem; }
+  .step-without-text { font-size: 0.83rem; line-height: 1.65; }
+  .step-bg-white  .step-without-text,
+  .step-bg-paper  .step-without-text { color: var(--slate); }
+  .step-bg-dark   .step-without-text,
+  .step-bg-steel  .step-without-text { color: rgba(255,255,255,0.4); }
+  .step-without-text strong { color: rgba(192,57,43,0.85); }
+
+  /* Connector between steps */
+  .step-connector {
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem 0; background: var(--white);
+  }
+  .step-connector-inner {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  }
+  .connector-line { width: 1px; height: 48px; background: linear-gradient(180deg, var(--rule), var(--gold) 50%, var(--rule)); }
+  .connector-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); }
+
+  /* Connector on dark sections */
+  .connector-dark { background: var(--midnight); }
+  .connector-dark .connector-line { background: linear-gradient(180deg, rgba(255,255,255,0.1), var(--gold) 50%, rgba(255,255,255,0.1)); }
+  .connector-dark .connector-label { color: rgba(255,255,255,0.2); }
+
+
+  /* ══════════════════════════════════════════
+     4. TIMELINE STRIP — visual overview
+  ══════════════════════════════════════════ */
+  #process-timeline { background: var(--midnight); padding: 5rem 0; }
+
+  .timeline-header { margin-bottom: 3.5rem; }
+  .timeline-header h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.5rem); letter-spacing: -0.02em; color: var(--white); }
+  .timeline-header h2 em { color: var(--gold); font-style: italic; }
+  .timeline-header p { font-size: 0.9rem; color: rgba(255,255,255,0.38); line-height: 1.75; margin-top: 0.5rem; max-width: 500px; }
+
+  /* Horizontal timeline */
+  .timeline-track {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative; gap: 1px; background: rgba(255,255,255,0.06);
+  }
+
+  /* Line connecting all steps */
+  .timeline-track::before {
+    content: ''; position: absolute;
+    top: 36px; left: calc(12.5% + 1rem); right: calc(12.5% + 1rem);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 25%, var(--gold) 75%, transparent);
+    z-index: 0; pointer-events: none;
+  }
+
+  .timeline-step {
+    padding: 2rem 1.75rem 2rem;
+    background: var(--midnight);
+    position: relative; z-index: 1;
+    transition: background var(--ease);
+  }
+  .timeline-step:hover { background: #111e2d; }
+
+  .tl-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+
+  .tl-step-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid var(--gold); background: var(--midnight);
+    flex-shrink: 0; position: relative;
+    transition: background var(--ease);
+  }
+  .tl-step-dot::after {
+    content: ''; position: absolute; inset: 3px;
+    border-radius: 50%; background: var(--gold);
+    transform: scale(0); transition: transform 0.2s ease;
+  }
+  .timeline-step:hover .tl-step-dot::after { transform: scale(1); }
+
+  .tl-phase { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+
+  .tl-name {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 1.35rem; letter-spacing: -0.02em; color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .tl-desc { font-size: 0.82rem; color: rgba(255,255,255,0.38); line-height: 1.7; }
+
+  .tl-typical {
+    margin-top: 1.25rem; padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.2);
+  }
+  .tl-typical span { color: var(--gold); }
+
+
+  /* ══════════════════════════════════════════
+     5. THE ANTI-AGENCY MANIFESTO STRIP
+  ══════════════════════════════════════════ */
+  #manifesto-strip { background: var(--cream); padding: 5rem 0; }
+
+  .manifesto-inner {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: center;
+  }
+
+  .manifesto-left { }
+  .manifesto-tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .manifesto-tag::after { content: ''; width: 24px; height: 1px; background: var(--copper); }
+  .manifesto-left h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.1; }
+  .manifesto-left h2 em { color: var(--gold); font-style: italic; }
+  .manifesto-left p { font-size: 0.9rem; color: var(--slate); line-height: 1.8; margin-top: 1rem; }
+
+  /* Right: contrast statements */
+  .manifesto-contrasts { display: flex; flex-direction: column; gap: 1px; background: #DDD8CF; }
+
+  .manifesto-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #DDD8CF;
+  }
+
+  .manifesto-cell {
+    padding: 1.25rem 1.5rem;
+  }
+  .manifesto-cell.them { background: #EDE7DA; }
+  .manifesto-cell.us { background: var(--white); }
+
+  .cell-label {
+    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .manifesto-cell.them .cell-label { color: rgba(192,57,43,0.5); }
+  .manifesto-cell.us   .cell-label { color: var(--copper); }
+
+  .cell-text { font-size: 0.875rem; color: var(--slate); line-height: 1.6; }
+  .manifesto-cell.us .cell-text { color: var(--midnight); font-weight: 500; }
+
+
+  /* ══════════════════════════════════════════
+     6. CTA
+  ══════════════════════════════════════════ */
+  #process-cta { background: var(--paper); padding: 7rem 0; }
+
+  .cta-inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; border: 1px solid var(--rule); padding: 4rem; position: relative; overflow: hidden; }
+  .cta-inner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+  .cta-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; }
+  .cta-inner h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 2.8vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.1; }
+  .cta-inner h2 em { color: var(--gold); font-style: italic; }
+  .cta-inner p { color: var(--slate); font-size: 0.95rem; line-height: 1.75; margin-top: 0.75rem; max-width: 500px; }
+  .cta-actions { display: flex; flex-direction: column; gap: 1rem; align-items: center; flex-shrink: 0; }
+  .btn-primary { background: var(--midnight); color: var(--white); text-decoration: none; padding: 1rem 2.25rem; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; display: inline-block; transition: background var(--ease), transform 0.15s; white-space: nowrap; }
+  .btn-primary:hover { background: var(--steel); transform: translateY(-1px); }
+  .btn-ghost { color: var(--slate); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: color var(--ease); }
+  .btn-ghost:hover { color: var(--gold); }
+
+  /* FOOTER */
+  footer { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-main { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; }
+  .footer-brand .logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .footer-brand .logo .lynz { color: #fff; }
+  .footer-brand .logo .addy { color: var(--gold); font-style: italic; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--ease); }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-copy strong { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .wm-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .step-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .step-left { position: static; }
+    .timeline-track { grid-template-columns: 1fr 1fr; }
+    .manifesto-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .manifesto-row { grid-template-columns: 1fr; }
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .hero-steps { flex-wrap: wrap; }
+    .hero-step-pill { border-right: 1px solid rgba(255,255,255,0.1); }
+    .step-del-grid { grid-template-columns: 1fr; }
+    .timeline-track { grid-template-columns: 1fr; }
+    .timeline-track::before { display: none; }
+    .footer-main { grid-template-columns: 1fr; }
+    .cta-inner { padding: 2.5rem; }
+    .step-watermark { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="nav-logo"><span class="lynz">Lynz</span><span class="addy">addy</span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/work">Work</a></li>
+      <li><a href="/about">Why Us</a></li>
+      <li><a href="/process" class="active">Process</a></li>
+      <li><a href="/contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════
+     1. HERO
+══════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg-word">Process</div>
+  <div class="container">
+    <div class="hero-inner reveal">
+      <div class="hero-breadcrumb">
+        <a href="/">Home</a><span class="sep">/</span><span class="current">Our Process</span>
+      </div>
+      <h1 class="hero-headline">
+        We understand<br>your problem<br><em>before we solve it.</em>
+      </h1>
+      <p class="hero-sub">Most shops open Figma on day one. We open a document. The questions we ask in week one are why projects stay on scope, on budget, and don't need to be rebuilt in two years.</p>
+      <div class="hero-steps">
+        <div class="hero-step-pill"><em>01</em> &nbsp;Discover</div>
+        <div class="hero-step-pill"><em>02</em> &nbsp;Architecture</div>
+        <div class="hero-step-pill"><em>03</em> &nbsp;Build</div>
+        <div class="hero-step-pill"><em>04</em> &nbsp;Sustain</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     2. WHY IT MATTERS
+══════════════════════════ -->
+<section id="why-matters">
+  <div class="container">
+    <div class="wm-grid">
+
+      <div class="wm-left reveal">
+        <div class="section-tag">Why Process Matters</div>
+        <h2>These aren't<br>hypothetical risks.<br><em>We've seen them.</em></h2>
+        <p class="lead">Every item on this list is something a client came to us to fix after another shop — or a well-intentioned internal team — skipped a step. Our process exists to prevent exactly these outcomes.</p>
+      </div>
+
+      <div class="wm-problems reveal d2">
+
+        <div class="wm-problem">
+          <div class="wm-problem-icon">✕</div>
+          <div class="wm-problem-text">
+            <strong>Scope creep from vague discovery</strong>
+            When nobody documents what "done" means at the start, it expands to mean whatever someone wants it to mean six weeks in. Projects go over budget not because of surprises — but because the original brief was a wish list, not a specification.
+          </div>
+        </div>
+
+        <div class="wm-problem">
+          <div class="wm-problem-icon">✕</div>
+          <div class="wm-problem-text">
+            <strong>Rebuilds because architecture wasn't planned</strong>
+            A beautiful site built on a brittle content model will need to be rebuilt when the business grows or the team changes. We've rebuilt more sites than we care to count — the pattern is always the same: someone skipped the architecture conversation.
+          </div>
+        </div>
+
+        <div class="wm-problem">
+          <div class="wm-problem-icon">✕</div>
+          <div class="wm-problem-text">
+            <strong>Sites editors can't actually use after launch</strong>
+            Developers build for developers. Marketing teams need tools, not code. Without an explicit conversation about who edits what and how, you end up with a site that requires a developer for every update — which means nothing ever gets updated.
+          </div>
+        </div>
+
+        <div class="wm-problem">
+          <div class="wm-problem-icon">✕</div>
+          <div class="wm-problem-text">
+            <strong>Security issues from plugin bloat</strong>
+            Every plugin is a door. The architecture phase is where we audit what's necessary, what's redundant, and what's a liability. A site with 40 plugins isn't feature-rich — it's a maintenance problem waiting to happen.
+          </div>
+        </div>
+
+        <div class="wm-problem">
+          <div class="wm-problem-icon">✕</div>
+          <div class="wm-problem-text">
+            <strong>Handoffs with no documentation</strong>
+            Most agencies document nothing. So when something breaks, nobody can fix it without calling the original developer — who may not exist anymore. Our Sustain phase exists specifically to prevent this dependency.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     STEP 1: DISCOVER
+══════════════════════════ -->
+<section class="process-step-section step-bg-white" id="step-discover">
+  <div class="step-watermark">01</div>
+  <div class="container">
+    <div class="step-inner">
+
+      <div class="step-left reveal">
+        <div class="step-number-row">
+          <div class="step-num-circle">01</div>
+          <span class="step-phase-label">Phase One</span>
+        </div>
+        <div class="step-asker">What the client is thinking</div>
+        <div class="step-question">"What are we even paying for in week one?"</div>
+        <div class="step-name-answer"><em>Dis</em>cover</div>
+      </div>
+
+      <div class="step-right reveal d2">
+        <div class="step-answer-label">Our answer</div>
+        <h2 class="step-answer-heading">The questions nobody<br>else thinks to <em>ask.</em></h2>
+
+        <div class="step-answer-body">
+          <p>Discovery isn't a kickoff call. It's an interrogation — of your goals, your constraints, your users, and your organization's actual capacity to maintain what we're about to build. Week one is the most valuable week of any engagement. Most shops rush through it because it doesn't look like progress. <strong>It is the only thing that determines whether the project succeeds.</strong></p>
+          <p>We document everything. Who are your editors and how technically comfortable are they? What does your IT team need to approve before anything goes live? What's broken about your current site and what's worth keeping? What does the site need to do in twelve months that it can't do today? These questions sound basic. The answers are almost always surprising.</p>
+          <p>By the end of Discovery, we have a written brief that both sides sign off on — not a mood board, not a rough scope. A document that says: here is the problem, here are the constraints, here is what success looks like, and here is what is explicitly out of scope. That last part is the one that protects your budget.</p>
+        </div>
+
+        <div class="step-deliverables">
+          <div class="step-del-label">What you get from this phase</div>
+          <div class="step-del-grid">
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Documented project brief with signed-off scope</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Stakeholder interview notes + decisions log</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Technical constraints inventory (hosting, plugins, integrations)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Editor personas — who updates what and how often</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Explicit out-of-scope list</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Revised timeline with realistic milestones</span></div>
+          </div>
+          <div class="step-without">
+            <span class="step-without-icon">⚠</span>
+            <div class="step-without-text"><strong>Without this:</strong> Scope expands, timelines slip, and both sides are frustrated — not because anyone was dishonest, but because nobody ever agreed on what the project actually was.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="step-connector">
+  <div class="step-connector-inner">
+    <div class="connector-line"></div>
+    <div class="connector-label">Discover → Architecture</div>
+    <div class="connector-line"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     STEP 2: ARCHITECTURE
+══════════════════════════ -->
+<section class="process-step-section step-bg-dark" id="step-architecture">
+  <div class="step-watermark">02</div>
+  <div class="container">
+    <div class="step-inner">
+
+      <div class="step-left reveal">
+        <div class="step-number-row">
+          <div class="step-num-circle">02</div>
+          <span class="step-phase-label">Phase Two</span>
+        </div>
+        <div class="step-asker">What the client is thinking</div>
+        <div class="step-question">"Why aren't you designing yet?"</div>
+        <div class="step-name-answer"><em>Archi</em>tecture</div>
+      </div>
+
+      <div class="step-right reveal d2">
+        <div class="step-answer-label">Our answer</div>
+        <h2 class="step-answer-heading">Because amateurs go<br>right for the <em>design.</em></h2>
+
+        <div class="step-answer-body">
+          <p>Architecture is the phase that makes everything else faster. It's where we decide: how is content structured in the CMS? Which plugins earn their place and which ones don't? What does the hosting environment need to look like before launch? How does a marketing editor update a landing page without calling IT? <strong>These are not design questions. They are load-bearing decisions.</strong></p>
+          <p>We build a content model — a map of every content type, every field, and every relationship on the site — before a single template is designed. This is what keeps editors from feeling trapped and developers from writing workarounds six months later. It's also what keeps Elementor from becoming a pile of one-off sections nobody can maintain.</p>
+          <p>The plugin audit happens here too. We start with the smallest possible stack that does what the brief requires. Every plugin we add is a deliberate decision, not a convenience. A site with thirty plugins isn't powerful — it's fragile. Security vulnerabilities, update conflicts, and performance problems almost always trace back to a plugin that shouldn't have been installed in the first place.</p>
+        </div>
+
+        <div class="step-deliverables">
+          <div class="step-del-label">What you get from this phase</div>
+          <div class="step-del-grid">
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Content model with all custom fields mapped</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Approved plugin inventory (and a rationale for each)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Hosting environment spec and staging setup</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Editor workflow diagram — who can do what, where</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">IT sign-off checklist (security, access, environment)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Design brief — structure agreed before Figma opens</span></div>
+          </div>
+          <div class="step-without">
+            <span class="step-without-icon">⚠</span>
+            <div class="step-without-text"><strong>Without this:</strong> You get a beautiful site that editors are afraid to touch, IT won't approve, and a developer will need to rebuild when the business changes direction in eighteen months.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="step-connector connector-dark">
+  <div class="step-connector-inner">
+    <div class="connector-line"></div>
+    <div class="connector-label">Architecture → Build</div>
+    <div class="connector-line"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     STEP 3: BUILD
+══════════════════════════ -->
+<section class="process-step-section step-bg-paper" id="step-build">
+  <div class="step-watermark">03</div>
+  <div class="container">
+    <div class="step-inner">
+
+      <div class="step-left reveal">
+        <div class="step-number-row">
+          <div class="step-num-circle">03</div>
+          <span class="step-phase-label">Phase Three</span>
+        </div>
+        <div class="step-asker">What the client is thinking</div>
+        <div class="step-question">"How do I know this is going well?"</div>
+        <div class="step-name-answer"><em>Build</em></div>
+      </div>
+
+      <div class="step-right reveal d2">
+        <div class="step-answer-label">Our answer</div>
+        <h2 class="step-answer-heading">You're in staging.<br>You've seen it. <em>You've approved it.</em></h2>
+
+        <div class="step-answer-body">
+          <p>By the time we build, there are no surprises — because the architecture phase already answered every structural question. Build is where the decisions become code. The content model becomes custom fields. The plugin inventory becomes a configured stack. The editor workflow becomes a CMS that marketing can actually use on a Tuesday afternoon without filing a ticket.</p>
+          <p>Everything is built in staging first. You see it, test it, and break it before your customers do. We use version control throughout — every change is tracked, every decision is reversible. <strong>Launch isn't a gamble. It's a promotion of a tested, approved build.</strong> The gap between "I think it's ready" and "I know it's ready" is staging. It's the environment most shops skip because it slows them down. It's the one we insist on because it's the only thing that makes launch feel calm.</p>
+          <p>We build to a handoff standard from day one — not as a cleanup pass at the end. That means the code is commented, the CMS fields are labeled for editors (not developers), and the documentation is started before launch, not written in a hurry afterward.</p>
+        </div>
+
+        <div class="step-deliverables">
+          <div class="step-del-label">What you get from this phase</div>
+          <div class="step-del-grid">
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Staged build with version-controlled codebase</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Cross-browser and mobile QA pass</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Performance benchmarks (PageSpeed 85+ mobile)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">CMS fields labeled for non-technical editors</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Pre-launch punch list reviewed and signed off</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Zero-downtime launch plan with rollback procedure</span></div>
+          </div>
+          <div class="step-without">
+            <span class="step-without-icon">⚠</span>
+            <div class="step-without-text"><strong>Without this:</strong> Launch becomes a fire drill. Something breaks in production that staging would have caught in five minutes. The client sends a screenshot at 9pm. Everyone pretends this is normal.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="step-connector">
+  <div class="step-connector-inner">
+    <div class="connector-line"></div>
+    <div class="connector-label">Build → Sustain</div>
+    <div class="connector-line"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     STEP 4: SUSTAIN
+══════════════════════════ -->
+<section class="process-step-section step-bg-steel" id="step-sustain">
+  <div class="step-watermark">04</div>
+  <div class="container">
+    <div class="step-inner">
+
+      <div class="step-left reveal">
+        <div class="step-number-row">
+          <div class="step-num-circle">04</div>
+          <span class="step-phase-label">Phase Four</span>
+        </div>
+        <div class="step-asker">What the client is thinking</div>
+        <div class="step-question">"What happens when you're done?"</div>
+        <div class="step-name-answer"><em>Sus</em>tain</div>
+      </div>
+
+      <div class="step-right reveal d2">
+        <div class="step-answer-label">Our answer</div>
+        <h2 class="step-answer-heading">"Done" is where<br>most shops <em>disappear.</em></h2>
+
+        <div class="step-answer-body">
+          <p>Launch is a milestone, not a finish line. WordPress core updates. Plugins release security patches. Your business adds a service, changes a team member, needs a new landing page by Thursday. None of that was in scope — and all of it is completely normal. <strong>The question isn't whether your site will need attention after launch. It's whether you'll have someone to call when it does.</strong></p>
+          <p>Every project ends with a formal handoff — documented workflows, a plugin inventory with update notes, deployment instructions, and custom training for whoever manages the CMS day-to-day. We write this documentation as we build, not as an afterthought. The goal is a team that is genuinely self-sufficient, not dependent on us to do basic tasks.</p>
+          <p>For clients who want a continuing partner, we offer Sustain retainers — a monthly block of hours for updates, monitoring, performance work, and whatever comes up. No ticket system. No minimum notice. Just the same senior-level attention that built the site, available on an ongoing basis.</p>
+        </div>
+
+        <div class="step-deliverables">
+          <div class="step-del-label">What you get from this phase</div>
+          <div class="step-del-grid">
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Full written handoff documentation package</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">CMS editor training (recorded + live walkthrough)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Plugin update schedule and maintenance notes</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">30-day post-launch support window (included)</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Sustain retainer option for ongoing partnership</span></div>
+            <div class="step-del-item"><span class="del-check">✓</span><span class="del-text">Emergency contact and escalation process</span></div>
+          </div>
+          <div class="step-without">
+            <span class="step-without-icon">⚠</span>
+            <div class="step-without-text"><strong>Without this:</strong> The site gets stale. Updates don't happen because nobody wants to break something they don't fully understand. Security patches go uninstalled for months. Eventually, something breaks — and the developer who built it is unreachable.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     4. TIMELINE OVERVIEW
+══════════════════════════ -->
+<section id="process-timeline">
+  <div class="container">
+    <div class="timeline-header reveal">
+      <div class="section-tag light">At a Glance</div>
+      <h2>What the full engagement<br><em>looks like.</em></h2>
+      <p>Timelines vary by project size. These are the typical ranges for a mid-sized WordPress build — a redesign or new build for a marketing site or small e-commerce project.</p>
+    </div>
+    <div class="timeline-track reveal">
+
+      <div class="timeline-step">
+        <div class="tl-step-header">
+          <div class="tl-step-dot"></div>
+          <span class="tl-phase">Phase One</span>
+        </div>
+        <div class="tl-name">Discover</div>
+        <p class="tl-desc">Stakeholder interviews, technical audit, scope documentation, and brief sign-off. We ask the questions that will be asked at launch anyway — just earlier, when they're cheaper to answer.</p>
+        <div class="tl-typical">Typical duration: <span>1 – 2 weeks</span></div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="tl-step-header">
+          <div class="tl-step-dot"></div>
+          <span class="tl-phase">Phase Two</span>
+        </div>
+        <div class="tl-name">Architecture</div>
+        <p class="tl-desc">Content model, plugin inventory, hosting environment, editor workflow design. This is where we get IT sign-off before the first pixel is designed — not after the site is built.</p>
+        <div class="tl-typical">Typical duration: <span>1 – 2 weeks</span></div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="tl-step-header">
+          <div class="tl-step-dot"></div>
+          <span class="tl-phase">Phase Three</span>
+        </div>
+        <div class="tl-name">Build</div>
+        <p class="tl-desc">Design, development, QA, and staged launch. You see every page in staging before it goes live. Launch is a promotion, not a gamble. Rounds of revisions are built into the timeline, not invoiced as extras.</p>
+        <div class="tl-typical">Typical duration: <span>4 – 8 weeks</span></div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="tl-step-header">
+          <div class="tl-step-dot"></div>
+          <span class="tl-phase">Phase Four</span>
+        </div>
+        <div class="tl-name">Sustain</div>
+        <p class="tl-desc">Handoff documentation, CMS training, 30-day post-launch support, and optional ongoing retainer. The site is yours — and you have everything you need to run it. Or we stay involved. Both are good options.</p>
+        <div class="tl-typical">Ongoing: <span>optional retainer</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     5. ANTI-AGENCY MANIFESTO
+══════════════════════════ -->
+<section id="manifesto-strip">
+  <div class="container">
+    <div class="manifesto-inner reveal">
+
+      <div class="manifesto-left">
+        <div class="manifesto-tag">How We're Different</div>
+        <h2>The same process.<br>Different on <em>every step.</em></h2>
+        <p>Discover → Architecture → Build → Sustain sounds obvious. The difference is in how seriously each phase is treated — and what gets produced before the next one starts.</p>
+      </div>
+
+      <div class="manifesto-contrasts reveal d2">
+        <div class="manifesto-row">
+          <div class="manifesto-cell them"><div class="cell-label">Typical agency</div><div class="cell-text">Discovery is a kickoff call and a mood board.</div></div>
+          <div class="manifesto-cell us"><div class="cell-label">Lynzaddy</div><div class="cell-text">Discovery ends with a signed written brief both sides reference throughout the project.</div></div>
+        </div>
+        <div class="manifesto-row">
+          <div class="manifesto-cell them"><div class="cell-label">Typical agency</div><div class="cell-text">Architecture is skipped entirely. Figma opens on day two.</div></div>
+          <div class="manifesto-cell us"><div class="cell-label">Lynzaddy</div><div class="cell-text">Architecture is a full phase. Design doesn't start until the content model and plugin inventory are approved.</div></div>
+        </div>
+        <div class="manifesto-row">
+          <div class="manifesto-cell them"><div class="cell-label">Typical agency</div><div class="cell-text">Build happens entirely in production. You find out what it looks like at launch.</div></div>
+          <div class="manifesto-cell us"><div class="cell-label">Lynzaddy</div><div class="cell-text">Build happens entirely in staging. You test it, break it, and approve it before any DNS changes.</div></div>
+        </div>
+        <div class="manifesto-row">
+          <div class="manifesto-cell them"><div class="cell-label">Typical agency</div><div class="cell-text">Sustain is a vague "ongoing support" offer you never end up using.</div></div>
+          <div class="manifesto-cell us"><div class="cell-label">Lynzaddy</div><div class="cell-text">Sustain is a structured retainer with defined hours, clear scope, and the same person who built the site.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     6. CTA
+══════════════════════════ -->
+<section id="process-cta">
+  <div class="container reveal">
+    <div class="cta-inner">
+      <div>
+        <div class="cta-tag">Start With Discovery</div>
+        <h2>The first conversation<br>is <em>free.</em></h2>
+        <p>Discovery starts with a conversation — not a proposal. Tell us what you're trying to do, what's not working, and what you've already tried. We'll tell you honestly what we think the problem is and what it would take to fix it. No pitch. No pressure. Just the questions we'd want someone to ask us.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Start the Conversation</a>
+        <a href="/work" class="btn-ghost">See how it turned out →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo"><span class="lynz">Lynz</span><span class="addy">addy</span></div>
+      <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor to manage. Midwest-based. Nationally trusted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/services#wordpress">WordPress Development</a></li>
+        <li><a href="/services#hosting">Managed Hosting</a></li>
+        <li><a href="/services#consulting">Consulting</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">Why Lynzaddy</a></li>
+        <li><a href="/process">Our Process</a></li>
+        <li><a href="/work">Client Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="/contact">hello@lynzaddy.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+    <span class="footer-copy">Built the right way. Obviously.</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

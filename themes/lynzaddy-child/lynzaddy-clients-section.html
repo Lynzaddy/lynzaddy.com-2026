@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynzaddy — Client Logo Section Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --ink: #0F0F0F; --slate: #4A5568; --mist: #8C95A1;
+    --rule: #E2E5E9; --light: #EEF2F7; --paper: #F9F8F6; --white: #FFFFFF;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: #1a1a2e; }
+
+  /* ── Context strips so you can see all 3 bg variants ── */
+  .context-label {
+    text-align: center; padding: 1rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.25);
+    background: #111;
+  }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT A — White background (default)
+     Section class: lynz-clients
+  ════════════════════════════════════════════════════ */
+  .lynz-clients {
+    background: var(--white);
+    padding: 5rem 0;
+  }
+
+  .lynz-clients .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* Header row */
+  .lynz-clients-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .lynz-clients-label {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .lynz-clients-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .lynz-clients-rule-dot {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* The logo grid */
+  .lynz-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+
+  /* Individual logo cell */
+  .lynz-logo-cell {
+    background: var(--white);
+    aspect-ratio: 5/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.22s;
+    cursor: default;
+  }
+
+  .lynz-logo-cell:hover {
+    background: var(--paper);
+  }
+
+  /* The placeholder — shown when no real logo is uploaded */
+  .lynz-logo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Dashed outline box representing the logo area */
+  .lynz-logo-slot {
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 3/1;
+    border: 1.5px dashed var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.22s;
+  }
+
+  .lynz-logo-cell:hover .lynz-logo-slot {
+    border-color: var(--gold);
+  }
+
+  .lynz-logo-slot-text {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  /* Real logo image — swap the placeholder for this when ready */
+  .lynz-logo-img {
+    max-width: 180px;
+    max-height: 64px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* Desaturate by default, full color on hover */
+    filter: grayscale(100%) opacity(0.55);
+    transition: filter 0.3s ease;
+  }
+
+  .lynz-logo-cell:hover .lynz-logo-img {
+    filter: grayscale(0%) opacity(1);
+  }
+
+  /* Optional: 6th cell — "and more" */
+  .lynz-logo-cell.lynz-logo-more {
+    background: var(--midnight);
+    cursor: default;
+  }
+
+  .lynz-logo-cell.lynz-logo-more:hover {
+    background: var(--steel);
+  }
+
+  .lynz-more-text {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: -0.01em;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .lynz-more-text em {
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  /* Footer note below grid */
+  .lynz-clients-footer {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .lynz-clients-note {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mist);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .lynz-clients-note::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .lynz-clients-cta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--anchor);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .lynz-clients-cta:hover { color: var(--gold); }
+  .lynz-clients-cta::after { content: '→'; }
+
+
+  /* ════════════════════════════════════════════════════
+     VARIANT B — Cream background
+     Section class: lynz-clients lynz-clients--cream
+  ════════════════════════════════════════════════════ */
+  .lynz-clients--cream {
+    background: var(--cream);
+  }
+
+  .lynz-clients--cream .lynz-logo-cell {
+    background: var(--cream);
+  }
+
+  .lynz-clients--cream .lynz-logo-cell:hover {
+    background: #EDE7DA;
+  }
+
+  .lynz-clients--cream .lynz-logo-grid {
+    background: #DDD8CF;
+  }
+
+  .lynz-clients--cream .lynz-clients-rule {
+    background: #DDD8CF;
+  }
+
+
+  /* ════════════════════════════════════════════════════
+     VARIANT C — Dark / Midnight background
+     Section class: lynz-clients lynz-clients--dark
+  ════════════════════════════════════════════════════ */
+  .lynz-clients--dark {
+    background: var(--midnight);
+  }
+
+  .lynz-clients--dark .lynz-clients-label {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .lynz-clients--dark .lynz-clients-rule {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .lynz-clients--dark .lynz-logo-grid {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .lynz-clients--dark .lynz-logo-cell {
+    background: var(--midnight);
+  }
+
+  .lynz-clients--dark .lynz-logo-cell:hover {
+    background: var(--steel);
+  }
+
+  .lynz-clients--dark .lynz-logo-slot {
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .lynz-clients--dark .lynz-logo-cell:hover .lynz-logo-slot {
+    border-color: var(--gold);
+  }
+
+  .lynz-clients--dark .lynz-logo-slot-text {
+    color: rgba(255,255,255,0.2);
+  }
+
+  .lynz-clients--dark .lynz-clients-note {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .lynz-clients--dark .lynz-clients-cta {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .lynz-clients--dark .lynz-clients-cta:hover {
+    color: var(--gold);
+  }
+
+  /* Dark variant: logos go white/light on dark */
+  .lynz-clients--dark .lynz-logo-img {
+    filter: grayscale(100%) invert(1) opacity(0.45);
+  }
+
+  .lynz-clients--dark .lynz-logo-cell:hover .lynz-logo-img {
+    filter: grayscale(0%) invert(0) opacity(1);
+  }
+
+  /* ── 5-logo layout (no 6th cell) ── */
+  .lynz-logo-grid--5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Make 4th and 5th cells span differently for balanced layout */
+  .lynz-logo-grid--5 .lynz-logo-cell:nth-child(4) {
+    grid-column: 1 / 2;
+    margin-left: calc(50% + 0.5px); /* centers the bottom row of 2 */
+  }
+
+  /* Cleaner 5-logo: use 5-column grid, hide column gaps */
+  .lynz-logo-grid--5-col {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .lynz-logo-grid,
+    .lynz-logo-grid--5-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lynz-logo-cell {
+      aspect-ratio: 2/1;
+      padding: 1.5rem;
+    }
+
+    .lynz-logo-img {
+      max-width: 120px;
+      max-height: 44px;
+    }
+
+    .lynz-clients-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lynz-logo-grid,
+    .lynz-logo-grid--5-col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+
+  /* ── Page chrome (demo only — not part of component) ── */
+  .demo-spacer { padding: 4rem 2.5rem; background: var(--midnight); }
+  .demo-spacer p {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.2); text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     PREVIEW: Context — sits between sections
+     on your homepage between Services and Difference
+════════════════════════════════════ -->
+
+<div class="context-label">↑ Services section above ↑</div>
+
+
+<!-- ═══════════════════════════════════
+     VARIANT A — White background
+     Recommended: between Services and Why Us
+════════════════════════════════════ -->
+
+<section class="lynz-clients">
+  <div class="container">
+
+    <div class="lynz-clients-header">
+      <span class="lynz-clients-label">Trusted By</span>
+      <div class="lynz-clients-rule"></div>
+      <div class="lynz-clients-rule-dot"></div>
+    </div>
+
+    <!-- 6-logo grid (3×2) -->
+    <div class="lynz-logo-grid">
+
+      <div class="lynz-logo-cell">
+        <div class="lynz-logo-placeholder">
+          <div class="lynz-logo-slot">
+            <span class="lynz-logo-slot-text">Client Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lynz-logo-cell">
+        <div class="lynz-logo-placeholder">
+          <div class="lynz-logo-slot">
+            <span class="lynz-logo-slot-text">Client Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lynz-logo-cell">
+        <div class="lynz-logo-placeholder">
+          <div class="lynz-logo-slot">
+            <span class="lynz-logo-slot-text">Client Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lynz-logo-cell">
+        <div class="lynz-logo-placeholder">
+          <div class="lynz-logo-slot">
+            <span class="lynz-logo-slot-text">Client Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lynz-logo-cell">
+        <div class="lynz-logo-placeholder">
+          <div class="lynz-logo-slot">
+            <span class="lynz-logo-slot-text">Client Logo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6th cell: "and more" — swap for a 6th logo when ready -->
+      <div class="lynz-logo-cell lynz-logo-more">
+        <div class="lynz-more-text">
+          + more great<em>clients</em>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lynz-clients-footer">
+      <span class="lynz-clients-note">Mostly built on word of mouth since 2008</span>
+      <a href="#contact" class="lynz-clients-cta">Work with us</a>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="context-label">↓ Why Us section below ↓</div>
+
+<div class="demo-spacer"><p>— Section break — Variant B below (Cream) —</p></div>
+
+
+<!-- ═══════════════════════════════════
+     VARIANT B — Cream background
+     Add modifier class: lynz-clients--cream
+════════════════════════════════════ -->
+
+<section class="lynz-clients lynz-clients--cream">
+  <div class="container">
+
+    <div class="lynz-clients-header">
+      <span class="lynz-clients-label">Trusted By</span>
+      <div class="lynz-clients-rule"></div>
+      <div class="lynz-clients-rule-dot"></div>
+    </div>
+
+    <div class="lynz-logo-grid">
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell lynz-logo-more"><div class="lynz-more-text">+ more great<em>clients</em></div></div>
+    </div>
+
+    <div class="lynz-clients-footer">
+      <span class="lynz-clients-note">Mostly built on word of mouth since 2008</span>
+      <a href="#contact" class="lynz-clients-cta">Work with us</a>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="demo-spacer"><p>— Section break — Variant C below (Dark) —</p></div>
+
+
+<!-- ═══════════════════════════════════
+     VARIANT C — Dark / Midnight background
+     Add modifier class: lynz-clients--dark
+════════════════════════════════════ -->
+
+<section class="lynz-clients lynz-clients--dark">
+  <div class="container">
+
+    <div class="lynz-clients-header">
+      <span class="lynz-clients-label">Trusted By</span>
+      <div class="lynz-clients-rule"></div>
+      <div class="lynz-clients-rule-dot"></div>
+    </div>
+
+    <div class="lynz-logo-grid">
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell"><div class="lynz-logo-placeholder"><div class="lynz-logo-slot"><span class="lynz-logo-slot-text">Client Logo</span></div></div></div>
+      <div class="lynz-logo-cell lynz-logo-more"><div class="lynz-more-text">+ more great<em>clients</em></div></div>
+    </div>
+
+    <div class="lynz-clients-footer">
+      <span class="lynz-clients-note">Mostly built on word of mouth since 2008</span>
+      <a href="#contact" class="lynz-clients-cta">Work with us</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="context-label">↓ End of preview ↓</div>
+
+</body>
+</html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Lynzaddy WordPress Development & Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --slate: #4A5568; --mist: #8C95A1; --rule: #E2E5E9;
+    --light: #EEF2F7; --paper: #F9F8F6; --white: #FFFFFF;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --ease: 0.22s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--midnight); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  /* ── NAV ── */
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(13,27,42,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07); box-shadow: 0 4px 30px rgba(0,0,0,0.2); }
+  nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+  .nav-logo { font-family: var(--display); font-size: 1.45rem; font-weight: 800; line-height: 1; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo .lynz { color: #fff; }
+  .nav-logo .addy { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.06em; font-weight: 500; transition: color var(--ease); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--white) !important; padding: 0.55rem 1.4rem; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--copper) !important; }
+
+  /* ── SHARED ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  section { padding: 7rem 0; }
+
+  .section-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+  .section-tag::after { content: ''; width: 32px; height: 1px; background: var(--copper); }
+  .section-tag.light { color: rgba(255,255,255,0.35); }
+  .section-tag.light::after { background: rgba(255,255,255,0.2); }
+  .section-tag.gold-tag { color: var(--gold); }
+  .section-tag.gold-tag::after { background: var(--gold); }
+
+  h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+  h2 em { color: var(--gold); font-style: italic; }
+  .lead { font-size: 1.05rem; color: var(--slate); line-height: 1.85; margin-top: 1rem; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.08s; }
+  .d2 { transition-delay: 0.16s; }
+  .d3 { transition-delay: 0.24s; }
+  .d4 { transition-delay: 0.32s; }
+  .d5 { transition-delay: 0.40s; }
+  .d6 { transition-delay: 0.48s; }
+  .d7 { transition-delay: 0.56s; }
+  .d8 { transition-delay: 0.64s; }
+
+
+  /* ══════════════════════════════════════════
+     1. HERO
+  ══════════════════════════════════════════ */
+  #hero { background: var(--midnight); min-height: 54vh; display: flex; align-items: flex-end; padding-bottom: 5rem; padding-top: 10rem; position: relative; overflow: hidden; }
+  #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 70% at 85% 15%, rgba(44,95,138,0.25) 0%, transparent 60%), radial-gradient(ellipse 45% 55% at 10% 85%, rgba(212,148,58,0.09) 0%, transparent 55%); }
+  #hero::after { content: 'LYNZADDY · SERVICES'; position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.06); white-space: nowrap; pointer-events: none; }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+  .hero-breadcrumb { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-breadcrumb a { color: inherit; text-decoration: none; transition: color var(--ease); }
+  .hero-breadcrumb a:hover { color: var(--gold); }
+  .hero-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+  .hero-breadcrumb .current { color: var(--gold); }
+  .hero-kicker { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 6vw, 5.25rem); line-height: 0.95; letter-spacing: -0.03em; color: var(--white); }
+  .hero-headline em { color: var(--gold); font-style: italic; }
+  .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 560px; margin-top: 1.5rem; }
+  .hero-rule { display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; }
+  .hero-rule-line { width: 48px; height: 1px; background: var(--gold); }
+  .hero-rule-text { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+
+
+  /* ══════════════════════════════════════════
+     2. SERVICE ANCHOR NAV
+  ══════════════════════════════════════════ */
+  #service-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    position: sticky; top: 64px; z-index: 100;
+  }
+
+  .service-nav-inner {
+    display: flex; align-items: stretch; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .service-nav-inner::-webkit-scrollbar { display: none; }
+
+  .svc-nav-item {
+    flex: 1; min-width: 160px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.25rem 1.5rem; text-decoration: none;
+    border-right: 1px solid var(--rule);
+    border-bottom: 3px solid transparent;
+    transition: all var(--ease); gap: 0.4rem;
+    text-align: center;
+  }
+  .svc-nav-item:last-child { border-right: none; }
+  .svc-nav-item:hover { background: var(--paper); border-bottom-color: var(--gold); }
+  .svc-nav-item.active { border-bottom-color: var(--midnight); background: var(--paper); }
+
+  .svc-nav-num { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); }
+  .svc-nav-label { font-family: var(--display); font-weight: 800; font-size: 0.95rem; letter-spacing: -0.01em; color: var(--midnight); font-style: italic; }
+
+
+  /* ══════════════════════════════════════════
+     3. SERVICE SECTION — SHARED LAYOUT
+  ══════════════════════════════════════════ */
+
+  /* Section header with large service number */
+  .svc-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .svc-big-num {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 8rem; line-height: 1; letter-spacing: -0.05em;
+    color: rgba(0,0,0,0.04); pointer-events: none;
+    flex-shrink: 0; align-self: flex-end;
+    margin-bottom: -0.5rem;
+  }
+
+  .svc-header-right { }
+  .svc-header-right h2 { margin-bottom: 0.75rem; }
+  .svc-header-right .lead { max-width: 580px; }
+
+  /* Sub-services grid */
+  .svc-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-bottom: 3rem;
+  }
+
+  .svc-item {
+    background: var(--white);
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: background var(--ease);
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .svc-item:hover { background: var(--paper); }
+
+  /* Colored top accent per service */
+  .svc-item::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--rule);
+    transition: background var(--ease);
+  }
+  .svc-item:hover::before { background: var(--gold); }
+
+  .svc-item-icon {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--light); border-radius: 50%;
+    flex-shrink: 0; margin-bottom: 0.25rem;
+    transition: background var(--ease);
+  }
+  .svc-item:hover .svc-item-icon { background: var(--midnight); }
+  .svc-item-icon svg { transition: color var(--ease); color: var(--anchor); }
+  .svc-item:hover .svc-item-icon svg { color: var(--gold); }
+
+  .svc-item-name {
+    font-family: var(--display); font-weight: 800; font-size: 1.05rem;
+    letter-spacing: -0.01em; color: var(--midnight); line-height: 1.2;
+  }
+
+  .svc-item-desc {
+    font-size: 0.85rem; color: var(--slate); line-height: 1.7; flex: 1;
+  }
+
+  /* "Good fit if..." note */
+  .svc-item-fit {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mist);
+    padding-top: 0.75rem; border-top: 1px solid var(--rule);
+    line-height: 1.6;
+  }
+  .svc-item-fit strong { color: var(--copper); }
+
+  /* Section callout bar — distinct per service */
+  .svc-callout {
+    display: flex; align-items: center; gap: 3rem;
+    padding: 2rem 2.5rem; position: relative; overflow: hidden;
+  }
+  .svc-callout::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; }
+
+  .svc-callout-text {
+    flex: 1;
+  }
+  .svc-callout-text strong {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 1.1rem; letter-spacing: -0.01em; line-height: 1.3; display: block; margin-bottom: 0.4rem;
+  }
+  .svc-callout-text p {
+    font-size: 0.875rem; line-height: 1.7;
+  }
+
+  .svc-callout-action {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 0.5rem; align-items: center;
+  }
+
+  .btn-sm-dark { background: var(--midnight); color: var(--white); text-decoration: none; padding: 0.75rem 1.75rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; transition: background var(--ease); white-space: nowrap; display: inline-block; }
+  .btn-sm-dark:hover { background: var(--steel); }
+
+  .btn-sm-ghost { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color var(--ease); }
+  .btn-sm-ghost:hover { color: var(--gold); }
+
+
+  /* ══════════════════════════════════════════
+     4. WORDPRESS DEVELOPMENT
+  ══════════════════════════════════════════ */
+  #wordpress { background: var(--white); }
+
+  .wp-callout {
+    background: var(--midnight);
+  }
+  .wp-callout::before { background: var(--anchor); }
+  .wp-callout .svc-callout-text strong { color: var(--white); }
+  .wp-callout .svc-callout-text p { color: rgba(255,255,255,0.45); }
+
+  /* 4-col then 4-col (8 items total) */
+  .svc-items-8 { grid-template-columns: repeat(4, 1fr); }
+
+
+  /* ══════════════════════════════════════════
+     5. HOSTING
+  ══════════════════════════════════════════ */
+  #hosting { background: var(--paper); }
+
+  .hosting-callout { background: var(--steel); }
+  .hosting-callout::before { background: var(--gold); }
+  .hosting-callout .svc-callout-text strong { color: var(--white); }
+  .hosting-callout .svc-callout-text p { color: rgba(255,255,255,0.45); }
+
+  /* Hosting has 7 items: 4 + 3 layout */
+  .svc-items-hosting { grid-template-columns: repeat(4, 1fr); }
+
+  /* Hosting comparison table */
+  .hosting-tiers {
+    margin-bottom: 3rem;
+  }
+
+  .hosting-tiers-label {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hosting-tiers-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  .tier-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--rule);
+  }
+
+  .tier-card {
+    background: var(--white); padding: 2rem 1.75rem;
+    position: relative; transition: background var(--ease);
+  }
+  .tier-card:hover { background: var(--paper); }
+  .tier-card.tier-featured { background: var(--midnight); }
+  .tier-card.tier-featured:hover { background: var(--steel); }
+
+  .tier-badge {
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem;
+    display: block;
+  }
+  .tier-card.tier-featured .tier-badge { color: var(--gold); }
+
+  .tier-name {
+    font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+    letter-spacing: -0.02em; color: var(--midnight); margin-bottom: 0.5rem; line-height: 1.1;
+  }
+  .tier-card.tier-featured .tier-name { color: var(--white); }
+
+  .tier-desc {
+    font-size: 0.85rem; color: var(--slate); line-height: 1.65; margin-bottom: 1.25rem;
+  }
+  .tier-card.tier-featured .tier-desc { color: rgba(255,255,255,0.45); }
+
+  .tier-includes {
+    list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+    border-top: 1px solid var(--rule); padding-top: 1.25rem;
+  }
+  .tier-card.tier-featured .tier-includes { border-color: rgba(255,255,255,0.1); }
+
+  .tier-includes li {
+    font-size: 0.82rem; color: var(--slate); line-height: 1.5;
+    display: flex; gap: 0.6rem; align-items: flex-start;
+  }
+  .tier-card.tier-featured .tier-includes li { color: rgba(255,255,255,0.55); }
+
+  .tier-includes li::before { content: '✓'; color: var(--gold); font-size: 0.7rem; flex-shrink: 0; margin-top: 0.1rem; font-weight: 700; }
+
+
+  /* ══════════════════════════════════════════
+     6. CONSULTING
+  ══════════════════════════════════════════ */
+  #consulting { background: var(--cream); }
+
+  .consulting-callout { background: var(--cream); border: 1px solid #DDD8CF; }
+  .consulting-callout::before { background: var(--gold); }
+  .consulting-callout .svc-callout-text strong { color: var(--midnight); }
+  .consulting-callout .svc-callout-text p { color: var(--slate); }
+
+  /* Consulting svc items on cream bg */
+  #consulting .svc-items { background: #DDD8CF; }
+  #consulting .svc-item { background: var(--cream); }
+  #consulting .svc-item:hover { background: #EDE7DA; }
+  #consulting .svc-item-icon { background: rgba(0,0,0,0.06); }
+  #consulting .svc-item:hover .svc-item-icon { background: var(--midnight); }
+
+  /* Consulting engagement types */
+  .engagement-types { margin-top: 3rem; }
+
+  .engagement-label {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .engagement-label::after { content: ''; flex: 1; height: 1px; background: #DDD8CF; }
+
+  .engagement-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+
+  .engagement-card {
+    background: var(--white); padding: 2rem;
+    border: 1px solid var(--rule); position: relative;
+    transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+  }
+  .engagement-card:hover { border-color: var(--midnight); box-shadow: 0 8px 30px rgba(13,27,42,0.07); transform: translateY(-2px); }
+
+  .engagement-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--rule); transition: background var(--ease); }
+  .engagement-card:hover::before { background: var(--gold); }
+
+  .eng-type {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 0.6rem;
+  }
+  .eng-name {
+    font-family: var(--display); font-weight: 800; font-size: 1.2rem;
+    letter-spacing: -0.02em; color: var(--midnight); margin-bottom: 0.6rem; line-height: 1.15;
+  }
+  .eng-name em { color: var(--gold); font-style: italic; }
+  .eng-desc { font-size: 0.875rem; color: var(--slate); line-height: 1.7; margin-bottom: 1.25rem; }
+  .eng-good-for { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); padding-top: 1rem; border-top: 1px solid var(--rule); line-height: 1.6; }
+  .eng-good-for strong { color: var(--copper); }
+
+
+  /* ══════════════════════════════════════════
+     7. TECH STACK
+  ══════════════════════════════════════════ */
+  #tech-stack { background: var(--midnight); padding: 5rem 0; }
+
+  .tech-header { margin-bottom: 3rem; }
+  .tech-header h2 { color: var(--white); }
+  .tech-header .lead { color: rgba(255,255,255,0.4); }
+
+  .tech-categories { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.06); }
+
+  .tech-cat { background: var(--midnight); padding: 1.75rem 2.5rem; display: flex; align-items: baseline; gap: 2.5rem; transition: background var(--ease); }
+  .tech-cat:hover { background: #111e2d; }
+
+  .tech-cat-name {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    min-width: 160px; flex-shrink: 0;
+  }
+
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .tech-pill {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em;
+    padding: 0.3rem 0.75rem;
+    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all var(--ease); cursor: default;
+  }
+  .tech-pill:hover { background: var(--midnight); color: var(--gold); border-color: var(--gold); }
+  .tech-pill.featured { background: rgba(212,148,58,0.1); color: var(--gold); border-color: rgba(212,148,58,0.25); }
+
+
+  /* ══════════════════════════════════════════
+     8. CTA
+  ══════════════════════════════════════════ */
+  #services-cta { background: var(--paper); }
+
+  .cta-inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; border: 1px solid var(--rule); padding: 4rem; position: relative; overflow: hidden; }
+  .cta-inner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+  .cta-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; }
+  .cta-inner h2 { font-size: clamp(1.8rem, 2.8vw, 2.4rem); }
+  .cta-inner p { color: var(--slate); font-size: 0.95rem; line-height: 1.75; margin-top: 0.75rem; max-width: 500px; }
+  .cta-actions { display: flex; flex-direction: column; gap: 1rem; align-items: center; flex-shrink: 0; }
+  .btn-primary { background: var(--midnight); color: var(--white); text-decoration: none; padding: 1rem 2.25rem; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; display: inline-block; transition: background var(--ease), transform 0.15s; white-space: nowrap; }
+  .btn-primary:hover { background: var(--steel); transform: translateY(-1px); }
+  .btn-ghost { color: var(--slate); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: color var(--ease); }
+  .btn-ghost:hover { color: var(--gold); }
+
+
+  /* ── FOOTER ── */
+  footer { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-main { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; }
+  .footer-brand .logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .footer-brand .logo .lynz { color: #fff; }
+  .footer-brand .logo .addy { color: var(--gold); font-style: italic; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--ease); }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-copy strong { color: var(--gold); }
+
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .svc-items, .svc-items-8, .svc-items-hosting { grid-template-columns: repeat(2, 1fr); }
+    .svc-header { grid-template-columns: 1fr; }
+    .svc-big-num { display: none; }
+    .tier-grid, .engagement-grid { grid-template-columns: 1fr; }
+    .tech-cat { flex-direction: column; gap: 0.75rem; }
+    .tech-cat-name { min-width: auto; }
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .svc-callout { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+    .svc-callout-action { align-items: flex-start; }
+  }
+  @media (max-width: 640px) {
+    .svc-items, .svc-items-8, .svc-items-hosting { grid-template-columns: 1fr; }
+    #service-nav .service-nav-inner { flex-wrap: nowrap; }
+    .svc-nav-item { min-width: 120px; }
+    .footer-main { grid-template-columns: 1fr; }
+    .cta-inner { padding: 2.5rem; }
+    #hero::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <nav>
+    <a href="/" class="nav-logo"><span class="lynz">Lynz</span><span class="addy">addy</span></a>
+    <ul class="nav-links">
+      <li><a href="/services" class="active">Services</a></li>
+      <li><a href="/work">Work</a></li>
+      <li><a href="/about">Why Us</a></li>
+      <li><a href="/process">Process</a></li>
+      <li><a href="/contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════
+     1. HERO
+══════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner reveal">
+      <div class="hero-breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Services</span>
+      </div>
+      <div class="hero-kicker">What We Do</div>
+      <h1 class="hero-headline">
+        Three services.<br><em>One standard.</em>
+      </h1>
+      <p class="hero-sub">Whether you're starting from scratch, keeping what's running well, or figuring out what to do next — we bring the same senior-level attention to every engagement.</p>
+      <div class="hero-rule">
+        <div class="hero-rule-line"></div>
+        <span class="hero-rule-text">WordPress Development · Hosting · Consulting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     2. SERVICE ANCHOR NAV
+══════════════════════════ -->
+<div id="service-nav">
+  <div class="container" style="padding:0 2.5rem;">
+    <div class="service-nav-inner">
+      <a href="#wordpress" class="svc-nav-item">
+        <span class="svc-nav-num">01</span>
+        <span class="svc-nav-label">Development</span>
+      </a>
+      <a href="#hosting" class="svc-nav-item">
+        <span class="svc-nav-num">02</span>
+        <span class="svc-nav-label">Hosting</span>
+      </a>
+      <a href="#consulting" class="svc-nav-item">
+        <span class="svc-nav-num">03</span>
+        <span class="svc-nav-label">Consulting</span>
+      </a>
+      <a href="#tech-stack" class="svc-nav-item">
+        <span class="svc-nav-num">04</span>
+        <span class="svc-nav-label">Tech Stack</span>
+      </a>
+      <a href="/contact" class="svc-nav-item" style="background:var(--gold); border-bottom-color:var(--gold);">
+        <span class="svc-nav-num" style="color:rgba(255,255,255,0.6);">→</span>
+        <span class="svc-nav-label" style="color:var(--white);">Let's Talk</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     3. WORDPRESS DEVELOPMENT
+══════════════════════════ -->
+<section id="wordpress">
+  <div class="container">
+
+    <div class="svc-header reveal">
+      <div class="svc-header-right">
+        <div class="section-tag">Service 01</div>
+        <h2>WordPress<br><em>Development</em></h2>
+        <p class="lead">From first commit to launch day — and every rebuild, migration, and optimization in between. Every project starts with understanding your architecture before touching a template.</p>
+      </div>
+      <div class="svc-big-num">01</div>
+    </div>
+
+    <!-- 8 sub-services, 2 rows of 4 -->
+    <div class="svc-items svc-items-8">
+
+      <div class="svc-item reveal d1">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 8h8M8 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">New Site Builds</div>
+        <p class="svc-item-desc">Ground-up WordPress builds designed around your content model, your team's workflows, and the way your users actually move through information. Architecture first, Elementor second.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're launching a new brand, spinning out a product, or starting fresh after years of patchwork.</div>
+      </div>
+
+      <div class="svc-item reveal d2">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h3l2-5 2 10 2-5 1 3 2-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Redesigns & Rebuilds</div>
+        <p class="svc-item-desc">Take what's working, fix what isn't, and build on a foundation that won't require another rebuild in two years. We audit before we design — no demolishing things worth keeping.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your site is embarrassing to share, can't be updated without a developer, or was built by someone who's no longer around.</div>
+      </div>
+
+      <div class="svc-item reveal d3">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">WooCommerce Builds</div>
+        <p class="svc-item-desc">E-commerce on WordPress done properly — clean checkout flows, reliable payment integrations, sane product structures, and a storefront your marketing team can manage without filing a ticket.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're launching a new store, migrating from Shopify/Squarespace, or your current WooCommerce setup is held together with plugins and prayers.</div>
+      </div>
+
+      <div class="svc-item reveal d4">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v2H2zM4 7h8M4 10h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="2" y="3" width="12" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="svc-item-name">Custom Theme & Child Theme Dev</div>
+        <p class="svc-item-desc">Bespoke theme development for complex design systems — or a clean Elementor child theme that locks in your brand tokens and gives every future developer a sane starting point.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your current theme is a pre-built you've been fighting for years, or you need a consistent design system your whole team can build on.</div>
+      </div>
+
+      <div class="svc-item reveal d5">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">Performance Optimization</div>
+        <p class="svc-item-desc">Core Web Vitals, page speed, image optimization, caching strategy, database cleanup, and the plugin audit that always uncovers three things nobody knew were running. Real benchmarks, before and after.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your Google PageSpeed score is embarrassing, your bounce rate is high, or your host keeps telling you it's a "resource issue."</div>
+      </div>
+
+      <div class="svc-item reveal d6">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6l2-2 2 2-2 2-2-2zM9 6l2-2 2 2-2 2-2-2zM6 9l2-2 2 2-2 2-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Plugin Customization</div>
+        <p class="svc-item-desc">When a plugin almost does what you need, we extend it cleanly — hooks, filters, and child-plugin patterns that survive updates. No hacking core files. No edits that disappear on the next release.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You need a plugin to behave differently than it does out of the box, or you need two plugins to talk to each other.</div>
+      </div>
+
+      <div class="svc-item reveal d7">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">Accessibility (WCAG)</div>
+        <p class="svc-item-desc">WCAG 2.1 AA compliance audits and remediation — semantic HTML, keyboard navigation, ARIA, color contrast, and screen reader testing. We document everything so your team can maintain compliance after launch.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your organization has legal accessibility obligations, serves a public audience, or has received an ADA inquiry.</div>
+      </div>
+
+      <div class="svc-item reveal d8">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8l-4-4v3H2v2h8v3l4-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Migrations</div>
+        <p class="svc-item-desc">Host migrations, platform migrations (Squarespace, Wix, Drupal → WordPress), and CMS migrations with content mapping. Zero-downtime cutovers with a tested rollback plan — not a "fingers crossed" approach.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're leaving a host that's underserving you, consolidating platforms, or finally moving off that legacy CMS IT has been asking about for three years.</div>
+      </div>
+
+    </div>
+
+    <!-- Development callout -->
+    <div class="svc-callout wp-callout reveal">
+      <div class="svc-callout-text">
+        <strong>"We scope it honestly. If it should take a week, we'll tell you it takes a week."</strong>
+        <p>No discovery phase padding. No scope creep by design. We've been doing this long enough to know what projects actually cost — and we'd rather give you an accurate number up front than manage your expectations down the road.</p>
+      </div>
+      <div class="svc-callout-action">
+        <a href="/contact" class="btn-sm-dark">Start a Project</a>
+        <a href="/work" class="btn-sm-ghost">See past work →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     4. HOSTING
+══════════════════════════ -->
+<section id="hosting">
+  <div class="container">
+
+    <div class="svc-header reveal">
+      <div class="svc-header-right">
+        <div class="section-tag">Service 02</div>
+        <h2>Managed<br><em>Hosting</em></h2>
+        <p class="lead">Hosting isn't just where your site lives. It's what keeps it alive at 2am when something breaks. We offer managed environments that stay updated, monitored, backed up, and ready — without you having to think about any of it.</p>
+      </div>
+      <div class="svc-big-num">02</div>
+    </div>
+
+    <!-- 7 hosting services: first 4 -->
+    <div class="svc-items svc-items-hosting">
+
+      <div class="svc-item reveal d1">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="9" width="14" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="5" r="0.75" fill="currentColor"/><circle cx="12" cy="11" r="0.75" fill="currentColor"/></svg>
+        </div>
+        <div class="svc-item-name">Managed WordPress Hosting</div>
+        <p class="svc-item-desc">We operate the environment directly — provisioned, optimized, and monitored for WordPress specifically. No shared-hosting noise, no cPanel archaeology. You log in to a site that runs.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You want one throat to choke. One invoice, one call, one team who owns the full stack.</div>
+      </div>
+
+      <div class="svc-item reveal d2">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Third-Party Host Setup</div>
+        <p class="svc-item-desc">Prefer WP Engine, Kinsta, Flywheel, or SiteGround? We'll recommend the right tier for your traffic and budget, set it up correctly, and hand you the keys with documentation — not a login and a wave.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You want to own the hosting relationship directly but need someone to pick the right environment and configure it properly.</div>
+      </div>
+
+      <div class="svc-item reveal d3">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v4M8 11v4M1 8h4M11 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="svc-item-name">Updates & Maintenance</div>
+        <p class="svc-item-desc">Core, theme, and plugin updates tested in staging before they touch production. Not a "click update and hope" approach — a staged process that catches conflicts before your site does.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You have a site that's behind on updates because someone got burned once, or you simply don't have bandwidth to do it right.</div>
+      </div>
+
+      <div class="svc-item reveal d4">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2C4.69 2 2 4.69 2 8c0 .98.24 1.9.65 2.72L2 14l3.28-.65A5.98 5.98 0 008 14c3.31 0 6-2.69 6-6s-2.69-6-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Security Monitoring & Cleanup</div>
+        <p class="svc-item-desc">Malware scanning, intrusion detection, firewall configuration, and emergency cleanup when something goes wrong. We've cleaned up enough hacked sites to be very motivated about prevention.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You've been hacked before, you're in a regulated industry, or your site is a real business asset you can't afford to have go down.</div>
+      </div>
+
+    </div>
+
+    <!-- Last 3 hosting services -->
+    <div class="svc-items" style="grid-template-columns: repeat(3, 1fr); margin-top: 1px;">
+
+      <div class="svc-item reveal d1">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11V5l6-3 6 3v6l-6 3-6-3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Backups & Disaster Recovery</div>
+        <p class="svc-item-desc">Daily automated backups, off-site storage, and a tested restore process. Not "we have backups" — we have backups we've actually restored from. There's a difference.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're not sure the last time your site was backed up, or you've never tested a restore.</div>
+      </div>
+
+      <div class="svc-item reveal d2">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="svc-item-name">Staging Environments</div>
+        <p class="svc-item-desc">Every site we touch gets a staging environment. Test updates, review content changes, and approve redesigns before they're public — not in production in front of your actual users.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your team currently tests changes on the live site because there's nowhere else to test them.</div>
+      </div>
+
+      <div class="svc-item reveal d3">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">DNS & Domain Management</div>
+        <p class="svc-item-desc">Domain transfers, DNS configuration, SSL certificates, email routing, and subdomain management. The unglamorous infrastructure work that causes the most panic when it's wrong and nobody notices when it's right.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're migrating hosts, launching a new domain, or dealing with email deliverability issues tied to DNS misconfiguration.</div>
+      </div>
+
+    </div>
+
+    <!-- Hosting tier comparison -->
+    <div class="hosting-tiers reveal" style="margin-top: 3rem;">
+      <div class="hosting-tiers-label">How clients typically engage</div>
+      <div class="tier-grid">
+
+        <div class="tier-card">
+          <span class="tier-badge">Setup Only</span>
+          <div class="tier-name">Launch & Hand Off</div>
+          <p class="tier-desc">We configure the environment, migrate or deploy your site, set up backups and staging, document everything, and hand you a properly running site on infrastructure you own.</p>
+          <ul class="tier-includes">
+            <li>Environment provisioning & config</li>
+            <li>Migration or fresh deployment</li>
+            <li>SSL, DNS, and domain setup</li>
+            <li>Backup & staging configuration</li>
+            <li>Full documentation at handoff</li>
+          </ul>
+        </div>
+
+        <div class="tier-card tier-featured">
+          <span class="tier-badge">Most Common</span>
+          <div class="tier-name">Managed & Maintained</div>
+          <p class="tier-desc">We own the environment, run the updates, monitor security, and handle the DNS calls at 4pm on a Friday. You focus on your business. We keep the lights on.</p>
+          <ul class="tier-includes">
+            <li>Everything in Launch & Hand Off</li>
+            <li>Monthly core, theme & plugin updates</li>
+            <li>Security scanning & firewall</li>
+            <li>Daily backups with tested restores</li>
+            <li>Priority response for downtime & issues</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <span class="tier-badge">Ongoing Partner</span>
+          <div class="tier-name">Sustain Retainer</div>
+          <p class="tier-desc">Hosting plus a monthly block of development hours for content updates, small features, performance work, and whatever else comes up. One invoice, one relationship.</p>
+          <ul class="tier-includes">
+            <li>Everything in Managed & Maintained</li>
+            <li>Monthly dev hours for changes & requests</li>
+            <li>Quarterly performance & security review</li>
+            <li>Priority access for new project work</li>
+            <li>Strategic consulting included</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Hosting callout -->
+    <div class="svc-callout hosting-callout reveal" style="margin-top:3rem;">
+      <div class="svc-callout-text">
+        <strong>"Every site we manage has a staging environment. That's not optional."</strong>
+        <p>Testing updates on a live site isn't bold. It's a decision that eventually costs you a Saturday. Every hosting engagement we run includes a staging-to-production pipeline by default — because fixing a broken production site is never how we want to spend our morning.</p>
+      </div>
+      <div class="svc-callout-action">
+        <a href="/contact" class="btn-sm-dark">Talk Hosting</a>
+        <a href="#consulting" class="btn-sm-ghost">See consulting too →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     5. CONSULTING
+══════════════════════════ -->
+<section id="consulting">
+  <div class="container">
+
+    <div class="svc-header reveal">
+      <div class="svc-header-right">
+        <div class="section-tag">Service 03</div>
+        <h2>Consulting &<br><em>Fractional Work</em></h2>
+        <p class="lead">Not every engagement is a build. Sometimes you need someone to look at what you have, tell you what's wrong, and help you fix it — without taking over. That's consulting. And it's where fifteen years of seeing the same mistakes pays off fast.</p>
+      </div>
+      <div class="svc-big-num">03</div>
+    </div>
+
+    <!-- 7 consulting services -->
+    <div class="svc-items" style="grid-template-columns: repeat(4, 1fr);">
+
+      <div class="svc-item reveal d1">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3 1.5.5-3.5L3 4.5 6.5 4 8 1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-item-name">Fractional WordPress Dev</div>
+        <p class="svc-item-desc">Senior WordPress expertise embedded into your team on a part-time basis. Attend standups, review PRs, answer the architecture questions your in-house team doesn't have time to research, and ship features alongside your developers.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You have a WordPress developer but need senior oversight, or you have a team that can implement if someone tells them what to do.</div>
+      </div>
+
+      <div class="svc-item reveal d2">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">Tech Stack Audits</div>
+        <p class="svc-item-desc">A formal review of your plugins, theme, hosting environment, update cadence, security posture, and architecture decisions. Delivered as a written report with prioritized recommendations — not just "this is bad."</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You've inherited a WordPress site and want to know what you're actually dealing with before making any moves.</div>
+      </div>
+
+      <div class="svc-item reveal d3">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">CMS Training & Docs</div>
+        <p class="svc-item-desc">Custom documentation and live training sessions for marketing teams, content editors, and anyone who touches the CMS but didn't build it. Tailored to your specific setup — not a generic WordPress tutorial.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your team avoids updating the site because they don't know what will break, or you're handing a site to a client team for the first time.</div>
+      </div>
+
+      <div class="svc-item reveal d4">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="5" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 7.5l1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">Vendor & Agency Vetting</div>
+        <p class="svc-item-desc">Reviewing proposals, auditing code, interviewing candidates, and evaluating agency work product before you accept delivery. We've seen enough bad work to know what to look for — and how to describe it in writing.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're about to hire a developer or agency and want a second set of senior eyes on what they're promising.</div>
+      </div>
+
+    </div>
+
+    <div class="svc-items" style="grid-template-columns: repeat(3, 1fr); margin-top:1px;">
+
+      <div class="svc-item reveal d1">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v4M8 10v4M2 8h4M10 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">IT ↔ Marketing Liaison</div>
+        <p class="svc-item-desc">We sit in the middle of the conversation that usually goes nowhere — the one between Marketing who wants to launch something and IT who needs to approve it. We translate, document, and help both teams get to yes.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> Your marketing requests are stuck in an IT queue, or IT is getting blamed for slowing down campaigns they never agreed to support.</div>
+      </div>
+
+      <div class="svc-item reveal d2">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8c0-2.76 2.24-5 5-5s5 2.24 5 5-2.24 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3 8H1M8 3V1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">WordPress Retainer</div>
+        <p class="svc-item-desc">A monthly block of senior development hours — yours to use for content updates, small features, bug fixes, performance work, or anything else that comes up. No ticket system. No minimum notice. Just send us the request.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You have a recurring list of things that never get done because nobody owns them, or you want a developer on call without hiring one full-time.</div>
+      </div>
+
+      <div class="svc-item reveal d3">
+        <div class="svc-item-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l3-3 3 3 3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 4h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-item-name">Pre-Launch Reviews & QA</div>
+        <p class="svc-item-desc">A structured pre-launch review of an in-progress site — cross-browser, mobile, accessibility, performance, SEO hygiene, security basics, and content accuracy. Delivered as a prioritized punch list, not just a screenshot with an arrow.</p>
+        <div class="svc-item-fit"><strong>Good fit if:</strong> You're about to launch a site built by someone else and want independent eyes before it goes live.</div>
+      </div>
+
+    </div>
+
+    <!-- Engagement types -->
+    <div class="engagement-types reveal">
+      <div class="engagement-label">How consulting engagements are structured</div>
+      <div class="engagement-grid">
+
+        <div class="engagement-card">
+          <div class="eng-type">Engagement Type A</div>
+          <div class="eng-name">Single<br><em>Engagement</em></div>
+          <p class="eng-desc">A defined scope, a deliverable, and a clear end. Audits, reviews, one-time training sessions, and pre-launch QA all fall here. Scoped upfront, billed flat or hourly depending on what makes sense.</p>
+          <div class="eng-good-for"><strong>Common for:</strong> Tech stack audits, CMS training, vendor reviews, pre-launch QA, one-time IT ↔ Marketing facilitation</div>
+        </div>
+
+        <div class="engagement-card">
+          <div class="eng-type">Engagement Type B</div>
+          <div class="eng-name">Monthly<br><em>Retainer</em></div>
+          <p class="eng-desc">A fixed block of hours each month, rolled over if unused up to a limit, with priority scheduling and no minimum notice. The most flexible way to keep senior WordPress expertise on hand without the overhead of an employee.</p>
+          <div class="eng-good-for"><strong>Common for:</strong> Ongoing support, small feature work, content updates, monthly maintenance tasks, standing advisory access</div>
+        </div>
+
+        <div class="engagement-card">
+          <div class="eng-type">Engagement Type C</div>
+          <div class="eng-name">Fractional<br><em>Embedded</em></div>
+          <p class="eng-desc">Part-time, ongoing participation in your team's workflow — standups, sprint planning, code reviews, and direct collaboration with your internal developers or agency partners. Structured like an employee, billed like a consultant.</p>
+          <div class="eng-good-for"><strong>Common for:</strong> Teams with junior WP developers, IT departments overseeing outside agencies, orgs building an internal WordPress practice</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Consulting callout -->
+    <div class="svc-callout consulting-callout reveal" style="margin-top:3rem;">
+      <div class="svc-callout-text">
+        <strong>"Sometimes the most valuable thing we can do is tell you not to build something."</strong>
+        <p>We've talked clients out of expensive projects when simpler solutions existed. We've recommended competitors when a client's needs were genuinely a better fit elsewhere. That kind of honesty isn't noble — it's just how you build a practice that runs on referrals for fifteen years.</p>
+      </div>
+      <div class="svc-callout-action">
+        <a href="/contact" class="btn-sm-dark">Start a Conversation</a>
+        <a href="/about" class="btn-sm-ghost">More about our approach →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     6. TECH STACK
+══════════════════════════ -->
+<section id="tech-stack">
+  <div class="container">
+    <div class="tech-header reveal">
+      <div class="section-tag light">Tools We Use</div>
+      <h2 style="color:var(--white);">The stack behind<br><em>every project.</em></h2>
+      <p class="lead" style="color:rgba(255,255,255,0.4);">We don't chase trends. These are the tools we trust because we've used them on real client work — and know where they break.</p>
+    </div>
+
+    <div class="tech-categories reveal">
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Core Platform</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">WordPress</span>
+          <span class="tech-pill featured">Elementor Pro</span>
+          <span class="tech-pill featured">Hello Theme</span>
+          <span class="tech-pill">WooCommerce</span>
+          <span class="tech-pill">ACF Pro</span>
+          <span class="tech-pill">Gutenberg</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Hosting & Infrastructure</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">WP Engine</span>
+          <span class="tech-pill">Kinsta</span>
+          <span class="tech-pill">Flywheel</span>
+          <span class="tech-pill">Cloudflare</span>
+          <span class="tech-pill">AWS</span>
+          <span class="tech-pill">DigitalOcean</span>
+          <span class="tech-pill">cPanel / WHM</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Forms & CRM</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">Gravity Forms</span>
+          <span class="tech-pill">WPForms</span>
+          <span class="tech-pill">Ninja Forms</span>
+          <span class="tech-pill">HubSpot</span>
+          <span class="tech-pill">Salesforce</span>
+          <span class="tech-pill">Mailchimp</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Performance & SEO</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">WP Rocket</span>
+          <span class="tech-pill">Imagify</span>
+          <span class="tech-pill">Yoast SEO</span>
+          <span class="tech-pill">Rank Math</span>
+          <span class="tech-pill">GTmetrix</span>
+          <span class="tech-pill">Google PageSpeed</span>
+          <span class="tech-pill">Lighthouse</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Security</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">Wordfence</span>
+          <span class="tech-pill">Sucuri</span>
+          <span class="tech-pill">iThemes Security</span>
+          <span class="tech-pill">ManageWP</span>
+          <span class="tech-pill">MainWP</span>
+          <span class="tech-pill">Two-Factor Auth</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">Dev Workflow</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">Local by Flywheel</span>
+          <span class="tech-pill">Git / GitHub</span>
+          <span class="tech-pill">VS Code</span>
+          <span class="tech-pill">WP-CLI</span>
+          <span class="tech-pill">Composer</span>
+          <span class="tech-pill">DeployHQ</span>
+          <span class="tech-pill">Lando</span>
+        </div>
+      </div>
+
+      <div class="tech-cat">
+        <span class="tech-cat-name">E-Commerce</span>
+        <div class="tech-pills">
+          <span class="tech-pill featured">WooCommerce</span>
+          <span class="tech-pill">Stripe</span>
+          <span class="tech-pill">PayPal</span>
+          <span class="tech-pill">WC Subscriptions</span>
+          <span class="tech-pill">WC Bookings</span>
+          <span class="tech-pill">ShipStation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     7. CTA
+══════════════════════════ -->
+<section id="services-cta">
+  <div class="container reveal">
+    <div class="cta-inner">
+      <div>
+        <div class="cta-tag">The First Step</div>
+        <h2>Not sure which service<br><em>fits your situation?</em></h2>
+        <p>That's the most common starting point. Tell us what's not working, what you're trying to do, or what you've already tried — and we'll tell you honestly what makes sense. No proposal until we understand the problem.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Start the Conversation</a>
+        <a href="/work" class="btn-ghost">See Our Work →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo"><span class="lynz">Lynz</span><span class="addy">addy</span></div>
+      <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor to manage. Midwest-based. Nationally trusted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#wordpress">WordPress Development</a></li>
+        <li><a href="#hosting">Managed Hosting</a></li>
+        <li><a href="#consulting">Consulting</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">Why Lynzaddy</a></li>
+        <li><a href="/process">Our Process</a></li>
+        <li><a href="/work">Client Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="/contact">hello@lynzaddy.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+    <span class="footer-copy">Built the right way. Obviously.</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Sticky service nav active state
+  const sections = ['wordpress','hosting','consulting','tech-stack'];
+  const navItems = document.querySelectorAll('.svc-nav-item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const match = document.querySelector(`.svc-nav-item[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+</script>
+
+</body>
+</html>

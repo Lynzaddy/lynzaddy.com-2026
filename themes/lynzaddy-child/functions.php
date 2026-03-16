@@ -32,10 +32,12 @@ function lynzaddy_enqueue_styles()
     );
 
     // Child theme stylesheet (your brand CSS)
+    // 'elementor-frontend' added as dependency so this loads AFTER
+    // Elementor's compiled per-widget CSS — ensures our overrides win.
     wp_enqueue_style(
         'lynzaddy-child-style',
         get_stylesheet_uri(),                  // points to this theme's style.css
-        ['hello-elementor-style'],           // load after parent
+        ['hello-elementor-style', 'elementor-frontend'],  // load after parent AND Elementor
         wp_get_theme()->get('Version')
     );
 

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynzaddy — Build Checklist v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --midnight:#0D1B2A;--steel:#1E3A5F;--anchor:#2C5F8A;--gold:#D4943A;--copper:#B8702A;
+  --cream:#F5F0E8;--slate:#4A5568;--mist:#8C95A1;--rule:#E2E5E9;--light:#EEF2F7;
+  --paper:#F9F8F6;--white:#FFF;--green:#2D7A4F;--gl:#E8F5EE;--gm:#b8ddc8;
+  --red:#C0392B;--rl:#FDF0EE;--orange:#c45e00;--ol:#fff4e6;
+  --df:'Playfair Display',Georgia,serif;--sf:'DM Sans',system-ui,sans-serif;--mf:'JetBrains Mono',monospace;
+  --ease:0.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sf);background:var(--paper);color:var(--midnight);-webkit-font-smoothing:antialiased;}
+.page{display:grid;grid-template-columns:285px 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{background:var(--midnight);position:sticky;top:0;height:100vh;overflow-y:auto;
+  display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.06);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.07) transparent;}
+.sb-head{padding:1.5rem 1.5rem 1.1rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.sb-logo{font-family:var(--df);font-size:1.3rem;font-weight:800;letter-spacing:-0.02em;line-height:1;margin-bottom:0.3rem;}
+.sb-logo .ly{color:#fff;}.sb-logo .ad{color:var(--gold);font-style:italic;}
+.sb-sub{font-family:var(--mf);font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+.prog-wrap{padding:0.85rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.prog-meta{font-family:var(--mf);font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.24);margin-bottom:0.4rem;display:flex;justify-content:space-between;}
+.prog-meta .ct{color:var(--gold);}
+.prog-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--anchor),var(--gold));width:0%;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+.prog-pct{font-family:var(--mf);font-size:0.48rem;color:rgba(255,255,255,0.17);margin-top:0.28rem;text-align:right;}
+.phase-nav{flex:1;padding:0.3rem 0;}
+.pni{display:flex;align-items:center;gap:0.55rem;padding:0.5rem 1.5rem;cursor:pointer;text-decoration:none;transition:background var(--ease);border-left:2px solid transparent;}
+.pni:hover{background:rgba(255,255,255,0.04);}
+.pni.active{background:rgba(255,255,255,0.05);border-left-color:var(--gold);}
+.pni.ndone{border-left-color:var(--green);}
+.pn-num{font-family:var(--mf);font-size:0.5rem;letter-spacing:0.1em;color:rgba(255,255,255,0.17);min-width:15px;flex-shrink:0;}
+.pni.active .pn-num{color:var(--gold);}.pni.ndone .pn-num{color:var(--green);}
+.pn-lbl{font-size:0.76rem;color:rgba(255,255,255,0.4);flex:1;line-height:1.25;}
+.pni.active .pn-lbl{color:#fff;}.pni.ndone .pn-lbl{color:rgba(255,255,255,0.22);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.1);}
+.pn-ct{font-family:var(--mf);font-size:0.46rem;color:rgba(255,255,255,0.15);margin-left:auto;flex-shrink:0;}
+.pni.active .pn-ct{color:rgba(255,255,255,0.27);}
+.pn-tick{font-size:0.55rem;color:var(--green);opacity:0;transition:opacity var(--ease);flex-shrink:0;}
+.pni.ndone .pn-tick{opacity:1;}
+.sb-foot{padding:0.85rem 1.5rem;border-top:1px solid rgba(255,255,255,0.07);}
+.sb-foot p{font-family:var(--mf);font-size:0.48rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.15);line-height:1.8;}
+.sb-foot strong{color:var(--gold);}
+
+/* MAIN */
+.main{padding:2.5rem 3rem 6rem;max-width:920px;}
+.phase{margin-bottom:4rem;scroll-margin-top:2rem;}
+.ph-head{margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);}
+.ph-tag{font-family:var(--mf);font-size:0.57rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--copper);display:flex;align-items:center;gap:0.55rem;margin-bottom:0.5rem;}
+.ph-tag::after{content:'';width:20px;height:1px;background:var(--copper);}
+.ph-title{font-family:var(--df);font-weight:800;font-size:1.65rem;letter-spacing:-0.02em;line-height:1.1;}
+.ph-title em{color:var(--gold);font-style:italic;}
+.ph-desc{font-size:0.845rem;color:var(--slate);line-height:1.75;margin-top:0.45rem;max-width:620px;}
+
+.glbl{font-family:var(--mf);font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin:1.4rem 0 0.55rem;display:flex;align-items:center;gap:0.55rem;}
+.glbl::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+/* CHECK ITEM */
+.ci{display:grid;grid-template-columns:22px 1fr;gap:0.8rem;padding:0.8rem 1rem;margin-bottom:2px;background:var(--white);border:1px solid var(--rule);transition:border-color var(--ease),background var(--ease);cursor:pointer;align-items:start;}
+.ci:hover{border-color:#cdd1d6;}.ci.done{background:var(--gl);border-color:var(--gm);}
+.cb{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--rule);background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all var(--ease);}
+.ci.done .cb{background:var(--green);border-color:var(--green);}
+.cb::after{content:'';display:block;width:5px;height:8px;border:2px solid transparent;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.ci.done .cb::after{border-color:#fff;}
+.ctt{font-size:0.875rem;font-weight:600;color:var(--midnight);line-height:1.35;margin-bottom:0.2rem;}
+.ci.done .ctt{color:var(--green);text-decoration:line-through;text-decoration-color:rgba(45,122,79,0.3);}
+.cbd{font-size:0.81rem;color:var(--slate);line-height:1.65;}
+.ci.done .cbd{opacity:0.45;}
+code{font-family:var(--mf);font-size:0.69rem;background:rgba(13,27,42,0.07);padding:0.1rem 0.38rem;color:var(--midnight);border-radius:2px;}
+.ci.done code{opacity:0.5;}
+
+/* TIPS */
+.tip{display:flex;gap:0.6rem;align-items:flex-start;padding:0.6rem 0.85rem;margin:0.45rem 0 0;font-size:0.76rem;line-height:1.6;}
+.ti-i{flex-shrink:0;font-size:0.66rem;margin-top:0.05rem;}
+.ti{background:var(--light);color:var(--anchor);border-left:2px solid var(--anchor);}
+.tw{background:#FEF9EC;color:#92610A;border-left:2px solid var(--gold);}
+.td{background:var(--rl);color:#9B3A2E;border-left:2px solid var(--red);}
+.tg{background:var(--gl);color:var(--green);border-left:2px solid var(--green);}
+.to{background:var(--ol);color:var(--orange);border-left:2px solid var(--orange);}
+
+/* LESSON CALLOUT — new in v3 */
+.lesson{background:rgba(13,27,42,0.04);border:1px solid rgba(13,27,42,0.1);border-left:3px solid var(--midnight);padding:0.85rem 1rem;margin:0.55rem 0 0;}
+.lesson-head{font-family:var(--mf);font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--midnight);font-weight:500;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.4rem;}
+.lesson-body{font-size:0.79rem;color:var(--slate);line-height:1.65;}
+.lesson-body code{background:rgba(13,27,42,0.08);}
+
+/* CODE BLOCK */
+.cblk{background:var(--midnight);padding:0.8rem 1rem;margin:0.5rem 0 0;}
+.cblk pre{font-family:var(--mf);font-size:0.67rem;color:rgba(255,255,255,0.7);line-height:1.75;white-space:pre-wrap;word-break:break-word;}
+.hi{color:var(--gold);}.hi2{color:#7EC8E3;}.hi3{color:#B5EAD7;}.hi4{color:rgba(255,255,255,0.35);}
+
+/* CONTAINER DIAGRAM */
+.con-diagram{background:var(--midnight);margin:0.55rem 0 0;padding:0.85rem 1rem;}
+.con-row{display:flex;align-items:stretch;gap:2px;margin-bottom:2px;}
+.con-row:last-child{margin-bottom:0;}
+.con-outer{flex:1;border:1px solid rgba(255,255,255,0.15);padding:0.5rem 0.65rem;}
+.con-inner{flex:1;border:1px dashed rgba(255,255,255,0.12);padding:0.4rem 0.6rem;margin-top:3px;}
+.con-label{font-family:var(--mf);font-size:0.47rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;}
+.con-name{font-family:var(--mf);font-size:0.6rem;color:var(--gold);font-weight:500;}
+.con-cfg{font-family:var(--mf);font-size:0.52rem;color:rgba(255,255,255,0.28);margin-top:0.1rem;line-height:1.5;}
+.con-widget{display:flex;align-items:flex-start;gap:0.4rem;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.con-widget:last-child{border-bottom:none;}
+.wbadge{font-family:var(--mf);font-size:0.44rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.12rem 0.32rem;flex-shrink:0;margin-top:0.1rem;}
+.wh{background:rgba(44,95,138,0.3);color:#7EC8E3;}
+.wt{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);}
+.whtml{background:rgba(212,148,58,0.2);color:var(--gold);}
+.wbtn{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);}
+.wimg{background:rgba(44,95,138,0.2);color:#7EC8E3;}
+.wnav{background:rgba(30,58,95,0.4);color:#B5EAD7;}
+.wform{background:rgba(45,122,79,0.2);color:#B5EAD7;}
+.wcon{background:rgba(212,148,58,0.12);color:rgba(255,255,255,0.5);border:1px dashed rgba(212,148,58,0.3);}
+.wdetail{font-size:0.7rem;color:rgba(255,255,255,0.55);line-height:1.35;}
+.wclass{font-family:var(--mf);font-size:0.54rem;color:var(--gold);margin-top:0.07rem;}
+.wnote{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:0.07rem;line-height:1.35;}
+.con-divider{height:1px;background:rgba(255,255,255,0.06);margin:0.35rem 0;}
+.con-section-label{font-family:var(--mf);font-size:0.46rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:0.2rem 0 0.3rem;}
+
+/* FILE GRID */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin:0.6rem 0 0;}
+.fi{background:var(--white);padding:0.7rem 0.85rem;display:flex;gap:0.55rem;align-items:flex-start;}
+.fi-ic{font-size:0.82rem;flex-shrink:0;}.fi-nm{font-size:0.78rem;font-weight:500;color:var(--midnight);line-height:1.3;}
+.fi-ds{font-family:var(--mf);font-size:0.5rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--mist);margin-top:0.1rem;}
+.cl{display:flex;flex-direction:column;gap:1px;background:var(--rule);margin:0.55rem 0 0;}
+.cr{background:var(--white);padding:0.55rem 0.85rem;display:grid;grid-template-columns:1.8fr 1fr;gap:0.8rem;align-items:center;}
+.cf{font-family:var(--mf);font-size:0.64rem;color:var(--midnight);}
+.cs{font-family:var(--mf);font-size:0.54rem;color:var(--mist);}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin:0.6rem 0 0;}
+.pgi{background:var(--white);padding:0.7rem 0.85rem;}
+.pgi-nm{font-size:0.78rem;font-weight:500;margin-bottom:0.18rem;}
+.pgi-st{font-family:var(--mf);font-size:0.49rem;letter-spacing:0.1em;text-transform:uppercase;}
+.sd{color:var(--green);}
+
+/* PHASE BANNER */
+.pb{display:none;align-items:center;gap:0.8rem;padding:0.8rem 1.05rem;background:var(--gl);border:1px solid var(--gm);margin-top:1.2rem;}
+.pb.show{display:flex;}
+.pb p{font-size:0.79rem;color:var(--green);line-height:1.4;}
+.pb p strong{font-weight:600;}
+
+/* FINISH */
+.finish{background:var(--midnight);padding:3rem;text-align:center;margin-top:2.5rem;position:relative;overflow:hidden;display:none;}
+.finish.show{display:block;}
+.finish::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(212,148,58,0.1) 0%,transparent 70%);}
+.finish-logo{font-family:var(--df);font-weight:800;font-size:3rem;letter-spacing:-0.03em;position:relative;z-index:1;}
+.finish-logo .ly{color:#fff;}.finish-logo .ad{color:var(--gold);font-style:italic;}
+.finish-tag{font-family:var(--mf);font-size:0.57rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:0.5rem;position:relative;z-index:1;}
+.finish-txt{font-size:0.87rem;color:rgba(255,255,255,0.37);line-height:1.75;margin-top:0.9rem;max-width:440px;margin-left:auto;margin-right:auto;position:relative;z-index:1;}
+.reset-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--midnight);color:rgba(255,255,255,0.27);font-family:var(--mf);font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.08);padding:0.38rem 0.75rem;cursor:pointer;transition:all var(--ease);z-index:50;}
+.reset-btn:hover{color:var(--gold);border-color:rgba(212,148,58,0.4);}
+
+/* OC GRID */
+.oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin:0.6rem 0;}
+.oc{background:var(--white);padding:1rem 1.1rem;}
+.oc-head{font-family:var(--mf);font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:0.4rem;}
+.oc-body{font-size:0.79rem;color:var(--slate);line-height:1.65;}
+.oc-body strong{color:var(--midnight);}
+.oc-eg{font-family:var(--mf);font-size:0.6rem;color:var(--midnight);background:rgba(13,27,42,0.05);padding:0.28rem 0.5rem;margin-top:0.4rem;display:block;}
+
+@media(max-width:900px){
+  .page{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;}
+  .phase-nav{display:flex;flex-wrap:wrap;padding:0.3rem;gap:2px;}
+  .pni{padding:0.4rem 0.6rem;border-left:none;border-bottom:2px solid transparent;flex:none;}
+  .pni.active{border-bottom-color:var(--gold);}
+  .pn-tick,.pn-ct{display:none;}
+  .main{padding:1.25rem 1rem 4rem;}
+  .fg,.oc-grid{grid-template-columns:1fr;}
+  .pg{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo"><span class="ly">Lynz</span><span class="ad">addy</span></div>
+    <div class="sb-sub">Build Checklist · v3 · Flexbox Containers</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta">Progress <span class="ct" id="prog-ct">0 / 0</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="prog-pct" id="prog-pct">0%</div>
+  </div>
+  <nav class="phase-nav">
+    <a href="#p0"  class="pni" data-phase="0" ><span class="pn-num">00</span><span class="pn-lbl">Your Files</span><span class="pn-ct" id="nc-0"></span><span class="pn-tick">✓</span></a>
+    <a href="#p1"  class="pni" data-phase="1" ><span class="pn-num">01</span><span class="pn-lbl">WordPress &amp; Plugins</span><span class="pn-ct" id="nc-1"></span><span class="pn-tick">✓</span></a>
+    <a href="#p2"  class="pni" data-phase="2" ><span class="pn-num">02</span><span class="pn-lbl">Child Theme</span><span class="pn-ct" id="nc-2"></span><span class="pn-tick">✓</span></a>
+    <a href="#p3"  class="pni" data-phase="3" ><span class="pn-num">03</span><span class="pn-lbl">Elementor Globals</span><span class="pn-ct" id="nc-3"></span><span class="pn-tick">✓</span></a>
+    <a href="#p4"  class="pni" data-phase="4" ><span class="pn-num">04</span><span class="pn-lbl">Site Settings</span><span class="pn-ct" id="nc-4"></span><span class="pn-tick">✓</span></a>
+    <a href="#p5"  class="pni" data-phase="5" ><span class="pn-num">05</span><span class="pn-lbl">Elementor 101</span><span class="pn-ct" id="nc-5"></span><span class="pn-tick">✓</span></a>
+    <a href="#p6"  class="pni" data-phase="6" ><span class="pn-num">06</span><span class="pn-lbl">Header Template</span><span class="pn-ct" id="nc-6"></span><span class="pn-tick">✓</span></a>
+    <a href="#p7"  class="pni" data-phase="7" ><span class="pn-num">07</span><span class="pn-lbl">Footer Template</span><span class="pn-ct" id="nc-7"></span><span class="pn-tick">✓</span></a>
+    <a href="#p8"  class="pni" data-phase="8" ><span class="pn-num">08</span><span class="pn-lbl">Homepage</span><span class="pn-ct" id="nc-8"></span><span class="pn-tick">✓</span></a>
+    <a href="#p9"  class="pni" data-phase="9" ><span class="pn-num">09</span><span class="pn-lbl">Services Page</span><span class="pn-ct" id="nc-9"></span><span class="pn-tick">✓</span></a>
+    <a href="#p10" class="pni" data-phase="10"><span class="pn-num">10</span><span class="pn-lbl">Why Us Page</span><span class="pn-ct" id="nc-10"></span><span class="pn-tick">✓</span></a>
+    <a href="#p11" class="pni" data-phase="11"><span class="pn-num">11</span><span class="pn-lbl">Work / Clients</span><span class="pn-ct" id="nc-11"></span><span class="pn-tick">✓</span></a>
+    <a href="#p12" class="pni" data-phase="12"><span class="pn-num">12</span><span class="pn-lbl">Process Page</span><span class="pn-ct" id="nc-12"></span><span class="pn-tick">✓</span></a>
+    <a href="#p13" class="pni" data-phase="13"><span class="pn-num">13</span><span class="pn-lbl">Contact + WPForms</span><span class="pn-ct" id="nc-13"></span><span class="pn-tick">✓</span></a>
+    <a href="#p14" class="pni" data-phase="14"><span class="pn-num">14</span><span class="pn-lbl">Content Pass</span><span class="pn-ct" id="nc-14"></span><span class="pn-tick">✓</span></a>
+    <a href="#p15" class="pni" data-phase="15"><span class="pn-num">15</span><span class="pn-lbl">Pre-Launch QA</span><span class="pn-ct" id="nc-15"></span><span class="pn-tick">✓</span></a>
+    <a href="#p16" class="pni" data-phase="16"><span class="pn-num">16</span><span class="pn-lbl">Launch Day</span><span class="pn-ct" id="nc-16"></span><span class="pn-tick">✓</span></a>
+  </nav>
+  <div class="sb-foot"><p>Built for <strong>Lynzaddy</strong><br>v3 · Lessons incorporated.<br>Progress saves in browser.</p></div>
+</aside>
+
+<main class="main">
+
+
+<!-- ════════ P0 — FILES ════════ -->
+<div class="phase" id="p0">
+  <div class="ph-head">
+    <div class="ph-tag">Before You Begin</div>
+    <h2 class="ph-title">Files &amp;<br><em>What's New in v3</em></h2>
+    <p class="ph-desc">v3 incorporates every lesson from the first real build session — CSS specificity, the button row Container pattern, footer structure, nav class fix, and the hero stat cards. If you built anything using v2, read the orange callouts throughout — they mark what changed.</p>
+  </div>
+
+  <div class="tip to"><span class="ti-i">🔶</span><strong>New in v3:</strong> style.css now has Section 52 (Elementor DOM Overrides) which handles all color inheritance globally. The nav class is fixed from <code>.lynz-nav</code> to <code>.lynz-header</code>. The button row uses a nested ROW Container. The footer bottom uses two separate HTML widgets. The hero right column uses 3 stat cards. All of this is documented in the relevant phases below.</div>
+
+  <div class="glbl">HTML Design References — open in Chrome, build to match</div>
+  <div class="fg">
+    <div class="fi"><span class="fi-ic">🏠</span><div><div class="fi-nm">Homepage</div><div class="fi-ds">lynzaddy-website.html · regenerated in v3</div></div></div>
+    <div class="fi"><span class="fi-ic">🛒</span><div><div class="fi-nm">Services Page</div><div class="fi-ds">lynzaddy-services-page.html</div></div></div>
+    <div class="fi"><span class="fi-ic">❓</span><div><div class="fi-nm">Why Us Page</div><div class="fi-ds">lynzaddy-why-us-page.html</div></div></div>
+    <div class="fi"><span class="fi-ic">🏆</span><div><div class="fi-nm">Work / Clients Page</div><div class="fi-ds">lynzaddy-work-page.html</div></div></div>
+    <div class="fi"><span class="fi-ic">⚙️</span><div><div class="fi-nm">Process Page</div><div class="fi-ds">lynzaddy-process-page.html</div></div></div>
+    <div class="fi"><span class="fi-ic">✉️</span><div><div class="fi-nm">Contact Page</div><div class="fi-ds">lynzaddy-contact-page.html</div></div></div>
+    <div class="fi"><span class="fi-ic">📋</span><div><div class="fi-nm">Class Reference</div><div class="fi-ds">elementor-class-reference.html</div></div></div>
+    <div class="fi"><span class="fi-ic">🎨</span><div><div class="fi-nm">Brand Guidelines</div><div class="fi-ds">lynzaddy-brand-guidelines-v2.html</div></div></div>
+  </div>
+
+  <div class="glbl">CSS Files — assemble in this order into one style.css</div>
+  <div class="cl">
+    <div class="cr"><span class="cf hi3">1. style.css</span><span class="cs">Base · Sections 1–19 · Section 52 DOM Overrides</span></div>
+    <div class="cr"><span class="cf">2. …-clients-style-addition.css</span><span class="cs">Section 20</span></div>
+    <div class="cr"><span class="cf">3. …-work-page-style-addition.css</span><span class="cs">Sections 21–26</span></div>
+    <div class="cr"><span class="cf">4. …-why-us-style-addition.css</span><span class="cs">Sections 27–31</span></div>
+    <div class="cr"><span class="cf">5. …-services-style-addition.css</span><span class="cs">Sections 32–38</span></div>
+    <div class="cr"><span class="cf">6. …-process-style-addition.css</span><span class="cs">Sections 39–45</span></div>
+    <div class="cr"><span class="cf hi3">7. …-contact-style-addition.css</span><span class="cs">Sections 46–51 + WPForms</span></div>
+  </div>
+
+  <div class="glbl">All 6 pages — all design-complete</div>
+  <div class="pg">
+    <div class="pgi"><div class="pgi-nm">Homepage</div><div class="pgi-st sd">✓ Regenerated v3</div></div>
+    <div class="pgi"><div class="pgi-nm">Services</div><div class="pgi-st sd">✓ Design complete</div></div>
+    <div class="pgi"><div class="pgi-nm">Why Us</div><div class="pgi-st sd">✓ Design complete</div></div>
+    <div class="pgi"><div class="pgi-nm">Work / Clients</div><div class="pgi-st sd">✓ Design complete</div></div>
+    <div class="pgi"><div class="pgi-nm">Process</div><div class="pgi-st sd">✓ Design complete</div></div>
+    <div class="pgi"><div class="pgi-nm">Contact</div><div class="pgi-st sd">✓ Design complete</div></div>
+  </div>
+</div>
+
+
+<!-- ════════ P1 — WP & PLUGINS ════════ -->
+<div class="phase" id="p1">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 01</div>
+    <h2 class="ph-title">WordPress &amp;<br><em>Plugins</em></h2>
+    <p class="ph-desc">Clean install. Exactly what you need, nothing extra. Est. 1–2 hours.</p>
+  </div>
+  <div class="glbl">WordPress core</div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install WordPress on PHP 8.1+</div><div class="cbd">Recommended hosts: WP Engine, Kinsta, Flywheel. Request PHP 8.1+ explicitly.</div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Delete default themes and unused plugins</div><div class="cbd">Remove Twenty Twenty-Three/Four, Hello Dolly, Akismet.</div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → Permalinks → Post name <code>/%postname%/</code></div><div class="cbd">Do this before creating any pages — changing it after launch requires 301 redirects on every URL.<div class="tip td"><span class="ti-i">🔴</span>Set before building anything. Cannot change post-launch without redirect work.</div></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → General: timezone (America/Chicago), site title, tagline</div><div class="cbd">Tagline: <code>WordPress Development, Hosting &amp; Consulting</code></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Change admin username from "admin" to something non-obvious</div><div class="cbd">Create new admin user → log in → delete original "admin" account.<div class="tip td"><span class="ti-i">🔴</span>"admin" is the first username every brute-force bot tries. Do this before installing anything else.</div></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → Discussion → disable comments site-wide</div><div class="cbd">Service business — comments are spam surface you don't need.</div></div></div>
+  <div class="glbl">Plugins — install in this order</div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install Hello Elementor (parent theme) — do NOT activate yet</div><div class="cbd">Appearance → Themes → Add New → "Hello Elementor" → Install only.</div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install Elementor Pro — upload zip, activate, connect license</div><div class="cbd">Pro is required for Theme Builder (header/footer).<div class="tip tw"><span class="ti-i">⚠️</span>Do NOT install free Elementor + Pro separately. Two copies cause fatal conflicts.</div></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install WPForms Pro — then immediately enable "Disable Default CSS"</div><div class="cbd">WPForms → Settings → General → enable <strong>Disable Default CSS</strong>. Required before building the contact page.<div class="tip td"><span class="ti-i">🔴</span>Don't skip this. WPForms' generic styles will fight the Lynzaddy form design if left on.</div></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install WP Mail SMTP — configure with your email sending service</div><div class="cbd">WordPress's <code>wp_mail()</code> silently drops email on most hosts. Route through Gmail, Mailgun, or SendGrid.<div class="tip tw"><span class="ti-i">⚠️</span>The contact form will appear to work but silently drop submissions without this.</div></div></div></div>
+  <div class="ci" data-phase="1" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Install WP Rocket, Wordfence, Yoast SEO, UpdraftPlus</div><div class="cbd">WP Rocket: enable cache + GZIP. Wordfence: firewall Learning Mode 7 days then Enabled + Protected, enable 2FA. Yoast: run setup wizard. UpdraftPlus: connect Google Drive, daily DB + weekly full-site (skip if on WP Engine/Kinsta).</div></div></div>
+  <div class="pb" id="pb-1"><span>✅</span><p><strong>Phase 01 complete.</strong> WordPress is installed, clean, and hardened.</p></div>
+</div>
+
+
+<!-- ════════ P2 — CHILD THEME ════════ -->
+<div class="phase" id="p2">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 02</div>
+    <h2 class="ph-title">Child Theme<br><em>Installation</em></h2>
+    <p class="ph-desc">Every CSS class, brand token, and font loaded from here. Est. 30–45 min.</p>
+  </div>
+
+  <div class="tip to"><span class="ti-i">🔶</span><strong>v3 change:</strong> style.css now ends with Section 52 — Elementor DOM Overrides. This is the global system that handles color inheritance and beats reset.css across every <code>lynz-*</code> section. It replaces the piecemeal patches from earlier builds. Do not remove it.</div>
+
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Create folder named exactly: <code>lynzaddy-child</code></div><div class="cbd">Contains exactly two files: <code>style.css</code> and <code>functions.php</code>. WordPress is case-sensitive.</div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Assemble final style.css — paste all 7 CSS files in order</div><div class="cbd">Start with base <code>style.css</code> (which already includes Section 52 at the bottom). Append each addition: clients → work → why-us → services → process → contact. One large file is correct.</div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Confirm the theme header comment is at line 1</div><div class="cbd"><div class="cblk"><pre><span class="hi">/*
+Theme Name:  <span class="hi3">Lynzaddy Child</span>
+Template:    <span class="hi3">hello-elementor</span>
+Version:     <span class="hi3">1.0.0</span>
+*/</span></pre></div><div class="tip td"><span class="ti-i">🔴</span>Missing or wrong = theme won't appear in WordPress at all.</div></div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Place functions.php in the lynzaddy-child folder alongside style.css</div><div class="cbd">No edits needed. Handles: parent stylesheet, Google Fonts, CSS variables to &lt;head&gt;, scroll reveal, sticky header body class.</div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Zip → Appearance → Themes → Upload → Install → Activate</div><div class="cbd">Admin bar still visible after activation = no PHP error. White screen = error in functions.php — check via FTP or Appearance → Theme File Editor.</div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Verify brand tokens: browser console → test CSS variable</div><div class="cbd"><div class="cblk"><pre><span class="hi3">getComputedStyle(document.documentElement).getPropertyValue('--lynz-gold')</span></pre></div>Result must be <code>" #D4943A"</code>. If yes: all brand tokens and every <code>lynz-*</code> class — including Section 52 — are live.</div></div></div>
+  <div class="ci" data-phase="2" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Understand Section 52 — the color inheritance system</div>
+    <div class="cbd">Section 52 is the last block in style.css. It does two critical things:
+      <div class="lesson" style="margin-top:0.5rem;">
+        <div class="lesson-head">📖 How Section 52 works</div>
+        <div class="lesson-body"><strong>1. Color context lists.</strong> Every dark section (lynz-hero, lynz-footer, lynz-cta, etc.) is listed with <code>color: var(--lynz-white)</code>. Every light section is listed with <code>color: var(--lynz-midnight)</code>. This sets the inherited color at the container level.<br><br><strong>2. Inheritance chain.</strong> The rule <code>[class*="lynz-"] .elementor-widget-container h1</code> (and h2–h6) forces all headings inside any lynz-* container to <code>color: inherit</code>. That three-level selector chain is deeper than anything reset.css can produce, so it always wins.<br><br><strong>Rule going forward:</strong> When you add a new dark section, add its class to the dark list in Section 52. Children inherit white automatically. You will never need to set color on individual headings.</div>
+      </div>
+    </div>
+  </div></div>
+  <div class="pb" id="pb-2"><span>✅</span><p><strong>Phase 02 complete.</strong> All <code>lynz-*</code> classes are live. Section 52 color inheritance is active.</p></div>
+</div>
+
+
+<!-- ════════ P3 — ELEMENTOR GLOBALS ════════ -->
+<div class="phase" id="p3">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 03</div>
+    <h2 class="ph-title">Elementor<br><em>Global Styles</em></h2>
+    <p class="ph-desc">Do this entire phase before placing a single widget. Est. 20 min.</p>
+  </div>
+  <div class="ci" data-phase="3" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Open Elementor → edit any page → ☰ menu → Site Settings</div><div class="cbd">Inside the Elementor editor panel, not WordPress admin. Global defaults, not page-specific.</div></div></div>
+  <div class="ci" data-phase="3" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Typography → set all 4 fonts</div><div class="cbd">Primary: DM Sans 400 16px 1.75 · Secondary: DM Sans 600 · Display: Playfair Display 800 Normal · Accent: JetBrains Mono 400</div></div></div>
+  <div class="ci" data-phase="3" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Global Colors → add all 11 brand colors</div><div class="cbd"><div class="cblk"><pre><span class="hi">Midnight</span> <span class="hi3">#0D1B2A</span>  <span class="hi">Steel</span>   <span class="hi3">#1E3A5F</span>  <span class="hi">Anchor</span>       <span class="hi3">#2C5F8A</span>
+<span class="hi">Gold</span>     <span class="hi3">#D4943A</span>  <span class="hi">Copper</span>  <span class="hi3">#B8702A</span>  <span class="hi">Cream</span>        <span class="hi3">#F5F0E8</span>
+<span class="hi">Paper</span>    <span class="hi3">#F9F8F6</span>  <span class="hi">Light</span>   <span class="hi3">#EEF2F7</span>  <span class="hi">Slate</span>        <span class="hi3">#4A5568</span>
+<span class="hi">Mist</span>     <span class="hi3">#8C95A1</span>  <span class="hi">Rule</span>    <span class="hi3">#E2E5E9</span></pre></div></div></div></div>
+  <div class="ci" data-phase="3" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Layout → Content Width: 1200px · Background → Page Transition: Off</div><div class="cbd">1200px matches the child theme. Page transitions off — the scroll reveal IntersectionObserver in functions.php replaces them.</div></div></div>
+  <div class="pb" id="pb-3"><span>✅</span><p><strong>Phase 03 complete.</strong> Every widget now defaults to Lynzaddy brand.</p></div>
+</div>
+
+
+<!-- ════════ P4 — SITE SETTINGS ════════ -->
+<div class="phase" id="p4">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 04</div>
+    <h2 class="ph-title">Site Settings<br><em>&amp; SEO Basics</em></h2>
+    <p class="ph-desc">Infrastructure nobody sees until it's wrong. Est. 20 min.</p>
+  </div>
+  <div class="ci" data-phase="4" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Appearance → Customize → Site Identity → Site Icon → upload lynzaddy-icon-favicon.png (512×512)</div><div class="cbd">WordPress generates all favicon sizes automatically from the 512×512 source.</div></div></div>
+  <div class="ci" data-phase="4" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Yoast → Search Appearance → separator: · and pattern: %%title%% · Lynzaddy</div><div class="cbd">Produces "Services · Lynzaddy" style tab titles across every page.</div></div></div>
+  <div class="ci" data-phase="4" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → Reading → CHECK "Discourage search engines from indexing this site"</div><div class="cbd">Turn ON now while building. Turn OFF in Phase 16 Launch Day.<div class="tip td"><span class="ti-i">🔴</span>Most common launch mistake is forgetting to re-enable. Phase 16 will remind you.</div></div></div></div>
+  <div class="ci" data-phase="4" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Appearance → Menus → create "Main Navigation" with all 6 pages</div><div class="cbd">Add: Home, Services, Why Us, Work, Process, Contact. Save. You'll select this menu in the Nav Menu widget in Phase 06.</div></div></div>
+  <div class="ci" data-phase="4" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Pages → Add New — create all 6 blank pages. Set homepage in Settings → Reading.</div><div class="cbd">Create: Home, Services, Why Us, Work, Process, Contact. Then Settings → Reading → Homepage displays: Static page → select Home.</div></div></div>
+  <div class="pb" id="pb-4"><span>✅</span><p><strong>Phase 04 complete.</strong> Favicon, SEO defaults, menu, and blank pages in place.</p></div>
+</div>
+
+
+<!-- ════════ P5 — ELEMENTOR 101 ════════ -->
+<div class="phase" id="p5">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 05</div>
+    <h2 class="ph-title">Elementor Flexbox<br><em>Containers 101</em></h2>
+    <p class="ph-desc">Read this entire phase before touching the header. The button row pattern is new in v3 — it answers the most common layout question when working with Flexbox Containers.</p>
+  </div>
+
+  <div class="glbl">Everything is a Container</div>
+  <div class="oc-grid">
+    <div class="oc">
+      <div class="oc-head">Row Container = the "section"</div>
+      <div class="oc-body">A Container set to <strong>Direction: Row</strong> lays its children side by side. The outermost Container on every page section is a Row. Set it to Full Width so the background bleeds edge-to-edge, then Content Width: Boxed 1200px to constrain the children.
+        <span class="oc-eg">Add Container → Direction: Row → Width: Full → Content Width: Boxed → CSS class: lynz-hero</span>
+      </div>
+    </div>
+    <div class="oc">
+      <div class="oc-head">Column Container = the "column"</div>
+      <div class="oc-body">A Container set to <strong>Direction: Column</strong> stacks its children vertically. Nest it inside a Row Container to create a column in your layout. Set its width by percentage (e.g. 55%) in Layout tab.
+        <span class="oc-eg">Nested container inside Row → Direction: Column → Width: 55% → add widgets inside</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="glbl">Applying CSS classes — same for Containers and Widgets</div>
+  <div class="ci" data-phase="5" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">CSS Classes field: Advanced tab → CSS Classes, on any Container or Widget</div>
+    <div class="cbd"><div class="cblk"><pre><span class="hi2">Outer Row Container (the "section"):</span>
+  Click Container handle → Advanced tab → CSS Classes → <span class="hi3">lynz-hero</span>
+
+<span class="hi2">Inner Column Container (a "column"):</span>
+  Click column container handle → Advanced tab → CSS Classes → <span class="hi3">lynz-step-left</span>
+
+<span class="hi2">Widget:</span>
+  Click widget → Advanced tab → CSS Classes → <span class="hi3">lynz-btn-primary</span>
+
+<span class="hi2">Multiple classes — space-separated:</span>
+  <span class="hi3">lynz-reveal d2</span>
+
+<span class="hi4">No dot. No quotes. Just the class name.</span></pre></div>
+    </div>
+  </div></div>
+
+  <div class="glbl">The button row — getting two buttons side by side</div>
+  <div class="ci" data-phase="5" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Two buttons side by side = a nested ROW Container holding two Button widgets</div>
+    <div class="cbd">In Flexbox Containers, a Column Container stacks everything vertically. Dropping two Button widgets directly into a Column Container will stack them top-to-bottom. To get them side by side, nest a small ROW Container inside the Column Container and place both buttons inside it.
+      <div class="con-diagram">
+        <div class="con-section-label">Column Container (the left hero column)</div>
+        <div class="con-outer">
+          <div class="con-label">Column Container — Direction: Column · Width: 55%</div>
+          <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section tag label<div class="wclass">class: lynz-hero-tag</div></div></div>
+          <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H1 headline</div></div>
+          <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Subtext<div class="wclass">class: lynz-text-lead</div></div></div>
+          <div class="con-divider"></div>
+          <div class="con-section-label">↓ nested ROW Container for the button row</div>
+          <div class="con-outer" style="border-color:rgba(212,148,58,0.4);margin-top:2px;">
+            <div class="con-label" style="color:var(--gold);">ROW Container (button row) · Direction: Row · Gap: 1rem · Wrap: Wrap · Width: auto / fit-content</div>
+            <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"See Our Services" → /services<div class="wclass">class: lynz-btn-primary</div><div class="wnote">No Column Container wrapper needed — Button widgets go directly in the Row Container</div></div></div>
+            <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"View Our Work" → /work<div class="wclass">class: lynz-btn-ghost</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lesson" style="margin-top:0.55rem;">
+        <div class="lesson-head">📖 Why this works — and the Wrap setting</div>
+        <div class="lesson-body">The nested ROW Container's <code>Direction: Row</code> places the two Button widgets side by side. Setting <strong>Wrap: Wrap</strong> (in the Layout tab) means on small screens the second button drops below the first instead of overflowing. Set the ROW Container's width to <strong>fit-content</strong> or leave at auto so it doesn't stretch full width. You do not need Column Containers inside the button row — Button widgets are flex children directly.</div>
+      </div>
+      <div class="tip ti"><span class="ti-i">ℹ️</span>This same pattern applies anywhere you need two or more elements side by side inside a Column Container — process step pills, stat pairs, badge + label combos. When something needs to be horizontal inside a column, nest a Row Container.</div>
+    </div>
+  </div></div>
+
+  <div class="glbl">Full-width background + contained content</div>
+  <div class="ci" data-phase="5" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">How every section achieves full-bleed background + 1200px centered content</div>
+    <div class="cbd"><div class="cblk"><pre><span class="hi">Outer Row Container → Layout tab:</span>
+  Content Width: <span class="hi3">Full Width</span>     ← background bleeds edge-to-edge
+  Min Height: as needed
+
+<span class="hi">Outer Row Container → Style tab:</span>
+  Background Type: Classic
+  Color: <span class="hi3">#0D1B2A</span>               ← your section background
+
+<span class="hi">Outer Row Container → Advanced tab:</span>
+  CSS Classes: <span class="hi3">lynz-hero</span>         ← handles padding, extra styling
+
+<span class="hi">Inner Column Containers:</span>
+  Elementor constrains these to 1200px automatically
+  because the outer Container is set to Full Width
+  with the global Content Width of 1200px.</pre></div>
+    </div>
+  </div></div>
+
+  <div class="glbl">When to use HTML widget vs native widgets</div>
+  <div class="oc-grid">
+    <div class="oc">
+      <div class="oc-head">Native Widgets</div>
+      <div class="oc-body">
+        <strong>Heading</strong> — h1/h2/h3/h4<br>
+        <strong>Text Editor</strong> — paragraphs<br>
+        <strong>Image</strong> — photos, logos<br>
+        <strong>Button</strong> — CTAs and links<br>
+        <strong>Nav Menu</strong> — navigation<br>
+        <strong>WPForms</strong> — the contact form<br>
+        <strong>Spacer / Divider</strong> — space and rules
+      </div>
+    </div>
+    <div class="oc">
+      <div class="oc-head">HTML Widget</div>
+      <div class="oc-body">
+        <strong>1px-gap card grids</strong> — trust bars, stat bars, service grids<br>
+        <strong>Badge/pill components</strong> — tech pills, step pills<br>
+        <strong>Multi-element paste-ins</strong> — anything labeled as a paste-in in the CSS build notes<br>
+        <strong>Hover-effect cards</strong> — FAQ items, project blocks<br><br>
+        <em>Rule: if the CSS build notes show paste-in HTML → HTML widget.</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="glbl">Sticky columns + scroll reveal</div>
+  <div class="ci" data-phase="5" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Sticky column: Column Container → Advanced → Motion Effects → Sticky: Top, Offset: 100px</div>
+    <div class="cbd">Used on: every Process page step (left column), Contact sidebar, Why Us Founder section. The 100px offset keeps it below the 64px fixed header with breathing room.</div>
+  </div></div>
+  <div class="ci" data-phase="5" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Scroll reveal: add <code>lynz-reveal</code> to any Container or Widget — stagger with <code>d1</code> <code>d2</code> <code>d3</code></div>
+    <div class="cbd">The IntersectionObserver in functions.php handles animation. Space-separated in CSS Classes field: <code>lynz-reveal d2</code></div>
+  </div></div>
+
+  <div class="pb" id="pb-5"><span>✅</span><p><strong>Phase 05 complete.</strong> You understand Flexbox Containers and the button row pattern. Build time.</p></div>
+</div>
+
+
+<!-- ════════ P6 — HEADER ════════ -->
+<div class="phase" id="p6">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 06</div>
+    <h2 class="ph-title">Header<br><em>Template</em></h2>
+    <p class="ph-desc">Built once in Theme Builder — appears on all 6 pages automatically. Est. 45–60 min.</p>
+  </div>
+
+  <div class="tip to"><span class="ti-i">🔶</span><strong>v3 fix:</strong> The CSS for nav links uses <code>.lynz-header</code> as the parent selector — <em>not</em> <code>.lynz-nav</code>. The class <code>lynz-nav</code> never appears in Elementor's DOM. Apply the class <code>lynz-header</code> to the outer ROW Container. The Nav Menu widget gets class <code>lynz-nav-links</code>.</div>
+
+  <div class="ci" data-phase="6" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Templates → Theme Builder → Header → Add New → blank canvas → "Lynzaddy Header"</div><div class="cbd">Display conditions: Entire Site. Set before saving.</div></div></div>
+
+  <div class="ci" data-phase="6" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build the header — exact Container map</div>
+    <div class="cbd">
+      <div class="con-diagram">
+        <div class="con-outer">
+          <div class="con-label">ROW CONTAINER — outer wrapper</div>
+          <div class="con-name">class: lynz-header</div>
+          <div class="con-cfg">Direction: Row · Width: Full · Justify: Space Between · Align: Center · Advanced → Motion Effects → Sticky: Top, Offset: 0</div>
+          <div class="con-divider"></div>
+          <div class="con-row">
+            <div class="con-inner">
+              <div class="con-label">Column Container — ~200px</div>
+              <div class="con-widget"><span class="wbadge wimg">Image</span><div class="wdetail">lynzaddy-dark-bg.svg · Link: /<div class="wnote">Width: 160px max in Style tab</div></div></div>
+            </div>
+            <div class="con-inner">
+              <div class="con-label">Column Container — remaining · Align: flex-end</div>
+              <div class="con-widget"><span class="wbadge wnav">Nav Menu</span><div class="wdetail">Select "Main Navigation"<div class="wclass">CSS class on widget: lynz-nav-links</div><div class="wnote">Layout: Horizontal. Class handles all link colors — do NOT set colors in Style tab.</div></div></div>
+              <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"Let's Talk" → /contact<div class="wclass">CSS class on widget: lynz-nav-cta</div><div class="wnote">Class handles all styling. Do not touch Style tab colors.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lesson" style="margin-top:0.55rem;">
+        <div class="lesson-head">📖 Why lynz-header, not lynz-nav</div>
+        <div class="lesson-body">CSS selectors like <code>.lynz-nav .elementor-nav-menu a</code> need <code>lynz-nav</code> to actually exist in the DOM. It never does — Elementor doesn't add it. The class you apply is <code>lynz-header</code> on the outer Container. So all nav selectors in style.css start with <code>.lynz-header .elementor-nav-menu</code>. This is already correct in your style.css (fixed in v3).</div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="6" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Publish → Entire Site → Save &amp; Close → preview and confirm sticky behavior on scroll</div><div class="cbd">The <code>lynz-header</code> CSS watches for <code>.elementor-sticky--active</code> and applies the backdrop blur automatically. Nothing else to configure for the sticky state.</div></div></div>
+
+  <div class="pb" id="pb-6"><span>✅</span><p><strong>Phase 06 complete.</strong> Header is global. Every page has nav.</p></div>
+</div>
+
+
+<!-- ════════ P7 — FOOTER ════════ -->
+<div class="phase" id="p7">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 07</div>
+    <h2 class="ph-title">Footer<br><em>Template</em></h2>
+    <p class="ph-desc">Built once, appears on all 6 pages. Est. 30–45 min.</p>
+  </div>
+
+  <div class="tip to"><span class="ti-i">🔶</span><strong>v3 fix — footer bottom:</strong> The copyright row uses two separate HTML widgets inside a ROW Container (Direction: Row, Justify: Space Between). Do not put both spans in one HTML widget — Elementor wraps each widget in a <code>.elementor-widget-container</code> div, so a single widget can't flex its internal spans apart. Two widgets = two flex children = natural space-between.</div>
+
+  <div class="ci" data-phase="7" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Templates → Theme Builder → Footer → Add New → blank canvas → "Lynzaddy Footer"</div><div class="cbd">Display conditions: Entire Site.</div></div></div>
+
+  <div class="ci" data-phase="7" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build the footer — exact Container map (2 ROW Containers)</div>
+    <div class="cbd">
+      <div class="con-diagram">
+        <!-- Footer main -->
+        <div class="con-outer" style="margin-bottom:3px;">
+          <div class="con-label">ROW CONTAINER 1 of 2</div>
+          <div class="con-name">class: lynz-footer</div>
+          <div class="con-cfg">Direction: Row · Content Width: Boxed 1200px · BG: Midnight · Justify: Space Between · Align: flex-start</div>
+          <div class="con-divider"></div>
+          <div class="con-row">
+            <div class="con-inner">
+              <div class="con-label">Col 1 — ~32% · brand</div>
+              <div class="con-widget"><span class="wbadge wimg">Image</span><div class="wdetail">lynzaddy-all-white.svg · 160px max</div></div>
+              <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Brand tagline<div class="wnote">Color inherited from lynz-footer → white via Section 52. Style → Color: Mist for subdued look.</div></div></div>
+            </div>
+            <div class="con-inner">
+              <div class="con-label">Col 2 — ~21%</div>
+              <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H6 "Services"<div class="wclass">CSS class on widget: lynz-footer-col-head</div><div class="wnote">Class is on the WIDGET div, not the h6. CSS targets: .lynz-footer .lynz-footer-col-head .elementor-widget-container h6</div></div></div>
+              <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Footer links &lt;ul&gt; structure</div></div>
+            </div>
+            <div class="con-inner">
+              <div class="con-label">Col 3 — ~22%</div>
+              <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H6 "Company"<div class="wclass">CSS class: lynz-footer-col-head</div></div></div>
+              <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Footer links &lt;ul&gt;</div></div>
+            </div>
+            <div class="con-inner">
+              <div class="con-label">Col 4 — ~22%</div>
+              <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H6 "Connect"<div class="wclass">CSS class: lynz-footer-col-head</div></div></div>
+              <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">LinkedIn, GitHub, email links</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer bottom -->
+        <div class="con-outer">
+          <div class="con-label">ROW CONTAINER 2 of 2</div>
+          <div class="con-name">class: lynz-footer-bottom</div>
+          <div class="con-cfg">Direction: Row · Content Width: Boxed 1200px · BG: Midnight · Justify: Space Between · Align: Center</div>
+          <div class="con-divider"></div>
+          <div class="con-widget"><span class="wbadge whtml">HTML widget 1</span><div class="wdetail"><code>&lt;span class="footer-copy"&gt;© 2026 &lt;strong&gt;Lynzaddy&lt;/strong&gt; · All rights reserved&lt;/span&gt;</code><div class="wnote">One span only. This widget becomes the left flex child.</div></div></div>
+          <div class="con-widget"><span class="wbadge whtml">HTML widget 2</span><div class="wdetail"><code>&lt;span class="footer-copy"&gt;Built the right way. Obviously.&lt;/span&gt;</code><div class="wnote">One span only. This widget becomes the right flex child. Space Between on the container does the rest.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="7" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Publish → Entire Site → Save &amp; Close → preview to confirm footer appears</div><div class="cbd">All 6 pages now have a shell. Time to fill them in.</div></div></div>
+
+  <div class="pb" id="pb-7"><span>✅</span><p><strong>Phase 07 complete.</strong> Header and footer are global.</p></div>
+</div>
+
+
+<!-- ════════ P8 — HOMEPAGE ════════ -->
+<div class="phase" id="p8">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 08</div>
+    <h2 class="ph-title">Homepage<br><em>Build</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-website.html</code> (regenerated in v3). Every pattern you confirm here is reused on all other pages. Est. 3–5 hours.</p>
+  </div>
+
+  <div class="tip to"><span class="ti-i">🔶</span><strong>v3 changes on this page:</strong> Hero right column = 3 <code>lynz-stat-card</code> boxes (not the CMO/CTO cards). Hero left buttons = nested ROW Container. Follow the Container maps below exactly.</div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 1 — Hero</div>
+    <div class="cbd">
+      <div class="con-diagram">
+        <div class="con-outer">
+          <div class="con-label">ROW CONTAINER</div>
+          <div class="con-name">class: lynz-hero</div>
+          <div class="con-cfg">Direction: Row · Full Width · BG: #0D1B2A · Min-Height: 90vh · Align Items: Center · add lynz-reveal</div>
+          <div class="con-divider"></div>
+          <div class="con-row">
+            <div class="con-inner">
+              <div class="con-label">Column Container — 55%</div>
+              <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section tag label<div class="wclass">class: lynz-hero-tag</div><div class="wnote">Small HTML widget: &lt;div class="lynz-hero-tag"&gt;WordPress · Hosting · Consulting&lt;/div&gt;</div></div></div>
+              <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H1 — "Tell us the problem. We'll figure out the rest." · Color: White<div class="wnote">For gold italic "rest." — use the &lt;&gt; HTML toggle in the Heading widget text tab: &lt;em class="lynz-gold-italic"&gt;rest.&lt;/em&gt;</div></div></div>
+              <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Hero subtext paragraph<div class="wclass">CSS class on widget: lynz-text-lead</div></div></div>
+              <div class="con-divider"></div>
+              <div class="con-section-label">↓ nested ROW Container — button row</div>
+              <div class="con-outer" style="border-color:rgba(212,148,58,0.4);margin-top:2px;">
+                <div class="con-label" style="color:var(--gold);">ROW Container · Direction: Row · Gap: 1rem · Wrap: Wrap</div>
+                <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"See Our Services" → /services<div class="wclass">class: lynz-btn-primary</div></div></div>
+                <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"View Our Work" → /work<div class="wclass">class: lynz-btn-ghost</div></div></div>
+              </div>
+            </div>
+            <div class="con-inner">
+              <div class="con-label">Column Container — 45%</div>
+              <div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">3 lynz-stat-card divs — paste as one block<div class="wnote">See paste-in structure below</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lesson" style="margin-top:0.55rem;">
+        <div class="lesson-head">📋 Stat cards HTML widget paste-in</div>
+        <div class="lesson-body">Paste this entire block into one HTML widget in the right Column Container:<br><br>
+        <code>&lt;div class="stat-card-stack"&gt;</code><br>
+        &nbsp;&nbsp;<code>&lt;div class="lynz-stat-card"&gt;</code><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;div class="lynz-stat-num"&gt;100&lt;em&gt;+&lt;/em&gt;&lt;/div&gt;</code><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;div class="lynz-stat-label"&gt;Client engagements since 2008. Mostly referrals.&lt;/div&gt;</code><br>
+        &nbsp;&nbsp;<code>&lt;/div&gt;</code><br>
+        &nbsp;&nbsp;<code>&lt;!-- repeat × 3 with 15+ and ~90% --&gt;</code><br>
+        <code>&lt;/div&gt;</code><br><br>
+        The <code>stat-card-stack</code> wrapper uses <code>display:flex; flex-direction:column; gap:1px</code> for the 1px gap between cards. Full HTML is in <code>lynzaddy-website.html</code> right column.</div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 2 — Trust Bar</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-trust-bar</div>
+        <div class="con-cfg">Direction: Row · Full Width · BG: #F5F0E8 (Cream)</div>
+        <div class="con-divider"></div>
+        <div class="con-inner">
+          <div class="con-label">Single Column Container — full width</div>
+          <div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">5-stat trust grid — 1px gap between items<div class="wnote">This is a 1px visual gap grid — must be an HTML widget. Paste trust row HTML from lynzaddy-website.html Section 2.</div></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 3 — Services Preview</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-services</div>
+        <div class="con-cfg">Direction: Column · Content Width: Boxed 1200px · BG: #FFFFFF</div>
+        <div class="con-divider"></div>
+        <div class="con-inner">
+          <div class="con-label">Single Column Container</div>
+          <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section label<div class="wclass">class: lynz-text-label</div></div></div>
+          <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2 "Three services. One standard."</div></div>
+          <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Intro paragraph</div></div>
+          <div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">3-card service grid (1px gap)<div class="wclass">class: lynz-service-card on each card</div><div class="wnote">1px gap grid = HTML widget. Paste from lynzaddy-website.html Section 3.</div></div></div>
+          <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"See All Services" → /services<div class="wclass">class: lynz-btn-ghost-dark</div></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 4 — The Difference (Midnight, 2-col)</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-difference</div>
+        <div class="con-cfg">Direction: Row · Boxed 1200px · BG: #0D1B2A · Align: Center · Gap: 4rem</div>
+        <div class="con-divider"></div>
+        <div class="con-row">
+          <div class="con-inner">
+            <div class="con-label">Left Column — 42%</div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section label (white variant)<div class="wclass">class: lynz-text-label</div></div></div>
+            <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2 · Color: White</div></div>
+            <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Body copy · set Color: Mist in Style tab</div></div>
+            <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"Why Lynzaddy" → /why-us<div class="wclass">class: lynz-btn-ghost</div></div></div>
+          </div>
+          <div class="con-inner">
+            <div class="con-label">Right Column — 58%</div>
+            <div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">5 lynz-diff-item rows as one block<div class="wnote">Paste from lynzaddy-website.html Section 4. Each item: diff-check icon + lynz-item-title + lynz-item-body.</div></div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 5 — Process Overview (Paper, 2-col)</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-process</div>
+        <div class="con-cfg">Direction: Row · Boxed 1200px · BG: #F9F8F6 · Align: flex-start · Gap: 5rem</div>
+        <div class="con-divider"></div>
+        <div class="con-row">
+          <div class="con-inner">
+            <div class="con-label">Left — 36%</div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section label</div></div>
+            <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2 "Amateurs go right for design."</div></div>
+            <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Intro paragraph</div></div>
+            <div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"See Full Process" → /process<div class="wclass">class: lynz-btn-ghost-dark</div></div></div>
+          </div>
+          <div class="con-inner">
+            <div class="con-label">Right — 64%</div>
+            <div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">4 process-step divs as one block<div class="wnote">Paste from lynzaddy-website.html Section 5.</div></div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 6 — Who We Serve (White, 2-col audience cards)</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-audience</div>
+        <div class="con-cfg">Direction: Column · Boxed 1200px · BG: #FFFFFF</div>
+        <div class="con-divider"></div>
+        <div class="con-inner">
+          <div class="con-label">Full-width Column — intro</div>
+          <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Section label</div></div>
+          <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2</div></div>
+        </div>
+        <div class="con-divider"></div>
+        <div class="con-section-label">↓ nested ROW Container for the 2 cards</div>
+        <div class="con-outer" style="border-color:rgba(212,148,58,0.3);margin-top:2px;">
+          <div class="con-label" style="color:var(--gold);">ROW Container · Direction: Row · Gap: 1.5rem</div>
+          <div class="con-row">
+            <div class="con-inner"><div class="con-label">Column → class: lynz-aud-primary</div><div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">Marketing card content<div class="wnote">Paste from lynzaddy-website.html Section 6 left card</div></div></div></div>
+            <div class="con-inner"><div class="con-label">Column → class: lynz-aud-secondary</div><div class="con-widget"><span class="wbadge whtml">HTML widget</span><div class="wdetail">IT card content<div class="wnote">Paste from lynzaddy-website.html Section 6 right card</div></div></div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 7 — Testimonials (Cream, 3-col)</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-testimonials</div>
+        <div class="con-cfg">Direction: Column · Boxed 1200px · BG: #F5F0E8</div>
+        <div class="con-divider"></div>
+        <div class="con-inner"><div class="con-label">Full-width — intro</div><div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2 "Don't take our word for it."</div></div></div>
+        <div class="con-divider"></div>
+        <div class="con-section-label">↓ nested ROW Container for 3 cards</div>
+        <div class="con-outer" style="border-color:rgba(212,148,58,0.3);margin-top:2px;">
+          <div class="con-label" style="color:var(--gold);">ROW Container · Direction: Row · Gap: 1.5rem</div>
+          <div class="con-row">
+            <div class="con-inner"><div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">lynz-testi-card · placeholder quote</div></div></div>
+            <div class="con-inner"><div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">lynz-testi-card · placeholder quote</div></div></div>
+            <div class="con-inner"><div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">lynz-testi-card · placeholder quote</div></div></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tip ti"><span class="ti-i">ℹ️</span>Replace all 3 placeholder quotes in Phase 14 Content Pass.</div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Build Section 8 — CTA Banner (Midnight, 2-col)</div>
+    <div class="cbd">
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER</div><div class="con-name">class: lynz-cta</div>
+        <div class="con-cfg">Direction: Row · Boxed 1200px · BG: #0D1B2A · Justify: Space Between · Align: Center</div>
+        <div class="con-divider"></div>
+        <div class="con-row">
+          <div class="con-inner"><div class="con-label">Left — 65%</div><div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Eyebrow note<div class="wclass">class: lynz-cta-note</div></div></div><div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">H2 · Color: White</div></div></div>
+          <div class="con-inner"><div class="con-label">Right — 35% · Align: flex-end</div><div class="con-widget"><span class="wbadge wbtn">Button</span><div class="wdetail">"Start the Conversation" → /contact<div class="wclass">class: lynz-btn-primary</div></div></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div></div>
+
+  <div class="ci" data-phase="8" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Preview on mobile — fix any column width overflows in the responsive breakpoint view</div>
+    <div class="cbd">In Flexbox Containers, switch to mobile breakpoint in Elementor → select each Column Container → set Width to 100%. The button row Container: set to Direction: Column on mobile so the buttons stack vertically. The stat cards HTML widget: the flex-direction is already column, so they stack naturally.</div>
+  </div></div>
+
+  <div class="pb" id="pb-8"><span>✅</span><p><strong>Phase 08 complete.</strong> Homepage built. All Container patterns confirmed. The structure repeats across all remaining pages.</p></div>
+</div>
+
+
+<!-- ════════ P9 — SERVICES ════════ -->
+<div class="phase" id="p9">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 09</div>
+    <h2 class="ph-title">Services<br><em>Page Build</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-services-page.html</code> + <code>lynzaddy-services-style-addition.css</code>. Most structurally complex page. Est. 3–4 hours.</p>
+  </div>
+  <div class="ci" data-phase="9" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 1 — Page Hero (inner-page pattern used on all 5 inner pages)</div><div class="cbd">ROW Container, class: <code>lynz-work-hero</code>, Full Width, BG: Midnight. One Column Container inside. Widgets: HTML breadcrumb → Heading H1 → Text Editor (<code>lynz-text-lead</code>).</div></div></div>
+  <div class="ci" data-phase="9" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 2 — Sticky anchor nav</div><div class="cbd">ROW Container, class: <code>lynz-service-nav</code>, Full Width, BG: White. Advanced → Motion Effects → Sticky: Top, Offset: 64px. One Column Container → HTML widget with full anchor nav HTML (includes scroll-spy JS). Paste from services CSS build notes.</div></div></div>
+  <div class="ci" data-phase="9" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Sections 3, 4, 5 — WordPress Dev, Hosting, Consulting (same Container pattern × 3)</div><div class="cbd">Each: ROW Container (Direction: Column, Boxed 1200px, alternating BG). Add HTML anchor ID in Advanced → Custom Attributes. One Column Container containing: service header HTML → sub-items HTML grid → tier/engagement cards HTML → callout bar HTML. Paste all from services CSS build notes. BG alternates: Dev=White, Hosting=Paper, Consulting=Cream.</div></div></div>
+  <div class="ci" data-phase="9" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 6 — Tech Stack. Section 7 — CTA. Mobile check.</div><div class="cbd">Tech Stack: class <code>lynz-tech-stack</code>, Midnight. Heading + HTML widget (7 category rows + pills). CTA: reuse <code>lynz-cta</code> pattern. Mobile: sticky anchor nav should collapse — CSS handles via breakpoint in services addition file.</div></div></div>
+  <div class="pb" id="pb-9"><span>✅</span><p><strong>Phase 09 complete.</strong> Services page done — the most complex page on the site.</p></div>
+</div>
+
+
+<!-- ════════ P10 — WHY US ════════ -->
+<div class="phase" id="p10">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 10</div>
+    <h2 class="ph-title">Why Us<br><em>Page Build</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-why-us-page.html</code> + <code>lynzaddy-why-us-style-addition.css</code>. Est. 2–3 hours.</p>
+  </div>
+  <div class="ci" data-phase="10" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 1 — Hero. Section 3 — Values Grid. Section 5 — Process callout. Section 6 — Testimonials. Section 7 — CTA.</div><div class="cbd">Hero: <code>lynz-work-hero</code> pattern, H1 "We speak both languages." Values Grid (Section 3): class <code>lynz-difference-values</code>, Midnight, 2-col Row Container. Process callout: HTML widget with 4-step pills. Testimonials: reuse 3-col pattern from Homepage. CTA: reuse <code>lynz-cta</code>.</div></div></div>
+  <div class="ci" data-phase="10" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 2 — Two Languages (3-col: Marketing · Bridge · IT)</div><div class="cbd">ROW Container, class: <code>lynz-two-languages</code>, Boxed 1200px, White, Align: Center. Three Column Containers: left 45% (Marketing persona HTML), center 10% (bridge badge HTML), right 45% (IT persona HTML). Paste cards from why-us CSS build notes.</div></div></div>
+  <div class="ci" data-phase="10" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 4 — Founder Story (Cream, sticky left column)</div><div class="cbd">ROW Container, class: <code>lynz-founder</code>, Cream, Align: flex-start. Left Column (35%): name etymology HTML widget → Advanced → Motion Effects → Sticky: Top, Offset: 100px. Right Column (65%): Text Editor paragraphs + pull quote HTML widget.</div></div></div>
+  <div class="pb" id="pb-10"><span>✅</span><p><strong>Phase 10 complete.</strong> Why Us done — the most persuasive page on the site.</p></div>
+</div>
+
+
+<!-- ════════ P11 — WORK ════════ -->
+<div class="phase" id="p11">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 11</div>
+    <h2 class="ph-title">Work / Clients<br><em>Page Build</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-work-page.html</code> + <code>lynzaddy-work-page-style-addition.css</code>. Est. 2–3 hours.</p>
+  </div>
+  <div class="ci" data-phase="11" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 1 — Hero. Section 2 — Stats Bar. Section 3 — Industry Tags.</div><div class="cbd">Hero: <code>lynz-work-hero</code>. Stats Bar: class <code>lynz-stats-bar</code>, Steel, Full Width, single Column → HTML widget (5-stat 1px-gap row). Industries: class <code>lynz-industries</code>, Cream, Heading + HTML widget (10 industry pills).</div></div></div>
+  <div class="ci" data-phase="11" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 4 — Featured Projects (4 × 2-col Row Containers, alternating)</div><div class="cbd">Each project: ROW Container, classes <code>lynz-project lynz-project--visual-left</code> (odd) or <code>--visual-right</code> (even). Alternating BG: White/Paper. Left Column (50%): Image widget. Right Column (50%): HTML industry tag + Heading H3 + HTML problem/solution block + HTML tech pills. CSS handles column order reversal for --visual-right — don't rearrange Containers.</div></div></div>
+  <div class="ci" data-phase="11" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 5 — All Clients list. Section 6 — CTA.</div><div class="cbd">All Clients: class <code>lynz-all-clients</code>, Midnight. Heading + HTML widget (alphabetical name columns). CTA: reuse <code>lynz-cta</code> pattern.</div></div></div>
+  <div class="pb" id="pb-11"><span>✅</span><p><strong>Phase 11 complete.</strong> Work page done — the social proof that closes deals.</p></div>
+</div>
+
+
+<!-- ════════ P12 — PROCESS ════════ -->
+<div class="phase" id="p12">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 12</div>
+    <h2 class="ph-title">Process<br><em>Page Build</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-process-page.html</code> + <code>lynzaddy-process-style-addition.css</code>. The sticky left column is the key interaction. Est. 2–3 hours.</p>
+  </div>
+  <div class="ci" data-phase="12" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 1 — Hero. Section 2 — Why It Matters.</div><div class="cbd">Hero: <code>lynz-work-hero</code>, H1 "We understand your problem before we solve it." + HTML widget for 4 step pills row. Why It Matters: class <code>lynz-why-matters</code>, Cream, 2-col. Left (40%): section label + H2 + body. Right (60%): HTML widget with 5 problem cards.</div></div></div>
+  <div class="ci" data-phase="12" onclick="toggle(this)"><div class="cb"></div><div>
+    <div class="ctt">Sections 3–6 — Four step sections (Discover · Architecture · Build · Sustain)</div>
+    <div class="cbd">Build all four with the same structure. BG alternates: White → Midnight → Paper → Steel.
+      <div class="con-diagram"><div class="con-outer">
+        <div class="con-label">ROW CONTAINER × 4</div>
+        <div class="con-name">class: lynz-step-white / lynz-step-dark / lynz-step-paper / lynz-step-steel</div>
+        <div class="con-cfg">Direction: Row · Boxed 1200px · Align: flex-start · position: relative (for watermark)</div>
+        <div class="con-divider"></div>
+        <div class="con-row">
+          <div class="con-inner">
+            <div class="con-label">Left Column — 40% → STICKY: Top 100px</div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Watermark number "01" etc.<div class="wclass">class: lynz-step-watermark</div></div></div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Step number circle + label</div></div>
+            <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">"What the client is thinking:" label<div class="wclass">class: lynz-step-asker</div></div></div>
+            <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">Client's unspoken question — italic H2<div class="wclass">class: lynz-step-question</div></div></div>
+            <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">Ghost step name (decorative, low opacity)<div class="wclass">class: lynz-step-name-ghost</div></div></div>
+          </div>
+          <div class="con-inner">
+            <div class="con-label">Right Column — 60%</div>
+            <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">Answer label<div class="wclass">class: lynz-step-answer-label</div></div></div>
+            <div class="con-widget"><span class="wbadge wh">Heading</span><div class="wdetail">Answer headline — H2 with gold italic word<div class="wclass">class: lynz-step-answer-heading</div></div></div>
+            <div class="con-widget"><span class="wbadge wt">Text Editor</span><div class="wdetail">2–3 answer paragraphs</div></div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">Deliverables grid<div class="wclass">class: lynz-step-del-grid</div></div></div>
+            <div class="con-widget"><span class="wbadge whtml">HTML</span><div class="wdetail">"Without this step" warning<div class="wclass">class: lynz-step-without</div></div></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tip ti"><span class="ti-i">ℹ️</span>Between each step section, add a separate ROW Container with a single HTML widget: the connector strip (<code>lynz-step-connector</code>). Paste from process CSS build notes.</div>
+    </div>
+  </div></div>
+  <div class="ci" data-phase="12" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 7 — Timeline. Section 8 — Anti-Agency Manifesto. Section 9 — CTA.</div><div class="cbd">Timeline: class <code>lynz-process-timeline</code>, Midnight. H2 + HTML widget for 4-col timeline track. Manifesto: class <code>lynz-manifesto-strip</code>, Cream, 2-col: heading left, HTML contrast grid right. CTA: reuse <code>lynz-cta</code>.</div></div></div>
+  <div class="pb" id="pb-12"><span>✅</span><p><strong>Phase 12 complete.</strong> Process page done — turns skeptics into believers.</p></div>
+</div>
+
+
+<!-- ════════ P13 — CONTACT ════════ -->
+<div class="phase" id="p13">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 13</div>
+    <h2 class="ph-title">Contact Page<br><em>&amp; WPForms</em></h2>
+    <p class="ph-desc">Reference: <code>lynzaddy-contact-page.html</code> + <code>lynzaddy-contact-style-addition.css</code>. Build the form first. Est. 2 hours.</p>
+  </div>
+  <div class="ci" data-phase="13" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Build the WPForms contact form first</div><div class="cbd">WPForms → Add New → "Contact Inquiry." Fields: Name (First/Last, 2-col) → Email → Company → Project Type dropdown → Budget Range dropdown → Tell us about it (textarea) → How did you find us. Submit button: "Start the Conversation →". Notifications → hello@lynzaddy.com.</div></div></div>
+  <div class="ci" data-phase="13" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 1 — Hero (2-col: headline left / What Happens Next right)</div><div class="cbd">ROW Container, class: <code>lynz-contact-hero</code>, Midnight. Left Column (55%): breadcrumb HTML + H1 + Text Editor. Right Column (45%): sidebar label Text Editor + HTML widget for 3-step "What Happens Next" sequence.</div></div></div>
+  <div class="ci" data-phase="13" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 2 — Stat strip. Section 3 — Contact Main (sidebar + form).</div><div class="cbd">Stat strip: class <code>lynz-contact-stat-strip</code>, Midnight, HTML widget (4-stat row). Contact Main: class <code>lynz-contact-main</code>, Paper. Left Column (33%) → Sticky: Top 100px. Right Column (67%) → WPForms widget.
+      <div class="lesson" style="margin-top:0.45rem;">
+        <div class="lesson-head">🔴 Critical — WPForms class application</div>
+        <div class="lesson-body">Select the WPForms widget → Advanced tab → CSS Classes → type: <code>lynz-contact-form</code>. This single class scopes all field styling. Without it the form will be completely unstyled.</div>
+      </div>
+    </div></div></div>
+  <div class="ci" data-phase="13" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Section 4 — FAQ Grid. Section 5 — Trust Strip. Test the form end-to-end.</div><div class="cbd">FAQ: class <code>lynz-contact-faq</code>, Cream. Trust: class <code>lynz-contact-trust</code>, Midnight. Then submit a real test form → confirm confirmation message → confirm email at hello@lynzaddy.com → check WPForms → Entries.<div class="tip tw"><span class="ti-i">⚠️</span>If email doesn't arrive, debug WP Mail SMTP → Tools → Email Test before moving on.</div></div></div></div>
+  <div class="pb" id="pb-13"><span>✅</span><p><strong>Phase 13 complete.</strong> All 6 pages built. Now make it real.</p></div>
+</div>
+
+
+<!-- ════════ P14 — CONTENT ════════ -->
+<div class="phase" id="p14">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 14</div>
+    <h2 class="ph-title">Content<br><em>Pass</em></h2>
+    <p class="ph-desc">Replace every placeholder. One left on launch day will be the one a prospect screenshots.</p>
+  </div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Replace all 6 testimonial placeholders (Homepage × 3 and Why Us × 3)</div><div class="cbd">Get permission before using a client's name publicly. First name + role + industry is sufficient.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Replace all 4 project cards on Work page with real projects and screenshots</div><div class="cbd">Each card needs: client name, industry, real problem + solution text, tech pills, actual screenshot. Also update the all-clients alphabetical list.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Verify all stats with real, defensible numbers (appears in 5 locations across the site)</div><div class="cbd">Work stats bar · Homepage trust bar · Contact stat strip · Contact trust strip · Why Us founder section. Every number must be one you can back up if a prospect asks.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Update footer email and social links in the Footer Template</div><div class="cbd">Edit Footer in Theme Builder. Real mailto: links, LinkedIn URL, GitHub URL. Propagates to all 6 pages.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Set Yoast SEO title + description on all 6 pages</div><div class="cbd">Edit each page → Yoast panel below editor → SEO tab. Unique title + 150–160 char meta description per page.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Export PNG logos via export helpers → upload all to Media Library</div><div class="cbd">Open lynzaddy-logo-export-helper.html in Chrome → export 4 wordmark variants. Open lynzaddy-icon-export-helper.html → export 5 icon variants.</div></div></div>
+  <div class="ci" data-phase="14" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Add alt text to every image in the Media Library</div><div class="cbd">Media → Library → click each → Alt Text field. Every logo, screenshot, and photo. Required for accessibility and SEO.</div></div></div>
+  <div class="pb" id="pb-14"><span>✅</span><p><strong>Phase 14 complete.</strong> Real content. No placeholders. Ready for QA.</p></div>
+</div>
+
+
+<!-- ════════ P15 — QA ════════ -->
+<div class="phase" id="p15">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 15</div>
+    <h2 class="ph-title">Pre-Launch<br><em>QA</em></h2>
+    <p class="ph-desc">The same list you'd run for a client. Run every item before touching DNS.</p>
+  </div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Click every internal link — nav, CTAs, footer, Services anchor nav, Process step anchors</div><div class="cbd">Install Broken Link Checker plugin (free) to catch what manual clicking misses. Fix all 404s.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Submit a real test form — confirm screen message, email delivery, Entries log</div><div class="cbd">Check spam folder if email doesn't arrive within a minute.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Test on a real mobile device — not just Elementor's preview</div><div class="cbd">Open staging URL on your actual phone. Hero text overflow? Button row stacking correctly? Stat cards readable? Contact form usable on touch keyboard? Elementor's preview is approximate — a real device is the truth.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Test in Chrome, Safari, and Firefox</div><div class="cbd">Gold italic wordmark renders slightly differently in Safari — check nav and hero specifically. iOS Safari is the critical mobile browser.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Run PageSpeed Insights on homepage — target 85+ mobile, 95+ desktop</div><div class="cbd">pagespeed.web.dev. Fix critical issues — don't rabbit-hole on optimization before the site is live.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Confirm SSL active and HTTP redirects to HTTPS</div><div class="cbd">Padlock in address bar. Settings → General → both URLs start with https://.</div></div></div>
+  <div class="ci" data-phase="15" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Take a pre-launch backup — label it "pre-launch-final"</div><div class="cbd">UpdraftPlus → Backup Now, or host snapshot. Your rollback point for DNS cutover.</div></div></div>
+  <div class="pb" id="pb-15"><span>✅</span><p><strong>Phase 15 complete.</strong> QA passed. Ready to launch.</p></div>
+</div>
+
+
+<!-- ════════ P16 — LAUNCH ════════ -->
+<div class="phase" id="p16">
+  <div class="ph-head">
+    <div class="ph-tag">Phase 16</div>
+    <h2 class="ph-title">Launch<br><em>Day</em></h2>
+    <p class="ph-desc">In order. No skipping. Don't launch Friday afternoon.</p>
+  </div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → Reading → UNCHECK "Discourage search engines from indexing this site"</div><div class="cbd">You turned this ON in Phase 04. Turn it OFF now.<div class="tip td"><span class="ti-i">🔴</span>The single most common launch mistake. Confirm it is unchecked before any DNS change.</div></div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Settings → General → update both URLs to https://lynzaddy.com</div><div class="cbd">Time this to happen simultaneously with your DNS change.</div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Update DNS — point A record to production host</div><div class="cbd">Reduce TTL to 300 the day before for fast propagation. Monitor with dnschecker.org.</div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Confirm site resolves at https://lynzaddy.com in incognito — all pages load, form works</div><div class="cbd">Incognito bypasses browser cache. Check SSL certificate, no mixed-content warnings.</div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Submit sitemap to Google Search Console</div><div class="cbd">search.google.com/search-console → verify via DNS → Sitemaps → submit <code>https://lynzaddy.com/sitemap_index.xml</code></div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Connect Google Analytics 4</div><div class="cbd">Elementor Pro → Tools → Custom Code → paste GA4 script in &lt;head&gt;. Confirm real-time events fire.</div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Post-launch backup — label it "post-launch-clean"</div><div class="cbd">Immediately after confirming launch is clean. Schedule automated weekly backups from this moment.</div></div></div>
+  <div class="ci" data-phase="16" onclick="toggle(this)"><div class="cb"></div><div><div class="ctt">Share it — LinkedIn, email to current clients, update email signature</div><div class="cbd">The site is a sales asset. You built it right. Let people see it.</div></div></div>
+
+  <div class="pb" id="pb-16"><span>🚀</span><p><strong>All phases complete.</strong> Lynzaddy.com is live. Built the right way. Obviously.</p></div>
+
+  <div class="finish" id="finish-block">
+    <div class="finish-logo"><span class="ly">Lynz</span><span class="ad">addy</span></div>
+    <div class="finish-tag">Built the right way. Obviously.</div>
+    <p class="finish-txt">Every lesson documented. Every Container mapped. Every class confirmed against real Elementor DOM. Go get some clients.</p>
+  </div>
+</div>
+
+</main>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">Reset progress</button>
+
+<script>
+const KEY = 'lynzaddy-v3';
+function getState(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch{return {};}}
+function saveState(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch{}}
+function itemId(el){const ph=el.dataset.phase;const items=[...document.querySelectorAll(`[data-phase="${ph}"]`)];return `p${ph}-${items.indexOf(el)}`;}
+function toggle(el){el.classList.toggle('done');const s=getState();s[itemId(el)]=el.classList.contains('done');saveState(s);updateAll();}
+function updateAll(){
+  const all=document.querySelectorAll('.ci');
+  const done=document.querySelectorAll('.ci.done').length;
+  const pct=Math.round((done/all.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-ct').textContent=`${done} / ${all.length}`;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  for(let p=0;p<=16;p++){
+    const pAll=document.querySelectorAll(`[data-phase="${p}"]`);
+    const pDone=document.querySelectorAll(`[data-phase="${p}"].done`);
+    const nc=document.getElementById(`nc-${p}`);
+    if(nc)nc.textContent=`${pDone.length}/${pAll.length}`;
+    const nav=document.querySelector(`.pni[data-phase="${p}"]`);
+    if(nav)nav.classList.toggle('ndone',pDone.length===pAll.length&&pAll.length>0);
+    const pb=document.getElementById(`pb-${p}`);
+    if(pb)pb.classList.toggle('show',pDone.length===pAll.length&&pAll.length>0);
+  }
+  const fin=document.getElementById('finish-block');
+  if(fin)fin.classList.toggle('show',done===all.length&&all.length>0);
+}
+function restoreState(){const s=getState();document.querySelectorAll('.ci').forEach(el=>{if(s[itemId(el)])el.classList.add('done');});}
+function resetAll(){if(!confirm('Reset all checklist progress?'))return;saveState({});document.querySelectorAll('.ci').forEach(el=>el.classList.remove('done'));updateAll();}
+const phases=document.querySelectorAll('.phase');
+const navLinks=document.querySelectorAll('.pni');
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(n=>n.classList.remove('active'));const id=e.target.id.replace('p','');const nav=document.querySelector(`.pni[data-phase="${id}"]`);if(nav)nav.classList.add('active');}});},{rootMargin:'-10% 0px -80% 0px'});
+phases.forEach(p=>io.observe(p));
+restoreState();updateAll();
+</script>
+</body>
+</html>

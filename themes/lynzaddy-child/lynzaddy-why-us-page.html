@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Lynzaddy — We Speak Both Languages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --slate: #4A5568; --mist: #8C95A1; --rule: #E2E5E9;
+    --light: #EEF2F7; --paper: #F9F8F6; --white: #FFFFFF;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --ease: 0.22s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--midnight); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  /* ── NAV ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(13,27,42,0.97); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  }
+  nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+  .nav-logo { font-family: var(--display); font-size: 1.45rem; font-weight: 800; line-height: 1; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo .lynz { color: #fff; }
+  .nav-logo .addy { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.06em; font-weight: 500; transition: color var(--ease); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--white) !important; padding: 0.55rem 1.4rem; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--copper) !important; }
+
+  /* ── SHARED ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  section { padding: 7rem 0; }
+
+  .section-tag {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--copper);
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem;
+  }
+  .section-tag::after { content: ''; width: 32px; height: 1px; background: var(--copper); }
+  .section-tag.light { color: rgba(255,255,255,0.35); }
+  .section-tag.light::after { background: rgba(255,255,255,0.2); }
+
+  h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+  h2 em { color: var(--gold); font-style: italic; }
+
+  .lead { font-size: 1.05rem; color: var(--slate); line-height: 1.85; margin-top: 1rem; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+
+
+  /* ══════════════════════════════════════════
+     1. HERO
+  ══════════════════════════════════════════ */
+  #hero {
+    background: var(--midnight); min-height: 56vh;
+    display: flex; align-items: flex-end; padding-bottom: 5rem; padding-top: 10rem;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 65% 70% at 85% 15%, rgba(44,95,138,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 55% at 10% 85%, rgba(212,148,58,0.09) 0%, transparent 55%);
+  }
+  #hero::after {
+    content: 'LYNZADDY · WHY US';
+    position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%) rotate(90deg);
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.06); white-space: nowrap; pointer-events: none;
+  }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 780px; }
+
+  .hero-breadcrumb {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .hero-breadcrumb a { color: inherit; text-decoration: none; }
+  .hero-breadcrumb a:hover { color: var(--gold); }
+  .hero-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+  .hero-breadcrumb .current { color: var(--gold); }
+
+  .hero-kicker {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem;
+  }
+
+  .hero-headline {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.25rem);
+    line-height: 0.95; letter-spacing: -0.03em; color: var(--white);
+  }
+  .hero-headline em { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-size: 1.1rem; color: rgba(255,255,255,0.48); line-height: 1.75;
+    max-width: 560px; margin-top: 1.5rem;
+  }
+
+  /* Horizontal rule with gold dot */
+  .hero-rule {
+    display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem;
+  }
+  .hero-rule-line { width: 48px; height: 1px; background: var(--gold); }
+  .hero-rule-text {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.25);
+  }
+
+
+  /* ══════════════════════════════════════════
+     2. THE TWO-LANGUAGE PROBLEM
+        Two persona cards side-by-side
+  ══════════════════════════════════════════ */
+  #two-languages { background: var(--white); }
+
+  .tl-intro { max-width: 640px; margin-bottom: 4rem; }
+
+  .tl-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    position: relative;
+  }
+
+  /* Connector badge between cards */
+  .tl-bridge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: var(--midnight);
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .tl-bridge span {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 1rem; color: var(--gold); letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .persona-card {
+    background: var(--white); padding: 3rem;
+    position: relative; overflow: hidden;
+    transition: background var(--ease);
+  }
+  .persona-card:hover { background: var(--paper); }
+
+  .persona-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .persona-card.marketing::before { background: linear-gradient(90deg, var(--anchor), var(--steel)); }
+  .persona-card.it::before { background: linear-gradient(90deg, var(--copper), var(--gold)); }
+
+  .persona-role {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .persona-card.marketing .persona-role { color: var(--anchor); }
+  .persona-card.it .persona-role { color: var(--copper); }
+
+  .persona-title {
+    font-family: var(--display); font-weight: 800; font-size: 1.5rem;
+    letter-spacing: -0.02em; color: var(--midnight); margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+
+  .persona-pain {
+    display: flex; flex-direction: column; gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .pain-item {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+    font-size: 0.9rem; color: var(--slate); line-height: 1.65;
+  }
+
+  .pain-icon {
+    flex-shrink: 0; margin-top: 0.2rem;
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 0.55rem;
+  }
+  .persona-card.marketing .pain-icon { background: rgba(44,95,138,0.12); color: var(--anchor); }
+  .persona-card.it        .pain-icon { background: rgba(184,112,42,0.12); color: var(--copper); }
+
+  .persona-resolution {
+    padding: 1.1rem 1.25rem;
+    border-left: 2px solid var(--rule);
+    font-size: 0.875rem; font-style: italic;
+    color: var(--mist); line-height: 1.65;
+    transition: border-color var(--ease);
+  }
+  .persona-card:hover .persona-resolution { border-color: var(--gold); }
+  .persona-resolution strong { color: var(--midnight); font-style: normal; }
+
+
+  /* ══════════════════════════════════════════
+     3. THE DIFFERENCE — Values manifesto
+  ══════════════════════════════════════════ */
+  #difference { background: var(--midnight); }
+
+  .diff-header { margin-bottom: 4rem; }
+  .diff-header h2 { color: var(--white); }
+  .diff-header .lead { color: rgba(255,255,255,0.45); }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .diff-item {
+    padding: 2.5rem;
+    background: var(--midnight);
+    position: relative;
+    transition: background var(--ease);
+  }
+  .diff-item:hover { background: #111e2d; }
+
+  .diff-num {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 3rem; line-height: 1; letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.05); margin-bottom: 1.25rem;
+    display: block;
+  }
+
+  .diff-heading {
+    font-family: var(--display); font-weight: 800; font-size: 1.15rem;
+    letter-spacing: -0.01em; color: var(--white); line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .diff-heading em { color: var(--gold); font-style: italic; }
+
+  .diff-body {
+    font-size: 0.875rem; color: rgba(255,255,255,0.45); line-height: 1.75;
+  }
+
+  /* Bottom accent line that grows on hover */
+  .diff-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--gold);
+    transition: width 0.35s ease;
+  }
+  .diff-item:hover::after { width: 100%; }
+
+
+  /* ══════════════════════════════════════════
+     4. FOUNDER STORY
+  ══════════════════════════════════════════ */
+  #founder { background: var(--cream); }
+
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  /* Left: the name etymology */
+  .founder-name-block {
+    position: sticky; top: 100px;
+  }
+
+  .name-display {
+    font-family: var(--display); font-weight: 800; line-height: 1;
+    letter-spacing: -0.03em; margin-bottom: 2rem;
+  }
+
+  .name-lynz {
+    font-size: clamp(3.5rem, 5.5vw, 5rem);
+    color: var(--midnight);
+    display: block;
+  }
+
+  .name-addy {
+    font-size: clamp(3.5rem, 5.5vw, 5rem);
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+  }
+
+  .name-annotation {
+    display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2.5rem;
+  }
+
+  .annotation-row {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #DDD8CF;
+  }
+  .annotation-row:last-child { border-bottom: none; }
+
+  .ann-name {
+    font-family: var(--display); font-weight: 700; font-style: italic;
+    font-size: 1.1rem; color: var(--midnight); min-width: 90px;
+  }
+  .ann-arrow { color: var(--gold); font-family: var(--mono); font-size: 0.75rem; }
+  .ann-desc { font-size: 0.85rem; color: var(--slate); line-height: 1.5; }
+
+  .founder-location {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mist);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .founder-location::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  }
+
+  /* Right: the story paragraphs */
+  .founder-story { }
+
+  .founder-pull {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(1.35rem, 2vw, 1.65rem); line-height: 1.35;
+    letter-spacing: -0.02em; color: var(--midnight);
+    border-left: 3px solid var(--gold);
+    padding-left: 1.5rem; margin-bottom: 2rem;
+  }
+
+  .founder-body {
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+
+  .founder-body p {
+    font-size: 0.975rem; color: var(--slate); line-height: 1.85;
+  }
+
+  .founder-body p strong { color: var(--midnight); }
+
+  .founder-sig {
+    margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid #DDD8CF;
+    font-family: var(--display); font-weight: 700; font-style: italic;
+    font-size: 1.2rem; color: var(--midnight);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .founder-sig::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+
+
+  /* ══════════════════════════════════════════
+     5. THE PROCESS
+  ══════════════════════════════════════════ */
+  #process { background: var(--paper); }
+
+  .process-header { max-width: 580px; margin-bottom: 4rem; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+  }
+
+  /* Connecting line between steps */
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 40px; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--rule) 0%, var(--gold) 33%, var(--gold) 66%, var(--rule) 100%);
+    z-index: 0;
+  }
+
+  .process-step { padding: 0 1.5rem; position: relative; z-index: 1; }
+  .process-step:first-child { padding-left: 0; }
+  .process-step:last-child  { padding-right: 0; }
+
+  .step-num-wrap {
+    display: flex; align-items: center; margin-bottom: 1.75rem;
+  }
+
+  .step-num {
+    width: 80px; height: 80px; flex-shrink: 0;
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: 1.6rem; color: var(--midnight); letter-spacing: -0.02em;
+    transition: background var(--ease), border-color var(--ease), color var(--ease);
+    position: relative;
+  }
+
+  .process-step:hover .step-num {
+    background: var(--midnight);
+    border-color: var(--midnight);
+    color: var(--gold);
+  }
+
+  .step-label {
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 0.35rem;
+  }
+
+  .step-name {
+    font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+    letter-spacing: -0.02em; color: var(--midnight); line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .step-name em { color: var(--gold); font-style: italic; }
+
+  .step-body { font-size: 0.875rem; color: var(--slate); line-height: 1.75; }
+
+  /* Step connector arrow */
+  .step-arrow {
+    position: absolute; top: 40px; right: -0.5rem; transform: translateY(-50%);
+    font-family: var(--mono); font-size: 0.7rem; color: var(--gold);
+    display: none;
+  }
+
+  .process-step:not(:last-child) .step-arrow { display: block; }
+
+  /* "Amateurs" callout below steps */
+  .process-callout {
+    margin-top: 4rem;
+    padding: 2.25rem 3rem;
+    background: var(--midnight);
+    display: flex; align-items: center; gap: 3rem;
+    position: relative; overflow: hidden;
+  }
+
+  .process-callout::before {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+    background: var(--gold);
+  }
+
+  .callout-quote {
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--white);
+    letter-spacing: -0.02em; line-height: 1.3; flex: 1;
+  }
+  .callout-quote em { color: var(--gold); }
+
+  .callout-context {
+    font-size: 0.85rem; color: rgba(255,255,255,0.4);
+    line-height: 1.7; max-width: 280px; flex-shrink: 0;
+  }
+
+
+  /* ══════════════════════════════════════════
+     6. TESTIMONIALS
+  ══════════════════════════════════════════ */
+  #testimonials { background: var(--white); }
+
+  .testi-header { margin-bottom: 3.5rem; max-width: 540px; }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .testi-card {
+    padding: 2.25rem 2rem;
+    border: 1px solid var(--rule);
+    position: relative;
+    transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+    background: var(--white);
+  }
+
+  .testi-card:hover {
+    border-color: var(--midnight);
+    box-shadow: 0 8px 30px rgba(13,27,42,0.08);
+    transform: translateY(-3px);
+  }
+
+  .testi-card::before {
+    content: '\201C';
+    position: absolute; top: 1.5rem; right: 2rem;
+    font-family: var(--display); font-size: 5rem; line-height: 1;
+    color: var(--light); font-weight: 800;
+    transition: color var(--ease);
+  }
+  .testi-card:hover::before { color: rgba(212,148,58,0.15); }
+
+  .testi-stars {
+    display: flex; gap: 2px; margin-bottom: 1.25rem;
+  }
+  .testi-star { color: var(--gold); font-size: 0.85rem; }
+
+  .testi-quote {
+    font-size: 0.9rem; color: var(--slate); line-height: 1.8;
+    margin-bottom: 1.75rem; font-style: italic;
+    position: relative; z-index: 1;
+  }
+
+  .testi-divider { height: 1px; background: var(--rule); margin-bottom: 1.25rem; }
+
+  .testi-person { display: flex; align-items: center; gap: 0.75rem; }
+
+  .testi-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--light); border: 2px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--display); font-weight: 800; font-size: 0.875rem;
+    color: var(--mist);
+    font-style: italic;
+  }
+
+  .testi-name {
+    font-weight: 600; font-size: 0.875rem; color: var(--midnight);
+  }
+  .testi-role {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mist); margin-top: 0.15rem;
+  }
+
+
+  /* ══════════════════════════════════════════
+     7. CTA
+  ══════════════════════════════════════════ */
+  #why-cta { background: var(--paper); }
+
+  .cta-inner {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 3rem; align-items: center;
+    border: 1px solid var(--rule); padding: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .cta-inner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+
+  .cta-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; }
+  .cta-inner h2 { font-size: clamp(1.8rem, 2.8vw, 2.4rem); }
+  .cta-inner p { color: var(--slate); font-size: 0.95rem; line-height: 1.75; margin-top: 0.75rem; max-width: 500px; }
+
+  .cta-actions { display: flex; flex-direction: column; gap: 1rem; align-items: center; flex-shrink: 0; }
+
+  .btn-primary { background: var(--midnight); color: var(--white); text-decoration: none; padding: 1rem 2.25rem; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; display: inline-block; transition: background var(--ease), transform 0.15s; white-space: nowrap; }
+  .btn-primary:hover { background: var(--steel); transform: translateY(-1px); }
+
+  .btn-ghost { color: var(--slate); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: color var(--ease); }
+  .btn-ghost:hover { color: var(--gold); }
+
+
+  /* ── FOOTER ── */
+  footer { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-main {
+    max-width: 1200px; margin: 0 auto; padding: 3.5rem 2.5rem 2.5rem;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand .logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .footer-brand .logo .lynz { color: #fff; }
+  .footer-brand .logo .addy { color: var(--gold); font-style: italic; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--ease); }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-copy strong { color: var(--gold); }
+
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .tl-cards  { grid-template-columns: 1fr; }
+    .tl-bridge { display: none; }
+    .diff-grid { grid-template-columns: 1fr 1fr; }
+    .founder-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .founder-name-block { position: static; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem; }
+    .process-steps::before { display: none; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .process-callout { flex-direction: column; gap: 1.5rem; }
+    .callout-context { max-width: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    .diff-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-main { grid-template-columns: 1fr; }
+    .cta-inner { padding: 2.5rem; }
+    #hero::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <nav>
+    <a href="/" class="nav-logo"><span class="lynz">Lynz</span><span class="addy">addy</span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/work">Work</a></li>
+      <li><a href="/about" class="active">Why Us</a></li>
+      <li><a href="/process">Process</a></li>
+      <li><a href="/contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════
+     1. HERO
+══════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner reveal">
+      <div class="hero-breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Why Lynzaddy</span>
+      </div>
+      <div class="hero-kicker">The Honest Answer</div>
+      <h1 class="hero-headline">
+        We speak<br><em>both languages.</em>
+      </h1>
+      <p class="hero-sub">Marketing wants to move fast. IT wants to move carefully. Most WordPress shops pick a side. We're fluent in both — and that's exactly why it works.</p>
+      <div class="hero-rule">
+        <div class="hero-rule-line"></div>
+        <span class="hero-rule-text">No account managers. No bait-and-switch. Senior talent on every project.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     2. THE TWO-LANGUAGE PROBLEM
+══════════════════════════ -->
+<section id="two-languages">
+  <div class="container">
+    <div class="tl-intro reveal">
+      <div class="section-tag">The Problem We Solve</div>
+      <h2>Two teams. Two priorities.<br>One person caught in the middle.</h2>
+      <p class="lead">The friction between Marketing and IT isn't a personality problem. It's a translation problem. We sit in that gap so you don't have to.</p>
+    </div>
+
+    <div class="tl-cards reveal">
+      <div class="tl-bridge"><span>La</span></div>
+
+      <!-- Marketing persona -->
+      <div class="persona-card marketing">
+        <div class="persona-role">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          The Marketing Manager
+        </div>
+        <h3 class="persona-title">Fast, flexible,<br>and always blocked.</h3>
+        <div class="persona-pain">
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>"I just need to update a banner. It shouldn't take two weeks and a ticket."</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Wants to A/B test, launch campaigns, and iterate — but every change runs through IT first.</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Has been burned by developers who built something beautiful that nobody on the team can actually use.</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Needs a CMS that feels like a tool, not a hostage situation.</span>
+          </div>
+        </div>
+        <div class="persona-resolution">
+          <strong>What they need from us:</strong> A site architecture that gives marketing real editorial independence — without opening a security hole IT will have to spend six months closing.
+        </div>
+      </div>
+
+      <!-- IT persona -->
+      <div class="persona-card it">
+        <div class="persona-role">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          The IT Lead / CTO
+        </div>
+        <h3 class="persona-title">Rigorous, responsible,<br>and tired of cleaning up.</h3>
+        <div class="persona-pain">
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>"The last agency handed us a plugin-bloated mess and disappeared. Now I own it."</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Worries about security, uptime, and compliance — while being told the website just "needs to look better."</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Has watched three "redesigns" launch without documentation, a staging environment, or a clear handoff plan.</span>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">→</div>
+            <span>Doesn't want to manage another vendor. Wants one person who actually understands the stack.</span>
+          </div>
+        </div>
+        <div class="persona-resolution">
+          <strong>What they need from us:</strong> A clean architecture, proper environments, thorough documentation, and a WordPress build that IT can actually own after we leave.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     3. THE DIFFERENCE
+══════════════════════════ -->
+<section id="difference">
+  <div class="container">
+    <div class="diff-header reveal">
+      <div class="section-tag light">What Sets Us Apart</div>
+      <h2>We made some decisions<br>other shops won't make.</h2>
+      <p class="lead" style="color:rgba(255,255,255,0.45);">Not because they couldn't. Because their business model depends on the opposite.</p>
+    </div>
+
+    <div class="diff-grid reveal">
+
+      <div class="diff-item">
+        <span class="diff-num">01</span>
+        <div class="diff-heading">No <em>bait-and-switch.</em></div>
+        <p class="diff-body">The person you talk to in the sales conversation is the person building your site. No account manager handoff. No junior dev quietly handling your project while a senior name is on the proposal. You get the senior talent you hired — every time.</p>
+      </div>
+
+      <div class="diff-item">
+        <span class="diff-num">02</span>
+        <div class="diff-heading"><em>Architecture</em> before design.</div>
+        <p class="diff-body">Amateurs go right to Figma. We start with how your content is structured, how editors will actually use it, and what the site needs to do technically — before a single pixel gets placed. Beautiful on top of broken is still broken.</p>
+      </div>
+
+      <div class="diff-item">
+        <span class="diff-num">03</span>
+        <div class="diff-heading">Lean by <em>choice.</em></div>
+        <p class="diff-body">We don't carry the overhead of a 20-person shop. No bloated retainers to cover conference rooms and ping-pong tables. That means honest pricing, faster decisions, and a client list built on results — not on how well we can sell.</p>
+      </div>
+
+      <div class="diff-item">
+        <span class="diff-num">04</span>
+        <div class="diff-heading">We <em>document</em> everything.</div>
+        <p class="diff-body">Every project ends with a handoff you can actually use — documented CMS workflows, deployment instructions, plugin inventory, and a clear escalation path. We want your team to be self-sufficient. That's how we sleep at night.</p>
+      </div>
+
+      <div class="diff-item">
+        <span class="diff-num">05</span>
+        <div class="diff-heading">Midwest <em>honest.</em></div>
+        <p class="diff-body">If your idea won't work, we'll tell you. If there's a simpler solution, we'll recommend it — even if it means a smaller engagement for us. Trust is the only thing we've ever marketed on. Fifteen years of word-of-mouth is proof that it works.</p>
+      </div>
+
+      <div class="diff-item">
+        <span class="diff-num">06</span>
+        <div class="diff-heading">We stay<br><em>after launch.</em></div>
+        <p class="diff-body">Most shops disappear the day the site goes live. We offer ongoing Sustain engagements for clients who want a partner, not a handoff. Updates, monitoring, performance, and a real person to call when something breaks at 2pm on a Tuesday.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     4. FOUNDER STORY
+══════════════════════════ -->
+<section id="founder">
+  <div class="container">
+    <div class="founder-grid">
+
+      <!-- Left: name etymology -->
+      <div class="founder-name-block reveal">
+        <div class="name-display">
+          <span class="name-lynz">Lynz</span>
+          <span class="name-addy">addy</span>
+        </div>
+
+        <div class="name-annotation">
+          <div class="annotation-row">
+            <span class="ann-name">Lyndsay</span>
+            <span class="ann-arrow">→</span>
+            <span class="ann-desc"><strong>Lynz</strong> — steady, upright, gets the job done</span>
+          </div>
+          <div class="annotation-row">
+            <span class="ann-name">Addison</span>
+            <span class="ann-arrow">→</span>
+            <span class="ann-desc"><em style="color:var(--gold);">addy</em> — curious, expressive, always in italics</span>
+          </div>
+        </div>
+
+        <div class="founder-location">Midwest-based · Nationally trusted since 2008</div>
+      </div>
+
+      <!-- Right: the story -->
+      <div class="founder-story reveal delay-2">
+        <div class="section-tag">The Story</div>
+        <div class="founder-pull">"The name is two of my daughters. That's not a brand strategy. That's just the truth."</div>
+
+        <div class="founder-body">
+          <p>Lynzaddy started the way most honest businesses do — not with a business plan, but with a problem to solve and a reputation that spread faster than any ad budget could have managed. What began as freelance WordPress work grew into something more because clients kept coming back, and kept sending their colleagues.</p>
+
+          <p>The name combines <strong>Lyndsay</strong> and <strong>Addison</strong> — two daughters who've watched their parent build something one client relationship at a time. It's not a brand story manufactured for a pitch deck. It's a name that means something, which turns out to be exactly the kind of shop we are.</p>
+
+          <p>We're based in the Midwest, which means a few things: we're not trying to impress you with a SoHo address, we say what we mean, and we show up on time. Fifteen-plus years of that approach has produced a client roster of over 100 organizations — and a referral rate that makes marketing spend feel unnecessary.</p>
+
+          <p>If you've worked with agencies that handed your project to the most junior person on the team, charged discovery fees for things that should take an hour, or disappeared after launch — you already understand the gap we fill.</p>
+        </div>
+
+        <div class="founder-sig">The Lynzaddy team</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     5. THE PROCESS
+══════════════════════════ -->
+<section id="process">
+  <div class="container">
+    <div class="process-header reveal">
+      <div class="section-tag">How We Work</div>
+      <h2>Four steps.<br>Zero shortcuts.</h2>
+      <p class="lead">This isn't a waterfall. It's a discipline. Each step gates the next — because skipping ahead is how you end up rebuilding things twice.</p>
+    </div>
+
+    <div class="process-steps reveal">
+
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">01</div>
+        </div>
+        <div class="step-label">Phase One</div>
+        <div class="step-name"><em>Discover</em></div>
+        <p class="step-body">We ask the questions most shops skip. Who actually uses this site, and how? What does success look like in six months? Where does the current setup break down? We document what we learn before a line of code gets written.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">02</div>
+        </div>
+        <div class="step-label">Phase Two</div>
+        <div class="step-name"><em>Architecture</em></div>
+        <p class="step-body">Content models. Plugin inventory. Hosting environment. Editor workflows. We map the structure before design begins. The goal is a site that makes sense to both the developer maintaining it and the marketer updating it at 4pm on a Friday.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">03</div>
+        </div>
+        <div class="step-label">Phase Three</div>
+        <div class="step-name"><em>Build</em></div>
+        <p class="step-body">Senior hands on every element. Staging environment throughout. Pull requests reviewed. Performance benchmarks met. We build to a handoff standard from day one — not as a cleanup pass at the end. Launch is a milestone, not a fire drill.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num-wrap">
+          <div class="step-num">04</div>
+        </div>
+        <div class="step-label">Phase Four</div>
+        <div class="step-name"><em>Sustain</em></div>
+        <p class="step-body">Post-launch isn't goodbye. Updates, security patches, performance monitoring, editorial support, and a real person to call when something needs attention. We're the fractional WordPress partner your team didn't know it could afford.</p>
+      </div>
+
+    </div>
+
+    <div class="process-callout reveal">
+      <div class="callout-quote">"<em>Amateurs</em> go right for the design.<br>We start with the architecture."</div>
+      <p class="callout-context">This isn't a knock on designers. It's a statement about sequence. A beautiful site built on a broken foundation will need to be redesigned again in two years. We've seen it too many times to pretend otherwise.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     6. TESTIMONIALS
+══════════════════════════ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testi-header reveal">
+      <div class="section-tag">What Clients Say</div>
+      <h2>Word of mouth<br>is our only marketing.</h2>
+      <p class="lead">Every client on our roster arrived through a referral or a repeat engagement. These are a few of the reasons why.</p>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span>
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">"We'd been through two agencies in three years. Both times the project was handled by people who'd never touched WordPress seriously. Lynzaddy was the first engagement where we felt like a senior developer actually cared about how our team would use the site after they were gone."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-person">
+          <div class="testi-avatar">MK</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-role">Marketing Director · Industry</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal delay-1">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span>
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">"As an IT director, I'm usually the person cleaning up after a website project, not celebrating it. This was the first time I got actual documentation, a staging pipeline I could trust, and a plugin list that didn't make me want to cry. We've brought them back twice."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-person">
+          <div class="testi-avatar">JT</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-role">IT Director · Industry</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal delay-2">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span>
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">"They told us our original concept wouldn't work and explained exactly why. Then they built us something better. I've never had a vendor be that honest with me — especially before signing a contract. That was three years ago. We haven't gone anywhere else since."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-person">
+          <div class="testi-avatar">SR</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-role">COO · Industry</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     7. CTA
+══════════════════════════ -->
+<section id="why-cta">
+  <div class="container reveal">
+    <div class="cta-inner">
+      <div>
+        <div class="cta-tag">The Next Step</div>
+        <h2>Tell us the problem.<br><em>We'll figure out the rest.</em></h2>
+        <p>No pitch deck. No scope form. Just a conversation about where things stand, what's not working, and whether we're the right fit. If we're not, we'll tell you that too.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Start the Conversation</a>
+        <a href="/work" class="btn-ghost">See Our Work →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo"><span class="lynz">Lynz</span><span class="addy">addy</span></div>
+      <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor to manage. Midwest-based. Nationally trusted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/services#wordpress">WordPress Development</a></li>
+        <li><a href="/services#hosting">Managed Hosting</a></li>
+        <li><a href="/services#consulting">Fractional Consulting</a></li>
+        <li><a href="/services#woocommerce">WooCommerce</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">Why Lynzaddy</a></li>
+        <li><a href="/process">Our Process</a></li>
+        <li><a href="/work">Client Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="/contact">hello@lynzaddy.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+    <span class="footer-copy">Built the right way. Obviously.</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

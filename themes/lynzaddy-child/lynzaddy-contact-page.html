@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Lynzaddy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --slate: #4A5568; --mist: #8C95A1; --rule: #E2E5E9;
+    --light: #EEF2F7; --paper: #F9F8F6; --white: #FFFFFF;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --ease: 0.22s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--midnight); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(13,27,42,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07); box-shadow: 0 4px 30px rgba(0,0,0,0.2); }
+  nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+  .nav-logo { font-family: var(--display); font-size: 1.45rem; font-weight: 800; line-height: 1; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo .lynz { color: #fff; }
+  .nav-logo .addy { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.06em; font-weight: 500; transition: color var(--ease); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--white) !important; padding: 0.55rem 1.4rem; font-weight: 600 !important; }
+
+  /* SHARED */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  .section-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+  .section-tag::after { content: ''; width: 32px; height: 1px; background: var(--copper); }
+  .section-tag.light { color: rgba(255,255,255,0.35); }
+  .section-tag.light::after { background: rgba(255,255,255,0.2); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+
+  /* ══════════════════════════════════════════
+     1. HERO — compact, direct
+  ══════════════════════════════════════════ */
+  #hero {
+    background: var(--midnight);
+    padding-top: 10rem; padding-bottom: 4.5rem;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 65% at 90% 10%, rgba(44,95,138,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 5% 90%, rgba(212,148,58,0.08) 0%, transparent 55%);
+  }
+
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+
+  .hero-left { }
+  .hero-breadcrumb { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-breadcrumb a { color: inherit; text-decoration: none; transition: color var(--ease); }
+  .hero-breadcrumb a:hover { color: var(--gold); }
+  .hero-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+  .hero-breadcrumb .current { color: var(--gold); }
+
+  .hero-headline { font-family: var(--display); font-weight: 800; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: var(--white); }
+  .hero-headline em { color: var(--gold); font-style: italic; }
+  .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.42); line-height: 1.8; max-width: 440px; margin-top: 1.5rem; }
+
+  /* Right column: what happens next steps */
+  .hero-right { }
+
+  .next-steps-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 1.25rem; }
+
+  .next-steps { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.06); }
+
+  .next-step { background: rgba(255,255,255,0.02); padding: 1.1rem 1.5rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: background var(--ease); }
+  .next-step:hover { background: rgba(255,255,255,0.04); }
+
+  .next-step-num { font-family: var(--display); font-weight: 800; font-style: italic; font-size: 1.5rem; line-height: 1; letter-spacing: -0.03em; color: var(--gold); flex-shrink: 0; min-width: 1.5rem; }
+
+  .next-step-content { }
+  .next-step-title { font-size: 0.875rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; line-height: 1.3; }
+  .next-step-desc { font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.55; }
+
+  /* Divider between hero and main content */
+  .hero-rule-strip {
+    background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 1.1rem 0;
+  }
+  .hero-rule-inner { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+  .hero-stat { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); display: flex; align-items: center; gap: 0.6rem; }
+  .hero-stat strong { color: var(--gold); font-size: 0.75rem; }
+  .hero-stat-sep { color: rgba(255,255,255,0.1); }
+
+
+  /* ══════════════════════════════════════════
+     2. MAIN CONTACT SECTION
+        Left: sidebar info / Right: form
+  ══════════════════════════════════════════ */
+  #contact-main { background: var(--paper); padding: 6rem 0; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+
+  /* LEFT SIDEBAR */
+  .contact-sidebar { position: sticky; top: 100px; }
+
+  .sidebar-section { margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+  .sidebar-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .sidebar-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem; }
+
+  .sidebar-heading { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+  .sidebar-heading em { color: var(--gold); font-style: italic; }
+
+  .sidebar-body { font-size: 0.875rem; color: var(--slate); line-height: 1.75; }
+
+  /* Email link */
+  .contact-email {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.04em;
+    color: var(--midnight); text-decoration: none; font-weight: 500;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.2rem;
+    transition: border-color var(--ease), color var(--ease);
+    margin-top: 0.5rem; display: block;
+  }
+  .contact-email:hover { border-color: var(--gold); color: var(--copper); }
+
+  /* Location pill */
+  .location-pill {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mist);
+    margin-top: 0.75rem;
+  }
+  .location-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* Response time badge */
+  .response-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--light); padding: 0.6rem 1rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--anchor); margin-top: 0.75rem;
+  }
+  .response-dot { width: 6px; height: 6px; border-radius: 50%; background: #2D7A4F; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* Fit list */
+  .fit-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem; }
+  .fit-item { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.82rem; color: var(--slate); line-height: 1.55; }
+  .fit-check { color: var(--gold); font-size: 0.65rem; flex-shrink: 0; margin-top: 0.2rem; font-weight: 700; }
+
+  .not-fit-item .fit-check { color: var(--mist); }
+  .not-fit-item { opacity: 0.65; }
+
+
+  /* ══════════════════════════════════════════
+     RIGHT: WPForms styling
+  ══════════════════════════════════════════ */
+  .contact-form-wrap {
+    background: var(--white); border: 1px solid var(--rule);
+    padding: 3rem; position: relative;
+  }
+  .contact-form-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+
+  .form-intro { margin-bottom: 2.5rem; }
+  .form-intro-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.5rem; }
+  .form-intro h2 { font-family: var(--display); font-weight: 800; font-size: 1.65rem; letter-spacing: -0.02em; line-height: 1.1; }
+  .form-intro h2 em { color: var(--gold); font-style: italic; }
+  .form-intro p { font-size: 0.875rem; color: var(--slate); line-height: 1.7; margin-top: 0.5rem; }
+
+  /* ── WPForms field styles ─────────────────
+     These styles target WPForms' output classes.
+     In Elementor, the WPForms widget renders a
+     <div class="wpforms-container"> — all the
+     classes below live inside that wrapper.
+  ───────────────────────────────────────────── */
+
+  /* Two-column row for name fields */
+  .wpforms-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+  /* Label */
+  .wpforms-field-label,
+  .wpforms-field label {
+    font-family: var(--mono) !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: var(--midnight) !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5rem !important;
+    display: block;
+  }
+
+  /* Required asterisk */
+  .wpforms-required-label { color: var(--copper) !important; }
+
+  /* All inputs */
+  .wpforms-field input[type="text"],
+  .wpforms-field input[type="email"],
+  .wpforms-field input[type="tel"],
+  .wpforms-field select,
+  .wpforms-field textarea {
+    width: 100% !important;
+    background: var(--paper) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 0 !important;
+    padding: 0.85rem 1rem !important;
+    font-family: var(--sans) !important;
+    font-size: 0.9rem !important;
+    color: var(--midnight) !important;
+    transition: border-color var(--ease), background var(--ease) !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+  }
+
+  .wpforms-field input:focus,
+  .wpforms-field select:focus,
+  .wpforms-field textarea:focus {
+    border-color: var(--anchor) !important;
+    background: var(--white) !important;
+    box-shadow: 0 0 0 3px rgba(44,95,138,0.08) !important;
+  }
+
+  /* Placeholder */
+  .wpforms-field input::placeholder,
+  .wpforms-field textarea::placeholder { color: var(--mist) !important; font-size: 0.875rem !important; }
+
+  /* Textarea */
+  .wpforms-field textarea { min-height: 140px !important; resize: vertical !important; }
+
+  /* Select */
+  .wpforms-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238C95A1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important; background-repeat: no-repeat !important; background-position: right 1rem center !important; padding-right: 2.5rem !important; cursor: pointer !important; }
+
+  /* Field wrapper spacing */
+  .wpforms-field { margin-bottom: 1.5rem !important; }
+
+  /* Submit button */
+  .wpforms-submit-container { margin-top: 0.5rem !important; }
+
+  .wpforms-submit,
+  button[type="submit"].wpforms-submit {
+    background: var(--midnight) !important;
+    color: var(--white) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem 2.5rem !important;
+    font-family: var(--sans) !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.03em !important;
+    cursor: pointer !important;
+    transition: background var(--ease), transform 0.15s !important;
+    width: 100% !important;
+  }
+
+  .wpforms-submit:hover { background: var(--steel) !important; transform: translateY(-1px) !important; }
+
+  /* Confirmation message */
+  .wpforms-confirmation-container-full {
+    background: #E8F5EE !important;
+    border: 1px solid #b8ddc8 !important;
+    border-left: 3px solid #2D7A4F !important;
+    padding: 1.5rem !important;
+    font-size: 0.9rem !important;
+    color: #2D7A4F !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Error states */
+  .wpforms-field input.wpforms-error,
+  .wpforms-field textarea.wpforms-error,
+  .wpforms-field select.wpforms-error { border-color: #C0392B !important; background: #fdf0ee !important; }
+
+  .wpforms-field label.wpforms-error { color: #C0392B !important; font-size: 0.7rem !important; margin-top: 0.35rem !important; text-transform: none !important; letter-spacing: 0 !important; font-family: var(--sans) !important; font-weight: 400 !important; }
+
+  /* Divider label between field groups */
+  .wpforms-divider-label { font-family: var(--mono) !important; font-size: 0.58rem !important; letter-spacing: 0.14em !important; text-transform: uppercase !important; color: var(--mist) !important; padding: 1rem 0 0.75rem !important; border-top: 1px solid var(--rule) !important; margin-top: 0.5rem !important; }
+
+
+  /* ══════════════════════════════════════════
+     3. FAQ SECTION
+  ══════════════════════════════════════════ */
+  #faq { background: var(--cream); padding: 6rem 0; }
+
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #DDD8CF; margin-top: 3rem; }
+
+  .faq-item { background: var(--cream); padding: 2rem 2.25rem; position: relative; transition: background var(--ease); }
+  .faq-item:hover { background: #EDE7DA; }
+  .faq-item::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 0; background: var(--gold); transition: width 0.3s ease; }
+  .faq-item:hover::before { width: 2px; }
+
+  .faq-q { font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--midnight); line-height: 1.3; margin-bottom: 0.75rem; }
+  .faq-q em { color: var(--gold); font-style: italic; }
+
+  .faq-a { font-size: 0.875rem; color: var(--slate); line-height: 1.75; }
+  .faq-a strong { color: var(--midnight); }
+
+
+  /* ══════════════════════════════════════════
+     4. TRUST STRIP
+  ══════════════════════════════════════════ */
+  #trust-strip { background: var(--midnight); padding: 3.5rem 0; border-top: 1px solid rgba(255,255,255,0.06); }
+
+  .trust-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); }
+
+  .trust-item { background: var(--midnight); padding: 1.75rem 2rem; transition: background var(--ease); }
+  .trust-item:hover { background: #111e2d; }
+
+  .trust-num { font-family: var(--display); font-weight: 800; font-style: italic; font-size: 2.25rem; letter-spacing: -0.03em; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+  .trust-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); line-height: 1.55; }
+
+
+  /* FOOTER */
+  footer { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-main { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; }
+  .footer-brand .logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .footer-brand .logo .lynz { color: #fff; }
+  .footer-brand .logo .addy { color: var(--gold); font-style: italic; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--ease); }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-copy strong { color: var(--gold); }
+
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-sidebar { position: static; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .trust-inner { grid-template-columns: 1fr 1fr; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .wpforms-field-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .trust-inner { grid-template-columns: 1fr 1fr; }
+    .footer-main { grid-template-columns: 1fr; }
+    .contact-form-wrap { padding: 2rem; }
+    .hero-rule-inner { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="nav-logo"><span class="lynz">Lynz</span><span class="addy">addy</span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/work">Work</a></li>
+      <li><a href="/about">Why Us</a></li>
+      <li><a href="/process">Process</a></li>
+      <li><a href="/contact" class="active nav-cta">Let's Talk</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════
+     1. HERO
+══════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-grid">
+
+        <div class="hero-left reveal">
+          <div class="hero-breadcrumb">
+            <a href="/">Home</a><span class="sep">/</span><span class="current">Contact</span>
+          </div>
+          <h1 class="hero-headline">
+            Tell us the<br>problem. <em>We'll<br>figure out<br>the rest.</em>
+          </h1>
+          <p class="hero-sub">No proposal before we understand the project. No pitch before we understand the problem. Just a conversation — and an honest answer about whether we're the right fit.</p>
+        </div>
+
+        <div class="hero-right reveal d2">
+          <div class="next-steps-label">What happens after you reach out</div>
+          <div class="next-steps">
+            <div class="next-step">
+              <div class="next-step-num">1</div>
+              <div class="next-step-content">
+                <div class="next-step-title">You get a real response — not a template</div>
+                <div class="next-step-desc">We read every inquiry before we reply. You'll hear back within one business day, usually sooner. Not from a CRM sequence. From us.</div>
+              </div>
+            </div>
+            <div class="next-step">
+              <div class="next-step-num">2</div>
+              <div class="next-step-content">
+                <div class="next-step-title">A 20-minute call — no pitch, no deck</div>
+                <div class="next-step-desc">We ask a few questions about your project, your timeline, and your constraints. You ask whatever you want. If it's a fit, we'll talk next steps. If it isn't, we'll tell you that too — and try to point you somewhere useful.</div>
+              </div>
+            </div>
+            <div class="next-step">
+              <div class="next-step-num">3</div>
+              <div class="next-step-content">
+                <div class="next-step-title">A written scope before any work starts</div>
+                <div class="next-step-desc">If we move forward, you get a plain-language proposal with a defined scope, a realistic timeline, and a clear number. No ambiguity. No "we'll figure out the details as we go."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stat strip -->
+<div class="hero-rule-strip">
+  <div class="container">
+    <div class="hero-rule-inner">
+      <div class="hero-stat"><strong>1 business day</strong> typical response time</div>
+      <div class="hero-stat-sep">·</div>
+      <div class="hero-stat"><strong>15+ years</strong> WordPress experience</div>
+      <div class="hero-stat-sep">·</div>
+      <div class="hero-stat"><strong>100+</strong> clients served</div>
+      <div class="hero-stat-sep">·</div>
+      <div class="hero-stat"><strong>Midwest-based</strong> nationally available</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     2. CONTACT MAIN
+══════════════════════════ -->
+<section id="contact-main">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT SIDEBAR -->
+      <div class="contact-sidebar reveal">
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">Direct Email</div>
+          <p class="sidebar-body">Prefer email over forms? That's fine — we're the same people on either end.</p>
+          <a href="mailto:hello@lynzaddy.com" class="contact-email">hello@lynzaddy.com</a>
+          <div class="response-badge"><div class="response-dot"></div> Typically responds within 1 business day</div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">Where We Work</div>
+          <div class="sidebar-heading">Based in the<br><em>Midwest.</em></div>
+          <p class="sidebar-body">Our team is located in the greater Omaha area. We work with clients nationally and have since the beginning — remote has always been our default, not a workaround.</p>
+          <div class="location-pill"><div class="location-dot"></div> Omaha, NE · Remote-first</div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">Good fit for us</div>
+          <div class="fit-list">
+            <div class="fit-item"><span class="fit-check">✓</span><span>Marketing teams who can't get IT to move fast enough</span></div>
+            <div class="fit-item"><span class="fit-check">✓</span><span>IT leaders who've inherited a WordPress mess</span></div>
+            <div class="fit-item"><span class="fit-check">✓</span><span>Organizations that need a senior developer, not a junior handoff</span></div>
+            <div class="fit-item"><span class="fit-check">✓</span><span>Teams who've been burned before and want to do it right this time</span></div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">Probably not a fit</div>
+          <div class="fit-list">
+            <div class="fit-item not-fit-item"><span class="fit-check">—</span><span>Projects under $2,500 in budget</span></div>
+            <div class="fit-item not-fit-item"><span class="fit-check">—</span><span>Requests with a fixed scope and a "just build exactly this" brief</span></div>
+            <div class="fit-item not-fit-item"><span class="fit-check">—</span><span>Clients who need ten competing agencies to bid on a project</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="reveal d2">
+        <div class="contact-form-wrap">
+          <div class="form-intro">
+            <div class="form-intro-tag">Start Here</div>
+            <h2>What are you<br><em>working on?</em></h2>
+            <p>A few details helps us come to the conversation prepared. Nothing here is binding — it's just a starting point.</p>
+          </div>
+
+          <!-- ═══════════════════════════════════════════
+               WPFORMS PLACEHOLDER
+               In Elementor: drop a WPForms widget here
+               and apply class: lynz-contact-form
+               to the widget's Advanced → CSS Classes field.
+
+               Recommended WPForms form fields in order:
+               ─────────────────────────────────────────
+               1. Name (first + last, 2-col)
+               2. Email (required)
+               3. Company / Organization (optional)
+               4. Project Type (dropdown):
+                  - New WordPress site build
+                  - Redesign / rebuild
+                  - WooCommerce
+                  - Hosting & maintenance
+                  - Consulting / fractional dev
+                  - Something else
+               5. Rough budget range (dropdown):
+                  - Under $2,500 (not our sweet spot — be honest)
+                  - $2,500 – $7,500
+                  - $7,500 – $20,000
+                  - $20,000+
+                  - Ongoing retainer / hourly
+                  - Not sure yet
+               6. Tell us about the project (textarea)
+               7. How did you hear about us? (optional text)
+               8. Submit button: "Start the Conversation →"
+          ═══════════════════════════════════════════ -->
+
+          <!-- Visual placeholder that shows how the form will look -->
+          <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+              <div>
+                <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">First Name <span style="color:var(--copper)">*</span></div>
+                <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);">Your first name</div>
+              </div>
+              <div>
+                <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Last Name <span style="color:var(--copper)">*</span></div>
+                <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);">Your last name</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Email Address <span style="color:var(--copper)">*</span></div>
+              <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);">you@yourcompany.com</div>
+            </div>
+
+            <div>
+              <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Company / Organization</div>
+              <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);">Optional</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+              <div>
+                <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Project Type <span style="color:var(--copper)">*</span></div>
+                <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);display:flex;justify-content:space-between;align-items:center;">Select one <span style="color:var(--mist)">↓</span></div>
+              </div>
+              <div>
+                <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Budget Range</div>
+                <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);display:flex;justify-content:space-between;align-items:center;">Select one <span style="color:var(--mist)">↓</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">Tell us about the project <span style="color:var(--copper)">*</span></div>
+              <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);min-height:130px;">What are you working on? What's not working about the current situation? What does success look like?</div>
+            </div>
+
+            <div>
+              <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--midnight);margin-bottom:0.5rem;font-weight:500;">How did you find us?</div>
+              <div style="background:var(--paper);border:1px solid var(--rule);padding:0.85rem 1rem;font-size:0.875rem;color:var(--mist);">Referral, Google, LinkedIn...</div>
+            </div>
+
+            <div style="background:var(--midnight);color:var(--white);padding:1rem;text-align:center;font-size:0.9rem;font-weight:600;letter-spacing:0.03em;cursor:pointer;">
+              Start the Conversation →
+            </div>
+
+            <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);text-align:center;line-height:1.6;">
+              No spam. No pitch decks. Just a conversation.
+            </div>
+
+          </div>
+          <!-- END PLACEHOLDER — replace with WPForms widget in Elementor -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     3. FAQ
+══════════════════════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Common Questions</div>
+      <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(2rem,3.5vw,2.8rem);letter-spacing:-0.02em;line-height:1.1;">Questions people ask<br>before they reach out.</h2>
+      <p style="font-size:1rem;color:var(--slate);line-height:1.85;margin-top:0.75rem;max-width:520px;">The ones we'd want answered before filling out a form. Saved you the trouble.</p>
+    </div>
+
+    <div class="faq-grid reveal">
+
+      <div class="faq-item">
+        <div class="faq-q">Do you work with clients <em>outside the Midwest?</em></div>
+        <div class="faq-a">Yes — and we always have. Most of our work is done remotely regardless of where a client is located. We're based in Omaha, but our clients are spread across the country. Geography has never been a factor in how we work.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How do you <em>price projects?</em></div>
+        <div class="faq-a">Most projects are fixed-price after a defined scope. We give you a number before work starts — not a range, not an estimate. Hourly engagements are available for consulting, audits, and retainer work. We'll recommend the structure that makes more sense for your situation.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Can I hire you for just <em>a few hours?</em></div>
+        <div class="faq-a">For new project work, we have a minimum engagement size — typically around $2,500. For existing clients or consulting work like audits and code reviews, hourly or short-block engagements are absolutely available. If you're not sure which category your request falls into, just ask.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you <em>work with agencies</em> or just direct clients?</div>
+        <div class="faq-a">Both. We've served as the WordPress partner for marketing agencies that don't have in-house dev capacity, and we work directly with organizations of all sizes. If you're an agency looking for a reliable WordPress partner to send client work to, we're open to that conversation.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How long does a typical project <em>take?</em></div>
+        <div class="faq-a">Discovery and Architecture together run one to three weeks. A standard marketing site build typically takes four to eight weeks in Build. E-commerce and more complex projects run longer. We give you a realistic timeline during scoping — not an optimistic one we'll have to revise later.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What if I'm <em>not sure what I need?</em></div>
+        <div class="faq-a"><strong>That's exactly what the first conversation is for.</strong> Tell us what's not working, what you're trying to accomplish, and what you've already tried. We'll ask the questions that help both of us figure out what the right engagement looks like — or whether one makes sense at all. No pressure, no pitch.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════
+     4. TRUST STRIP
+══════════════════════════ -->
+<section id="trust-strip">
+  <div class="container">
+    <div class="trust-inner reveal">
+      <div class="trust-item">
+        <div class="trust-num">100+</div>
+        <div class="trust-label">Client engagements<br>since 2008</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">15+</div>
+        <div class="trust-label">Years building<br>on WordPress</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">~90%</div>
+        <div class="trust-label">Clients via referral<br>or repeat work</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">1</div>
+        <div class="trust-label">Senior developer on<br>every engagement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo"><span class="lynz">Lynz</span><span class="addy">addy</span></div>
+      <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor to manage. Midwest-based. Nationally trusted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/services#wordpress">WordPress Development</a></li>
+        <li><a href="/services#hosting">Managed Hosting</a></li>
+        <li><a href="/services#consulting">Consulting</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">Why Lynzaddy</a></li>
+        <li><a href="/process">Our Process</a></li>
+        <li><a href="/work">Client Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="mailto:hello@lynzaddy.com">hello@lynzaddy.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+    <span class="footer-copy">Built the right way. Obviously.</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work & Clients — Lynzaddy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0D1B2A; --steel: #1E3A5F; --anchor: #2C5F8A;
+    --gold: #D4943A; --copper: #B8702A; --cream: #F5F0E8;
+    --ink: #0F0F0F; --ink-soft: #2A2A2A; --slate: #4A5568;
+    --mist: #8C95A1; --rule: #E2E5E9; --light: #EEF2F7;
+    --paper: #F9F8F6; --white: #FFFFFF;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --transition: 0.22s ease;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  /* ─── NAV (same as homepage) ─── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(13,27,42,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  }
+  nav {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 64px;
+  }
+  .nav-logo { font-family: var(--display); font-size: 1.45rem; font-weight: 800; line-height: 1; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo .lynz { color: #fff; }
+  .nav-logo .addy { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.06em; font-weight: 500; transition: color var(--transition); }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--white) !important; padding: 0.55rem 1.4rem; font-weight: 600 !important; transition: background var(--transition) !important; }
+  .nav-cta:hover { background: var(--copper) !important; }
+
+
+  /* ─── SHARED ─── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  section { padding: 7rem 0; }
+
+  .section-tag {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--copper); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-tag::after { content: ''; width: 32px; height: 1px; background: var(--copper); }
+  .section-tag.light::after { background: rgba(255,255,255,0.3); }
+  .section-tag.light { color: rgba(255,255,255,0.4); }
+
+  h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem,3.5vw,3rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .lead { font-size: 1.1rem; color: var(--slate); line-height: 1.8; max-width: 580px; margin-top: 1rem; }
+
+
+  /* ─── PAGE HERO ─── */
+  #work-hero {
+    background: var(--midnight); min-height: 52vh;
+    display: flex; align-items: flex-end; padding-bottom: 5rem;
+    padding-top: 10rem; position: relative; overflow: hidden;
+  }
+
+  #work-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 80% 20%, rgba(44,95,138,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 5% 90%, rgba(212,148,58,0.08) 0%, transparent 55%);
+  }
+
+  /* Vertical text label on the right edge */
+  #work-hero::after {
+    content: 'LYNZADDY · PORTFOLIO';
+    position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%) rotate(90deg);
+    transform-origin: center center;
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.08); white-space: nowrap;
+  }
+
+  .hero-inner { position: relative; z-index: 1; }
+
+  .hero-breadcrumb {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-breadcrumb a { color: rgba(255,255,255,0.3); text-decoration: none; }
+  .hero-breadcrumb a:hover { color: var(--gold); }
+  .hero-breadcrumb span { color: var(--gold); }
+
+  .hero-headline {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95; letter-spacing: -0.03em; color: var(--white);
+  }
+  .hero-headline em { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-size: 1.1rem; color: rgba(255,255,255,0.45); line-height: 1.7;
+    max-width: 520px; margin-top: 1.5rem;
+  }
+
+  .hero-meta {
+    display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex; flex-direction: column; gap: 0.2rem;
+  }
+  .hero-meta-item .label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.25);
+  }
+  .hero-meta-item .value {
+    font-family: var(--display); font-weight: 800; font-size: 1.6rem;
+    color: var(--white); line-height: 1;
+  }
+  .hero-meta-item .value em { color: var(--gold); font-style: normal; }
+
+
+  /* ─── STATS BAR ─── */
+  #stats-bar {
+    background: var(--steel); padding: 2.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stats-inner {
+    display: flex; align-items: center; justify-content: space-around;
+    flex-wrap: wrap; gap: 2rem;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--display); font-weight: 800; font-size: 2.4rem;
+    color: var(--white); line-height: 1; letter-spacing: -0.02em;
+  }
+  .stat-num em { color: var(--gold); font-style: normal; }
+  .stat-desc {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.4rem;
+  }
+
+  .stat-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.1); }
+
+
+  /* ─── INDUSTRY TAGS ─── */
+  #industries {
+    background: var(--cream); padding: 2rem 0;
+    border-bottom: 1px solid #E8E3D8;
+  }
+
+  .industries-inner {
+    display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  }
+
+  .industries-label {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mist); white-space: nowrap; flex-shrink: 0;
+  }
+
+  .industries-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  .industry-tag {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--slate);
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--rule); background: var(--white);
+    transition: border-color var(--transition), color var(--transition);
+    cursor: default;
+  }
+
+  .industry-tag:hover { border-color: var(--gold); color: var(--copper); }
+
+
+  /* ─── FEATURED PROJECTS ─── */
+  #projects { background: var(--white); padding: 7rem 0; }
+
+  .projects-header { margin-bottom: 5rem; }
+
+  /* ── Project card — base ── */
+  .project {
+    padding: 5rem 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .project:last-child { border-bottom: 1px solid var(--rule); }
+
+  /* Layout A: visual left, content right (odd) */
+  .project--visual-left {
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  /* Layout B: content left, visual right (even) */
+  .project--visual-right {
+    grid-template-columns: 1fr 1.1fr;
+  }
+
+  .project--visual-right .project-visual { order: 2; }
+  .project--visual-right .project-content { order: 1; }
+
+  /* ── Project visual panel ── */
+  .project-visual { position: relative; }
+
+  /* Screenshot mockup container */
+  .project-screen {
+    position: relative;
+    background: var(--midnight);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  /* Fake browser chrome */
+  .project-screen-chrome {
+    background: #1a2535; padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .chrome-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .chrome-dot:nth-child(1) { background: #FF5F57; }
+  .chrome-dot:nth-child(2) { background: #FEBC2E; }
+  .chrome-dot:nth-child(3) { background: #28C840; }
+
+  .chrome-bar {
+    flex: 1; height: 18px; background: rgba(255,255,255,0.06);
+    border-radius: 3px; margin: 0 0.5rem;
+    display: flex; align-items: center; padding: 0 0.5rem;
+  }
+
+  .chrome-url {
+    font-family: var(--mono); font-size: 0.55rem; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  /* The screenshot area — placeholder until real screenshots */
+  .project-screen-body {
+    aspect-ratio: 16/10;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  /* Each project gets a unique placeholder color gradient */
+  .project-screen-body--1 {
+    background: linear-gradient(135deg, #0D1B2A 0%, #1E3A5F 50%, #2C5F8A 100%);
+  }
+  .project-screen-body--2 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+  .project-screen-body--3 {
+    background: linear-gradient(135deg, #0a1628 0%, #1B2A3B 50%, #2d4a6b 100%);
+  }
+  .project-screen-body--4 {
+    background: linear-gradient(135deg, #12203a 0%, #1a3a5c 50%, #c07820 100%);
+  }
+
+  .screen-placeholder-text {
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+
+  .screen-placeholder-icon {
+    width: 48px; height: 48px; border: 1.5px dashed rgba(255,255,255,0.15);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  }
+
+  .screen-placeholder-icon svg { color: rgba(255,255,255,0.2); }
+
+  .screen-placeholder-label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.15);
+  }
+
+  /* Logo-only visual panel */
+  .project-logo-panel {
+    background: var(--light);
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--rule);
+    transition: background var(--transition);
+  }
+
+  .project-logo-panel:hover { background: #E5EAF0; }
+
+  .project-logo-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+
+  .logo-placeholder-box {
+    width: 200px; height: 80px; border: 1.5px dashed var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color var(--transition);
+  }
+
+  .project-logo-panel:hover .logo-placeholder-box { border-color: var(--gold); }
+
+  .logo-placeholder-text {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mist);
+  }
+
+  /* Gold corner accent on visual panels */
+  .project-visual::before {
+    content: ''; position: absolute;
+    top: -8px; left: -8px;
+    width: 32px; height: 32px;
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+    z-index: 1; pointer-events: none;
+  }
+
+  .project--visual-right .project-visual::before {
+    left: auto; right: -8px;
+    border-left: none;
+    border-right: 2px solid var(--gold);
+  }
+
+  /* ── Project content ── */
+  .project-index {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .project-index::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+
+  .project-client {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--midnight); margin-bottom: 0.35rem;
+  }
+
+  .project-tagline {
+    font-size: 0.875rem; font-style: italic; color: var(--mist);
+    margin-bottom: 1.75rem; font-family: var(--display); font-weight: 700;
+  }
+
+  /* Problem / Solution */
+  .project-ps { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
+
+  .ps-block {
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--rule);
+    transition: border-color var(--transition);
+  }
+
+  .ps-block:hover { border-color: var(--gold); }
+
+  .ps-block--problem { border-color: rgba(192,57,43,0.25); }
+  .ps-block--solution { border-color: rgba(44,95,138,0.35); }
+
+  .ps-label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 500; margin-bottom: 0.45rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .ps-block--problem .ps-label { color: #C0392B; }
+  .ps-block--solution .ps-label { color: var(--anchor); }
+
+  .ps-text { font-size: 0.9rem; color: var(--slate); line-height: 1.75; }
+
+  /* Tech stack pills */
+  .project-tech { margin-bottom: 1.75rem; }
+
+  .tech-label {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 0.65rem;
+  }
+
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .tech-pill {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em;
+    padding: 0.3rem 0.7rem; background: var(--light);
+    color: var(--anchor); border: 1px solid var(--rule);
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+    cursor: default;
+  }
+
+  .tech-pill:hover { background: var(--midnight); color: var(--gold); border-color: var(--midnight); }
+
+  /* Visit link */
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--midnight); text-decoration: none;
+    padding-bottom: 2px; border-bottom: 1px solid var(--midnight);
+    transition: color var(--transition), border-color var(--transition);
+  }
+
+  .project-link:hover { color: var(--gold); border-color: var(--gold); }
+  .project-link svg { transition: transform var(--transition); }
+  .project-link:hover svg { transform: translate(2px, -2px); }
+
+
+  /* ─── ALL CLIENTS ─── */
+  #all-clients { background: var(--midnight); }
+
+  .clients-header-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 2rem; margin-bottom: 3.5rem; flex-wrap: wrap;
+  }
+
+  .clients-header-row h2 { color: var(--white); }
+  .clients-header-row .lead { color: rgba(255,255,255,0.4); margin-top: 0.75rem; max-width: 400px; }
+
+  .clients-count {
+    font-family: var(--display); font-weight: 800; font-size: 5rem;
+    color: rgba(255,255,255,0.06); line-height: 1; letter-spacing: -0.04em;
+    flex-shrink: 0; align-self: flex-start;
+  }
+
+  /* Column grid of client names */
+  .clients-columns {
+    columns: 5; column-gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .client-name {
+    font-size: 0.875rem; color: rgba(255,255,255,0.5);
+    padding: 0.6rem 1.5rem 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    break-inside: avoid;
+    display: block;
+    transition: color var(--transition);
+    line-height: 1.4;
+  }
+
+  .client-name:hover { color: var(--gold); }
+
+  /* Alphabet dividers */
+  .client-letter {
+    font-family: var(--display); font-weight: 800; font-size: 1.1rem;
+    color: rgba(255,255,255,0.12); padding: 1rem 1.5rem 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    break-inside: avoid; display: block; letter-spacing: -0.01em;
+    cursor: default;
+  }
+
+  .clients-footer-note {
+    margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.2);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .clients-footer-note::before {
+    content: ''; width: 20px; height: 1px; background: var(--gold);
+  }
+
+
+  /* ─── CTA ─── */
+  #work-cta { background: var(--paper); }
+
+  .cta-box {
+    border: 1px solid var(--rule); padding: 4rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 3rem; align-items: center;
+    position: relative; overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px; background: var(--gold);
+  }
+
+  .cta-box-num {
+    position: absolute; bottom: 1.5rem; right: 2rem;
+    font-family: var(--display); font-weight: 800; font-size: 8rem;
+    color: rgba(0,0,0,0.03); line-height: 1; letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+
+  .cta-box-tag {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--copper); margin-bottom: 1rem;
+  }
+
+  .cta-box h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .cta-box h2 em { color: var(--gold); font-style: italic; }
+
+  .cta-box p { color: var(--slate); font-size: 0.95rem; line-height: 1.75; margin-top: 0.75rem; max-width: 480px; }
+
+  .cta-actions { display: flex; flex-direction: column; gap: 1rem; align-items: center; flex-shrink: 0; }
+
+  .btn-primary {
+    background: var(--midnight); color: var(--white); text-decoration: none;
+    padding: 1rem 2.25rem; font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.03em; transition: background var(--transition), transform 0.15s;
+    white-space: nowrap; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--steel); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--slate); font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+    transition: color var(--transition);
+  }
+  .btn-ghost:hover { color: var(--gold); }
+
+
+  /* ─── FOOTER (same as homepage) ─── */
+  footer { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.06); }
+
+  .footer-main {
+    max-width: 1200px; margin: 0 auto; padding: 3.5rem 2.5rem 2.5rem;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+  }
+
+  .footer-brand .logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .footer-brand .logo .lynz { color: #fff; }
+  .footer-brand .logo .addy { color: var(--gold); font-style: italic; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 1rem; }
+
+  .footer-col h4 {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--transition); }
+  .footer-col ul li a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding: 1.5rem 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-copy strong { color: var(--gold); }
+
+
+  /* ─── REVEAL ANIMATION ─── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .project--visual-left, .project--visual-right {
+      grid-template-columns: 1fr;
+    }
+    .project--visual-right .project-visual { order: 1; }
+    .project--visual-right .project-content { order: 2; }
+    .clients-columns { columns: 3; }
+    .cta-box { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .stats-inner { justify-content: center; }
+    .stat-divider { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .clients-columns { columns: 2; }
+    .footer-main { grid-template-columns: 1fr; }
+    .hero-meta { gap: 1.25rem; }
+    .cta-box { padding: 2.5rem; }
+    #work-hero::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <nav>
+    <a href="/" class="nav-logo"><span class="lynz">Lynz</span><span class="addy">addy</span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/work" class="active">Work</a></li>
+      <li><a href="/about">Why Us</a></li>
+      <li><a href="/process">Process</a></li>
+      <li><a href="/contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ═══ PAGE HERO ═══ -->
+<section id="work-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="/">Home</a> / <span>Work</span>
+      </div>
+      <h1 class="hero-headline">
+        Real problems.<br><em>Real solutions.</em>
+      </h1>
+      <p class="hero-sub">Every project starts with a conversation about what's broken, what's missing, or what's being outgrown. Here's what we figured out — and how we fixed it.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="label">Clients Served</span>
+          <span class="value">100<em>+</em></span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Years Active</span>
+          <span class="value">15<em>+</em></span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Featured Projects</span>
+          <span class="value">4</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Referral Rate</span>
+          <span class="value"><em>~</em>90<em>%</em></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ STATS BAR ═══ -->
+<div id="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">100<em>+</em></div>
+        <div class="stat-desc">Clients Served</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">15<em>+</em></div>
+        <div class="stat-desc">Years in WordPress</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-desc">Industries Served</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num"><em>~</em>90<em>%</em></div>
+        <div class="stat-desc">Referral-Based Growth</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num"><em>#</em>1</div>
+        <div class="stat-desc">Reason Clients Return: Trust</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ INDUSTRY TAGS ═══ -->
+<div id="industries">
+  <div class="container">
+    <div class="industries-inner">
+      <span class="industries-label">Industries</span>
+      <div class="industries-tags">
+        <span class="industry-tag">Healthcare</span>
+        <span class="industry-tag">Financial Services</span>
+        <span class="industry-tag">Manufacturing</span>
+        <span class="industry-tag">Non-Profit</span>
+        <span class="industry-tag">B2B SaaS</span>
+        <span class="industry-tag">E-Commerce</span>
+        <span class="industry-tag">Professional Services</span>
+        <span class="industry-tag">Education</span>
+        <span class="industry-tag">Real Estate</span>
+        <span class="industry-tag">Media & Publishing</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ FEATURED PROJECTS ═══ -->
+<section id="projects">
+  <div class="container">
+
+    <div class="projects-header reveal">
+      <div class="section-tag">Featured Work</div>
+      <h2>Four projects.<br>Four different problems.</h2>
+      <p class="lead">Each one started with a real challenge — a frustrated marketing team, an IT department with no bandwidth, or a platform that had simply outgrown itself.</p>
+    </div>
+
+    <!-- ═══════════════════════════
+         PROJECT 1 — Screenshot left, content right
+         Visual: browser mockup (dark)
+    ════════════════════════════ -->
+    <div class="project project--visual-left reveal">
+
+      <div class="project-visual">
+        <div class="project-screen">
+          <div class="project-screen-chrome">
+            <div class="chrome-dot"></div>
+            <div class="chrome-dot"></div>
+            <div class="chrome-dot"></div>
+            <div class="chrome-bar">
+              <span class="chrome-url">www.yourclient.com</span>
+            </div>
+          </div>
+          <div class="project-screen-body project-screen-body--1">
+            <div class="screen-placeholder-text">
+              <div class="screen-placeholder-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M6 18h8M10 14v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="screen-placeholder-label">Add screenshot here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-content">
+        <div class="project-index">Project 01</div>
+        <h2 class="project-client">Client Name Here</h2>
+        <p class="project-tagline">Industry · Year</p>
+
+        <div class="project-ps">
+          <div class="ps-block ps-block--problem">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+              The Problem
+            </div>
+            <p class="ps-text">Describe the core challenge your client was facing before they came to you. What was broken, slow, frustrating, or holding the business back? Write 2–3 sentences in plain language — the kind of thing their CMO or CTO would say out loud.</p>
+          </div>
+          <div class="ps-block ps-block--solution">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1,5 4,8 9,2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              The Solution
+            </div>
+            <p class="ps-text">Explain what you built, configured, or architected to solve it. Lead with the outcome, not the technology. What can they do now that they couldn't do before? What pain went away?</p>
+          </div>
+        </div>
+
+        <div class="project-tech">
+          <div class="tech-label">Technologies Used</div>
+          <div class="tech-pills">
+            <span class="tech-pill">WordPress</span>
+            <span class="tech-pill">Elementor Pro</span>
+            <span class="tech-pill">ACF</span>
+            <span class="tech-pill">WooCommerce</span>
+            <span class="tech-pill">Gravity Forms</span>
+            <span class="tech-pill">WP Engine</span>
+          </div>
+        </div>
+
+        <a href="https://www.yourclient.com" target="_blank" rel="noopener" class="project-link">
+          Visit Site
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4.5M10 2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+
+    <!-- ═══════════════════════════
+         PROJECT 2 — Content left, logo panel right
+         Visual: logo on light panel
+    ════════════════════════════ -->
+    <div class="project project--visual-right reveal">
+
+      <div class="project-content">
+        <div class="project-index">Project 02</div>
+        <h2 class="project-client">Client Name Here</h2>
+        <p class="project-tagline">Industry · Year</p>
+
+        <div class="project-ps">
+          <div class="ps-block ps-block--problem">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+              The Problem
+            </div>
+            <p class="ps-text">Their IT team had built a WordPress site no one on marketing could update. Any change required a ticket, a two-week queue, and inevitably came back wrong. The marketing director was effectively locked out of their own website.</p>
+          </div>
+          <div class="ps-block ps-block--solution">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1,5 4,8 9,2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              The Solution
+            </div>
+            <p class="ps-text">Rebuilt the CMS architecture with a field-structured content model using ACF and a custom Elementor theme. Marketing can now update every section of the site independently, while IT retains full control over the deployment pipeline and hosting environment.</p>
+          </div>
+        </div>
+
+        <div class="project-tech">
+          <div class="tech-label">Technologies Used</div>
+          <div class="tech-pills">
+            <span class="tech-pill">WordPress</span>
+            <span class="tech-pill">ACF Pro</span>
+            <span class="tech-pill">Elementor Pro</span>
+            <span class="tech-pill">Hello Theme</span>
+            <span class="tech-pill">ManageWP</span>
+            <span class="tech-pill">Cloudflare</span>
+          </div>
+        </div>
+
+        <a href="https://www.yourclient.com" target="_blank" rel="noopener" class="project-link">
+          Visit Site
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4.5M10 2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="project-visual">
+        <div class="project-logo-panel">
+          <div class="project-logo-placeholder">
+            <div class="logo-placeholder-box">
+              <span class="logo-placeholder-text">Client Logo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ═══════════════════════════
+         PROJECT 3 — Screenshot left, content right
+         Visual: browser mockup (different color)
+    ════════════════════════════ -->
+    <div class="project project--visual-left reveal">
+
+      <div class="project-visual">
+        <div class="project-screen">
+          <div class="project-screen-chrome">
+            <div class="chrome-dot"></div>
+            <div class="chrome-dot"></div>
+            <div class="chrome-dot"></div>
+            <div class="chrome-bar">
+              <span class="chrome-url">www.yourclient.com</span>
+            </div>
+          </div>
+          <div class="project-screen-body project-screen-body--3">
+            <div class="screen-placeholder-text">
+              <div class="screen-placeholder-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M6 18h8M10 14v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="screen-placeholder-label">Add screenshot here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-content">
+        <div class="project-index">Project 03</div>
+        <h2 class="project-client">Client Name Here</h2>
+        <p class="project-tagline">Industry · Year</p>
+
+        <div class="project-ps">
+          <div class="ps-block ps-block--problem">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+              The Problem
+            </div>
+            <p class="ps-text">An aging WooCommerce store with no staging environment, four years of plugin debt, and checkout conversion rates that had dropped 30% after a botched "optimization" by a previous developer. The owner had lost confidence in their own platform.</p>
+          </div>
+          <div class="ps-block ps-block--solution">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1,5 4,8 9,2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              The Solution
+            </div>
+            <p class="ps-text">Full plugin audit and cleanup, a proper staging-to-production pipeline, and a rebuilt checkout flow with Stripe and a streamlined cart. Conversion rates recovered within 60 days. The client now has a staging site and has never had to worry about an update breaking production again.</p>
+          </div>
+        </div>
+
+        <div class="project-tech">
+          <div class="tech-label">Technologies Used</div>
+          <div class="tech-pills">
+            <span class="tech-pill">WooCommerce</span>
+            <span class="tech-pill">Stripe</span>
+            <span class="tech-pill">ACF</span>
+            <span class="tech-pill">WP Rocket</span>
+            <span class="tech-pill">WP Engine</span>
+            <span class="tech-pill">Elementor Pro</span>
+            <span class="tech-pill">Wordfence</span>
+          </div>
+        </div>
+
+        <a href="https://www.yourclient.com" target="_blank" rel="noopener" class="project-link">
+          Visit Site
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4.5M10 2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+
+    <!-- ═══════════════════════════
+         PROJECT 4 — Content left, logo panel right
+         Visual: logo on cream panel
+    ════════════════════════════ -->
+    <div class="project project--visual-right reveal">
+
+      <div class="project-content">
+        <div class="project-index">Project 04</div>
+        <h2 class="project-client">Client Name Here</h2>
+        <p class="project-tagline">Industry · Year</p>
+
+        <div class="project-ps">
+          <div class="ps-block ps-block--problem">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+              The Problem
+            </div>
+            <p class="ps-text">A growing regional healthcare organization needed a website compliant with accessibility standards (WCAG 2.1 AA) and HIPAA-safe contact workflows, but their internal team had no one with the expertise to get there. Their existing agency quoted six months and a five-figure retainer.</p>
+          </div>
+          <div class="ps-block ps-block--solution">
+            <div class="ps-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1,5 4,8 9,2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              The Solution
+            </div>
+            <p class="ps-text">Delivered a fully WCAG 2.1 AA compliant WordPress site with encrypted form submissions, no PHI stored on the server, and a clean handoff to the internal team. Completed in eight weeks. Cost them a fraction of the agency quote — with better documentation and a training session included.</p>
+          </div>
+        </div>
+
+        <div class="project-tech">
+          <div class="tech-label">Technologies Used</div>
+          <div class="tech-pills">
+            <span class="tech-pill">WordPress</span>
+            <span class="tech-pill">Elementor Pro</span>
+            <span class="tech-pill">ACF Pro</span>
+            <span class="tech-pill">Gravity Forms</span>
+            <span class="tech-pill">HIPAA Vault</span>
+            <span class="tech-pill">Accessible Elementor</span>
+            <span class="tech-pill">Cloudflare</span>
+          </div>
+        </div>
+
+        <a href="https://www.yourclient.com" target="_blank" rel="noopener" class="project-link">
+          Visit Site
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4.5M10 2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="project-visual">
+        <div class="project-logo-panel" style="background: var(--cream);">
+          <div class="project-logo-placeholder">
+            <div class="logo-placeholder-box" style="border-color: #DDD8CF;">
+              <span class="logo-placeholder-text">Client Logo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ ALL CLIENTS ═══ -->
+<section id="all-clients">
+  <div class="container">
+
+    <div class="clients-header-row reveal">
+      <div>
+        <div class="section-tag light">Client Roster</div>
+        <h2>Every name<br>earned, not pitched.</h2>
+        <p class="lead">Over 100 organizations that trusted Lynzaddy with their most important digital asset. Most came by referral.</p>
+      </div>
+      <div class="clients-count">100<em style="color:var(--gold); font-style:normal;">+</em></div>
+    </div>
+
+    <!-- Client name columns — add/remove names as needed -->
+    <!-- Alphabet dividers help visitors scan. Remove if you prefer a clean list. -->
+    <div class="clients-columns reveal">
+
+      <span class="client-letter">A</span>
+      <span class="client-name">Acme Corporation</span>
+      <span class="client-name">Apex Financial Group</span>
+      <span class="client-name">Arbor Health Systems</span>
+      <span class="client-name">Atlas Manufacturing</span>
+
+      <span class="client-letter">B</span>
+      <span class="client-name">Beacon Strategies</span>
+      <span class="client-name">Blue Ridge Brewing</span>
+      <span class="client-name">Bridgepoint Capital</span>
+
+      <span class="client-letter">C</span>
+      <span class="client-name">Cascade Technology</span>
+      <span class="client-name">Central Community Foundation</span>
+      <span class="client-name">Civic Partners</span>
+      <span class="client-name">Clearpath Solutions</span>
+      <span class="client-name">Compass Real Estate</span>
+
+      <span class="client-letter">D</span>
+      <span class="client-name">Daybreak Media</span>
+      <span class="client-name">Delta Logistics</span>
+      <span class="client-name">Drummond & Associates</span>
+
+      <span class="client-letter">E</span>
+      <span class="client-name">Eastgate Properties</span>
+      <span class="client-name">Elevation Wellness</span>
+      <span class="client-name">Envoy Legal Group</span>
+      <span class="client-name">Epoch Marketing</span>
+
+      <span class="client-letter">F</span>
+      <span class="client-name">Fairfield Academy</span>
+      <span class="client-name">Flagship Brands</span>
+      <span class="client-name">Foundry Creative</span>
+
+      <span class="client-letter">G</span>
+      <span class="client-name">Gateway Medical Center</span>
+      <span class="client-name">Granite Ridge Construction</span>
+      <span class="client-name">Greenfield Advisors</span>
+
+      <span class="client-letter">H</span>
+      <span class="client-name">Harbor View Partners</span>
+      <span class="client-name">Harvest Table Foods</span>
+      <span class="client-name">Highpoint Financial</span>
+      <span class="client-name">Horizon Technology Group</span>
+
+      <span class="client-letter">I</span>
+      <span class="client-name">Ideal Home Solutions</span>
+      <span class="client-name">Impact Nonprofit Alliance</span>
+      <span class="client-name">Indigo Publishing</span>
+
+      <span class="client-letter">J</span>
+      <span class="client-name">Junction City Credit Union</span>
+      <span class="client-name">Just Commerce Co.</span>
+
+      <span class="client-letter">K</span>
+      <span class="client-name">Keystone Partners</span>
+      <span class="client-name">Kingsway Hospitality</span>
+
+      <span class="client-letter">L</span>
+      <span class="client-name">Landmark Holdings</span>
+      <span class="client-name">Latitude Health</span>
+      <span class="client-name">Lodestar Consulting</span>
+
+      <span class="client-letter">M</span>
+      <span class="client-name">Maple Street Bakery</span>
+      <span class="client-name">Meridian Law Group</span>
+      <span class="client-name">Metro Community Bank</span>
+      <span class="client-name">Midland Insurance Group</span>
+      <span class="client-name">Momentum Brands</span>
+
+      <span class="client-letter">N</span>
+      <span class="client-name">Nexus Technology</span>
+      <span class="client-name">Northgate Properties</span>
+      <span class="client-name">Northland Education Foundation</span>
+
+      <span class="client-letter">O</span>
+      <span class="client-name">Oak & Iron Design</span>
+      <span class="client-name">Orion Financial Services</span>
+      <span class="client-name">Overland Park Medical</span>
+
+      <span class="client-letter">P</span>
+      <span class="client-name">Pathfinder Strategies</span>
+      <span class="client-name">Peakstone Capital</span>
+      <span class="client-name">Pinnacle Healthcare</span>
+      <span class="client-name">Plateau Digital</span>
+
+      <span class="client-letter">R</span>
+      <span class="client-name">Redwood Financial</span>
+      <span class="client-name">Reliant Manufacturing</span>
+      <span class="client-name">Ridgeline Marketing</span>
+      <span class="client-name">Riverstone Group</span>
+
+      <span class="client-letter">S</span>
+      <span class="client-name">Sandstone Properties</span>
+      <span class="client-name">Signal Media Group</span>
+      <span class="client-name">Skyline Architecture</span>
+      <span class="client-name">Solace Health Network</span>
+      <span class="client-name">Summit Financial Planning</span>
+
+      <span class="client-letter">T</span>
+      <span class="client-name">Tallgrass Energy</span>
+      <span class="client-name">Terrapin Software</span>
+      <span class="client-name">Tidewater Group</span>
+      <span class="client-name">Timberline Construction</span>
+      <span class="client-name">Touchstone Legal</span>
+      <span class="client-name">Trailhead Ventures</span>
+
+      <span class="client-letter">V</span>
+      <span class="client-name">Valor Capital</span>
+      <span class="client-name">Vantage Point Analytics</span>
+      <span class="client-name">Veritas Advisors</span>
+
+      <span class="client-letter">W</span>
+      <span class="client-name">Wayside Community Services</span>
+      <span class="client-name">Westgate Medical</span>
+      <span class="client-name">Whetstone Creative</span>
+      <span class="client-name">Wildwood Hospitality</span>
+      <span class="client-name">Windfall Digital</span>
+
+    </div>
+
+    <div class="clients-footer-note">
+      Names are representative. Client list updated as projects complete. Many clients are confidential by request.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ CTA ═══ -->
+<section id="work-cta">
+  <div class="container reveal">
+    <div class="cta-box">
+      <div class="cta-box-num">05</div>
+      <div>
+        <div class="cta-box-tag">What's Next</div>
+        <h2>Ready to be<br><em>next on this list?</em></h2>
+        <p>Every client on this page started with a single conversation. No RFP. No pitch deck. Just a real talk about what's not working and what it would mean to fix it.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Start the Conversation</a>
+        <a href="/services" class="btn-ghost">See What We Do →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="logo"><span class="lynz">Lynz</span><span class="addy">addy</span></div>
+      <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor to manage. Midwest-based. Nationally trusted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/services#wordpress">WordPress Development</a></li>
+        <li><a href="/services#hosting">Managed Hosting</a></li>
+        <li><a href="/services#consulting">Fractional Consulting</a></li>
+        <li><a href="/services#woocommerce">WooCommerce</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">Why Lynzaddy</a></li>
+        <li><a href="/process">Our Process</a></li>
+        <li><a href="/work">Client Work</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="/contact">hello@lynzaddy.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+    <span class="footer-copy">Built the right way. Obviously.</span>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -14,11 +14,11 @@ Text Domain:  lynzaddy-child
    2.  Base / Reset
    3.  Typography
    4.  Utility Classes
-   5.  Buttons
+   5.  Buttons (descendant selectors — Elementor widget DOM aware)
    6.  Elementor Global Overrides
-   7.  Header & Navigation
+   7.  Header & Navigation (desktop + mobile dropdown)
    8.  Hero Section
-   9.  Trust Bar
+   9.  Trust Bar (HTML widget interior classes included)
    10. Services Section
    11. Why Us / Difference Section
    12. Process Section
@@ -40,7 +40,7 @@ Text Domain:  lynzaddy-child
    28. The Difference — Values Grid
    29. Founder Section
    30. Process Steps
-   31. Testimonials   
+   31. Testimonials
    32. Service Anchor Nav
    33. Service Section Shared Layout
    34. Service Sub-Items Grid
@@ -61,6 +61,11 @@ Text Domain:  lynzaddy-child
    49. WPForms — Confirmation & error states
    50. FAQ Grid
    51. Trust Strip (Stats)
+   52. Elementor DOM Overrides (color inheritance, specificity system)
+   ──────────────────────────────────────────────────────────────────
+   HTML Widget Interior Classes (after section 51, before section 52)
+   All interior class names from HTML widget paste-ins across every
+   page. Covers sections 22-51. Use class names as-is from comp HTML.
    ============================================================ */
 
 /* ============================================================
@@ -390,103 +395,156 @@ a:hover {
 
 /* ============================================================
    5. BUTTONS
-      Use .lynz-btn-primary / .lynz-btn-ghost on Elementor
-      Button widgets via Advanced > CSS Classes.
-      Also overrides default Elementor button styles.
+      Apply lynz-btn-* classes to Elementor Button widgets via
+      Advanced → CSS Classes. The class lands on the outer widget
+      wrapper div — NOT on the <a> tag. All visual styling must
+      use descendant selectors (.lynz-btn-primary .elementor-button).
+
+      DOM structure Elementor renders:
+        div.lynz-btn-primary              ← class applied here
+          div.elementor-widget-container  ← strip to transparent
+            div.elementor-button-wrapper  ← strip to transparent
+              a.elementor-button          ← all visual styles go here
+                span.elementor-button-text ← font forced here too
    ============================================================ */
 
-/* Primary — Gold fill */
+/* Strip all visual styling from wrapper layers so they don't
+   bleed gold/borders through the actual button <a> */
 .lynz-btn-primary,
-.lynz-btn-primary.elementor-button,
-a.lynz-btn-primary {
+.lynz-btn-ghost,
+.lynz-btn-ghost-dark,
+.lynz-btn-dark {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    box-shadow: none !important;
+}
+
+.lynz-btn-primary .elementor-widget-container,
+.lynz-btn-ghost .elementor-widget-container,
+.lynz-btn-ghost-dark .elementor-widget-container,
+.lynz-btn-dark .elementor-widget-container,
+.lynz-btn-primary .elementor-button-wrapper,
+.lynz-btn-ghost .elementor-button-wrapper,
+.lynz-btn-ghost-dark .elementor-button-wrapper,
+.lynz-btn-dark .elementor-button-wrapper {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Reset Elementor's defaults on the <a> tag before applying brand styles.
+   Elementor sets outline, box-shadow, and background on .elementor-button. */
+.lynz-btn-primary .elementor-button,
+.lynz-btn-ghost .elementor-button,
+.lynz-btn-ghost-dark .elementor-button,
+.lynz-btn-dark .elementor-button {
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+/* Force font on the inner text span — doesn't always cascade reliably */
+.lynz-btn-primary .elementor-button-text,
+.lynz-btn-ghost .elementor-button-text,
+.lynz-btn-ghost-dark .elementor-button-text,
+.lynz-btn-dark .elementor-button-text {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.03em !important;
+}
+
+/* Primary — Gold fill */
+.lynz-btn-primary .elementor-button {
     background-color: var(--lynz-gold) !important;
     color: var(--lynz-white) !important;
     border: none !important;
     border-radius: 0 !important;
     padding: 0.9rem 2rem !important;
     font-family: var(--lynz-font-body) !important;
-    font-size: 0.9rem !important;
     font-weight: 600 !important;
-    letter-spacing: 0.03em !important;
-    text-decoration: none !important;
-    transition:
-        background var(--lynz-transition),
-        transform 0.15s !important;
-    display: inline-block;
+    transition: background-color 0.22s ease !important;
 }
 
-.lynz-btn-primary:hover,
-.lynz-btn-primary.elementor-button:hover,
-a.lynz-btn-primary:hover {
+.lynz-btn-primary .elementor-button:hover {
     background-color: var(--lynz-copper) !important;
     color: var(--lynz-white) !important;
-    transform: translateY(-1px);
 }
 
-/* Ghost — transparent with white border */
-.lynz-btn-ghost,
-.lynz-btn-ghost.elementor-button,
-a.lynz-btn-ghost {
+/* Ghost — transparent, white border */
+.lynz-btn-ghost .elementor-button {
     background-color: transparent !important;
     color: rgba(255, 255, 255, 0.75) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
     border-radius: 0 !important;
     padding: 0.9rem 2rem !important;
     font-family: var(--lynz-font-body) !important;
-    font-size: 0.9rem !important;
     font-weight: 500 !important;
-    letter-spacing: 0.03em !important;
-    text-decoration: none !important;
     transition:
-        border-color var(--lynz-transition),
-        color var(--lynz-transition) !important;
-    display: inline-block;
+        border-color 0.22s ease,
+        color 0.22s ease !important;
 }
 
-.lynz-btn-ghost:hover,
-.lynz-btn-ghost.elementor-button:hover,
-a.lynz-btn-ghost:hover {
-    border-color: rgba(255, 255, 255, 0.7) !important;
-    color: var(--lynz-white) !important;
+.lynz-btn-ghost .elementor-button:hover {
     background-color: transparent !important;
+    color: var(--lynz-white) !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
 }
 
-/* Dark ghost — for light backgrounds */
-.lynz-btn-ghost-dark,
-.lynz-btn-ghost-dark.elementor-button {
+/* Ghost Dark — for light backgrounds */
+.lynz-btn-ghost-dark .elementor-button {
     background-color: transparent !important;
     color: var(--lynz-midnight) !important;
     border: 1px solid var(--lynz-midnight) !important;
     border-radius: 0 !important;
     padding: 0.9rem 2rem !important;
+    font-family: var(--lynz-font-body) !important;
     font-weight: 500 !important;
-    font-size: 0.9rem !important;
     transition:
-        background var(--lynz-transition),
-        color var(--lynz-transition) !important;
+        background-color 0.22s ease,
+        color 0.22s ease !important;
 }
 
-.lynz-btn-ghost-dark:hover,
-.lynz-btn-ghost-dark.elementor-button:hover {
+.lynz-btn-ghost-dark .elementor-button:hover {
     background-color: var(--lynz-midnight) !important;
     color: var(--lynz-white) !important;
+    border-color: var(--lynz-midnight) !important;
 }
 
-/* Submit / dark fill */
-.lynz-btn-dark,
-.lynz-btn-dark.elementor-button {
+/* Prevent ALL button variants from stretching full-width in column containers */
+.lynz-btn-primary,
+.lynz-btn-ghost,
+.lynz-btn-ghost-dark,
+.lynz-btn-dark {
+    align-self: flex-start !important;
+    width: auto !important;
+}
+
+.lynz-btn-primary .elementor-button-wrapper,
+.lynz-btn-ghost .elementor-button-wrapper,
+.lynz-btn-ghost-dark .elementor-button-wrapper,
+.lynz-btn-dark .elementor-button-wrapper {
+    width: auto !important;
+}
+
+/* Dark fill — submit / alternate CTA */
+.lynz-btn-dark .elementor-button {
     background-color: var(--lynz-midnight) !important;
     color: var(--lynz-white) !important;
     border: none !important;
     border-radius: 0 !important;
     padding: 1rem 2rem !important;
+    font-family: var(--lynz-font-body) !important;
     font-weight: 600 !important;
-    font-size: 0.9rem !important;
-    transition: background var(--lynz-transition) !important;
+    transition: background-color 0.22s ease !important;
 }
 
-.lynz-btn-dark:hover,
-.lynz-btn-dark.elementor-button:hover {
+.lynz-btn-dark .elementor-button:hover {
     background-color: var(--lynz-steel) !important;
     color: var(--lynz-white) !important;
 }
@@ -562,7 +620,7 @@ a.lynz-btn-ghost:hover {
 
 .elementor-field-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: var(--lynz-slate) !important;
@@ -572,20 +630,78 @@ a.lynz-btn-ghost:hover {
 /* ============================================================
    7. HEADER & NAVIGATION
       Elementor Theme Builder > Header
-      Assign class "lynz-header" to the Section/Container.
+      Apply class "lynz-header" to the outer ROW Container.
+      Apply class "lynz-nav-links" to the Nav Menu widget.
+      Apply class "lynz-nav-cta" to the Button widget.
    ============================================================ */
 
-/* Sticky header via Elementor's Sticky option.
-   Elementor adds .elementor-sticky--active when scrolled. */
+/* Base header — transparent, transitions to dark on scroll.
+   overflow: visible allows the mobile dropdown to escape the
+   container bounds and overlay content below.
+   No explicit height — let content determine it naturally.
+   height: 64px caused Elementor's nav overflow JS to miscalculate
+   available space and collapse desktop links into the hamburger. */
 .lynz-header {
     background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    overflow: visible !important;
+    width: 100%;
     transition:
         background 0.3s ease,
         box-shadow 0.3s ease;
-    width: 100%;
 }
 
-/* Elementor applies this class on sticky scroll */
+/* Force nav items to stay horizontal at all desktop widths.
+   Prevents Elementor's overflow detection from collapsing links
+   into the mobile dropdown when the container height is natural. */
+.lynz-header .elementor-nav-menu--main > ul.elementor-nav-menu {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+}
+
+.lynz-header .elementor-nav-menu--main > ul.elementor-nav-menu > li {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Desktop: Elementor renders the hamburger toggle div in the DOM even when
+   breakpoint is set to Mobile — it inserts itself into the flex layout and
+   appears between nav items. Hide it above 767px explicitly.
+   High-specificity selectors needed to beat Elementor's own CSS which loads
+   after the child theme and re-shows it when --toggle class is present. */
+@media (min-width: 768px) {
+    .lynz-header .elementor-nav-menu--toggle .elementor-menu-toggle,
+    .lynz-header .elementor-nav-menu--burger .elementor-menu-toggle,
+    .lynz-header .elementor-widget-nav-menu .elementor-menu-toggle {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        pointer-events: none !important;
+    }
+
+    /* Ensure main nav is always visible and flex on desktop */
+    .lynz-header .elementor-nav-menu--toggle .elementor-nav-menu--main,
+    .lynz-header .elementor-nav-menu--burger .elementor-nav-menu--main,
+    .lynz-header .elementor-nav-menu--main {
+        display: flex !important;
+        visibility: visible !important;
+    }
+
+    /* Keep dropdown nav hidden on desktop */
+    .lynz-header .elementor-nav-menu--dropdown {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Elementor adds this class when sticky triggers on scroll */
 .lynz-header.elementor-sticky--active,
 .lynz-header.sticky-header {
     background: rgba(13, 27, 42, 0.97) !important;
@@ -595,7 +711,7 @@ a.lynz-btn-ghost:hover {
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* The section wrapping the nav should start dark on hero pages */
+/* Optional: always-dark header variant */
 .lynz-header-dark {
     background: var(--lynz-midnight);
 }
@@ -619,9 +735,11 @@ a.lynz-btn-ghost:hover {
     font-style: italic;
 }
 
-/* Nav menu items — target Elementor Nav Menu widget */
-.lynz-nav .elementor-nav-menu a,
-.lynz-nav .elementor-nav-menu--main .elementor-item {
+/* Desktop nav links — parent is .lynz-header, not .lynz-nav */
+.lynz-header .elementor-nav-menu a.elementor-item,
+.lynz-header .elementor-nav-menu a.elementor-item:visited,
+.lynz-header .elementor-nav-menu a.elementor-item:link,
+.lynz-header .elementor-nav-menu--main .elementor-item {
     font-family: var(--lynz-font-body) !important;
     font-size: 0.82rem !important;
     font-weight: 500 !important;
@@ -629,36 +747,155 @@ a.lynz-btn-ghost:hover {
     letter-spacing: 0.04em !important;
     text-decoration: none !important;
     transition: color var(--lynz-transition) !important;
-    padding: 0.5rem 0 !important;
+    padding: 0.5rem 0.75rem !important;
 }
 
-.lynz-nav .elementor-nav-menu a:hover,
-.lynz-nav .elementor-nav-menu--main .elementor-item:hover,
-.lynz-nav .elementor-nav-menu--main .elementor-item.elementor-item-active {
+.lynz-header .elementor-nav-menu a.elementor-item:hover,
+.lynz-header .elementor-nav-menu a.elementor-item:focus,
+.lynz-header .elementor-nav-menu a.elementor-item.elementor-item-active,
+.lynz-header .elementor-nav-menu--main .elementor-item:hover,
+.lynz-header .elementor-nav-menu--main .elementor-item.elementor-item-active {
     color: var(--lynz-white) !important;
 }
 
-/* Nav CTA button — add class lynz-nav-cta to the Button widget */
-.lynz-nav-cta.elementor-button-wrapper .elementor-button,
-.lynz-nav-cta .elementor-button {
-    background: var(--lynz-gold) !important;
+/* Nav CTA button */
+.lynz-nav-cta .elementor-widget-container,
+.lynz-nav-cta .elementor-button-wrapper {
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.lynz-nav-cta .elementor-button,
+.lynz-header .lynz-nav-cta .elementor-button {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: var(--lynz-gold) !important;
     color: var(--lynz-white) !important;
+    border: none !important;
     border-radius: 0 !important;
     padding: 0.55rem 1.4rem !important;
+    font-family: var(--lynz-font-body) !important;
     font-size: 0.82rem !important;
     font-weight: 600 !important;
+    transition: background-color 0.22s ease !important;
+}
+
+.lynz-nav-cta .elementor-button:hover,
+.lynz-header .lynz-nav-cta .elementor-button:hover {
+    background-color: var(--lynz-copper) !important;
+    color: var(--lynz-white) !important;
+}
+
+/* Nav widget container — strip Elementor's border at ALL screen sizes.
+   The .elementor-widget-container inside the nav menu widget receives
+   a border from Elementor's compiled CSS that creates the outer grey
+   rectangle around the hamburger on mobile. Must be outside any media
+   query to load unconditionally and beat Elementor's own rules. */
+.lynz-header .elementor-widget-nav-menu .elementor-widget-container {
     border: none !important;
-    transition: background var(--lynz-transition) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
 }
 
-.lynz-nav-cta .elementor-button:hover {
-    background: var(--lynz-copper) !important;
+/* Hamburger toggle — mobile only.
+   These rules are scoped to max-width: 767px so they never
+   re-show the toggle on desktop where display:none must win. */
+@media (max-width: 767px) {
+    /* Strip any border/outline from the outer widget wrapper and container —
+       Elementor applies styling to .elementor-nav-menu--toggle (the widget
+       div) which creates the outer grey rectangle visible in the double-border */
+    .lynz-header .elementor-widget-nav-menu,
+    .lynz-header .elementor-widget-nav-menu .elementor-widget-container {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    .lynz-header .elementor-nav-menu--toggle,
+    .lynz-header .elementor-menu-toggle {
+        color: rgba(255, 255, 255, 0.7) !important;
+        background: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        outline: none !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        box-shadow: none !important;
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Kill focus ring on tap/click */
+    .lynz-header .elementor-menu-toggle:focus,
+    .lynz-header .elementor-menu-toggle:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .lynz-header .elementor-menu-toggle:hover {
+        border-color: rgba(255, 255, 255, 0.35) !important;
+        color: var(--lynz-white) !important;
+    }
+
+    .lynz-header .elementor-menu-toggle i,
+    .lynz-header .elementor-menu-toggle svg {
+        color: inherit !important;
+        fill: currentColor !important;
+        font-size: 1.1rem !important;
+    }
 }
 
-/* Mobile hamburger on dark bg */
-.lynz-nav .elementor-nav-menu--toggle,
-.lynz-nav .elementor-menu-toggle {
-    color: rgba(255, 255, 255, 0.7) !important;
+/* Mobile dropdown — absolute positioned so it overlays content below.
+   overflow: visible on .lynz-header allows this to escape the container. */
+.lynz-header .elementor-nav-menu--dropdown,
+.lynz-header .elementor-nav-menu--dropdown.elementor-nav-menu__container {
+    position: absolute !important;
+    top: 64px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    background-color: var(--lynz-midnight) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+    z-index: 9998 !important;
+    padding: 0.5rem 0 1rem !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    padding: 0.85rem 2rem !important;
+    display: block !important;
+    width: 100% !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    letter-spacing: 0.02em !important;
+    text-decoration: none !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item:last-child {
+    border-bottom: none !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item:hover,
+.lynz-header .elementor-nav-menu--dropdown .elementor-item.elementor-item-active {
+    color: var(--lynz-white) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Keep the "Let's Talk" CTA visible at all mobile breakpoints */
+@media (max-width: 767px) {
+    .lynz-nav-cta {
+        display: flex !important;
+    }
 }
 
 /* ============================================================
@@ -672,6 +909,24 @@ a.lynz-btn-ghost:hover {
     background-color: var(--lynz-midnight);
     position: relative;
     overflow: hidden;
+    padding: 7rem 0 !important;
+}
+
+/* Hero H1 — target the actual Elementor heading widget title element */
+.lynz-hero .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-weight: 800 !important;
+    font-size: clamp(3rem, 5.5vw, 4.75rem) !important;
+    line-height: 1.0 !important;
+    letter-spacing: -0.03em !important;
+    color: var(--lynz-white) !important;
+}
+
+/* Gold italic treatment for <em> inside the H1 */
+.lynz-hero .elementor-heading-title em,
+.lynz-hero .elementor-heading-title .lynz-gold-italic {
+    color: var(--lynz-gold) !important;
+    font-style: italic !important;
 }
 
 /* Radial gradient overlay — apply as CSS background on the section */
@@ -777,7 +1032,7 @@ a.lynz-btn-ghost:hover {
 }
 
 .lynz-stat-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.45);
     margin-top: 0.4rem;
     line-height: 1.5;
@@ -786,6 +1041,8 @@ a.lynz-btn-ghost:hover {
 /* ============================================================
    9. TRUST BAR
       Section class: lynz-trust-bar
+      Content Width: Full Width (e-con-full) — important.
+      Interior HTML widget uses .trust-row / .trust-item classes.
    ============================================================ */
 
 .lynz-trust-bar {
@@ -795,6 +1052,74 @@ a.lynz-btn-ghost:hover {
     padding: 1.5rem 0 !important;
 }
 
+/* e-con-full: Elementor doesn't add .e-con-inner, so the widget
+   div is a direct flex child — force it to fill the full row */
+.lynz-trust-bar.e-con-full {
+    align-items: stretch !important;
+}
+
+.lynz-trust-bar .elementor-widget-html {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+}
+
+.lynz-trust-bar .elementor-widget-container {
+    width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+/* The flex row inside the HTML widget */
+.trust-row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.trust-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-right: 1px solid #e8e3d8;
+}
+
+.trust-item:last-child {
+    border-right: none;
+}
+
+.trust-num {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.9rem;
+    letter-spacing: -0.03em;
+    color: var(--lynz-midnight);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.trust-num em {
+    color: var(--lynz-gold);
+    font-style: normal;
+}
+
+.trust-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    line-height: 1.55;
+}
+
+/* Legacy: lynz-trust-item used by icon list widgets (not the HTML widget) */
 .lynz-trust-bar .elementor-widget-text-editor p {
     font-size: 0.85rem;
     color: var(--lynz-slate);
@@ -802,7 +1127,6 @@ a.lynz-btn-ghost:hover {
     margin: 0;
 }
 
-/* Checkmark before each trust item — add class lynz-trust-item to icon list items */
 .lynz-trust-item {
     font-size: 0.85rem;
     color: var(--lynz-slate);
@@ -819,6 +1143,23 @@ a.lynz-btn-ghost:hover {
     font-weight: 700;
 }
 
+@media (max-width: 767px) {
+    .trust-row {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .trust-item {
+        border-right: none;
+        border-bottom: 1px solid #e8e3d8;
+        padding: 1rem 1.5rem;
+    }
+
+    .trust-item:last-child {
+        border-bottom: none;
+    }
+}
+
 /* ============================================================
    10. SERVICES SECTION
        Section class: lynz-services
@@ -827,6 +1168,19 @@ a.lynz-btn-ghost:hover {
 
 .lynz-services {
     background: var(--lynz-white);
+    padding: 7rem 0 !important;
+}
+
+/* Section intro paragraph — constrain width and prevent flex stretch.
+   Class is on the widget wrapper div which is a flex child — needs
+   align-self: flex-start to not stretch to full container width. */
+.section-intro {
+    max-width: 560px !important;
+    align-self: flex-start !important;
+}
+
+.section-intro .elementor-widget-container {
+    max-width: 560px !important;
 }
 
 /* The card container */
@@ -864,7 +1218,7 @@ a.lynz-btn-ghost:hover {
 /* Service number label */
 .lynz-service-num {
     font-family: var(--lynz-font-mono);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--lynz-mist);
@@ -917,6 +1271,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-difference {
     background-color: var(--lynz-midnight);
+    padding: 7rem 0 !important;
 }
 
 /* Overrides for text inside dark section */
@@ -966,7 +1321,7 @@ a.lynz-btn-ghost:hover {
 }
 
 .lynz-diff-item .lynz-item-body {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.45);
     line-height: 1.7;
 }
@@ -999,6 +1354,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-process {
     background: var(--lynz-paper);
+    padding: 7rem 0 !important;
 }
 
 .lynz-process-step {
@@ -1076,6 +1432,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-audience {
     background: var(--lynz-white);
+    padding: 7rem 0 !important;
 }
 
 /* Primary card (Marketing Manager) */
@@ -1117,7 +1474,7 @@ a.lynz-btn-ghost:hover {
 /* Persona label above the heading */
 .lynz-persona-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     margin-bottom: 0.75rem !important;
@@ -1133,7 +1490,7 @@ a.lynz-btn-ghost:hover {
 /* Pain points sub-section */
 .lynz-pain-label {
     font-family: var(--lynz-font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-top: 1.5rem;
@@ -1169,6 +1526,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-testimonials {
     background: var(--lynz-cream);
+    padding: 7rem 0 !important;
 }
 
 .lynz-testi-card {
@@ -1242,7 +1600,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-contact-form .elementor-field-group label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: var(--lynz-slate) !important;
@@ -1301,7 +1659,7 @@ a.lynz-btn-ghost:hover {
 .lynz-contact-info-block h3,
 .lynz-contact-info-block .elementor-heading-title {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -1349,6 +1707,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-cta {
     background-color: var(--lynz-midnight);
+    padding: 5.5rem 0 !important;
 }
 
 .lynz-cta .elementor-widget-heading .elementor-heading-title {
@@ -1368,7 +1727,7 @@ a.lynz-btn-ghost:hover {
     font-size: 0.6rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.55);
 }
 
 /* Brand promise callout block */
@@ -1392,90 +1751,124 @@ a.lynz-btn-ghost:hover {
        Section class: lynz-footer
    ============================================================ */
 
+/* ═══════════════════════════════════════════════════════
+   SECTION: lynz-footer
+   Written against actual Elementor Flexbox Container output
+═══════════════════════════════════════════════════════ */
+
 .lynz-footer {
     background-color: var(--lynz-midnight);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 4rem 0 3rem;
 }
 
-/* Footer logo */
-.lynz-footer .lynz-nav-logo,
-.lynz-footer-logo {
-    font-family: var(--lynz-font-display) !important;
-    font-weight: 800 !important;
-    font-size: 1.6rem !important;
-    text-decoration: none !important;
-    letter-spacing: -0.02em !important;
-    line-height: 1 !important;
+/* The e-con-inner is the actual flex row — space columns out */
+.lynz-footer > .e-con-inner {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
 }
 
-.lynz-footer-logo .lynz {
-    color: var(--lynz-white);
-}
-.lynz-footer-logo .addy {
-    color: var(--lynz-gold);
-    font-style: italic;
-}
-
-/* Footer brand description */
-.lynz-footer-brand .elementor-widget-text-editor p {
-    font-size: 0.875rem !important;
-    color: rgba(255, 255, 255, 0.38) !important;
-    line-height: 1.7 !important;
+/* Brand column — first e-con-full child gets more width */
+.lynz-footer > .e-con-inner > .e-con-full:first-child {
+    flex: 0 0 32%;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Footer column headings */
-.lynz-footer-col .elementor-widget-heading .elementor-heading-title {
-    font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
-    letter-spacing: 0.16em !important;
-    text-transform: uppercase !important;
-    color: rgba(255, 255, 255, 0.3) !important;
-    font-weight: 500 !important;
-    margin-bottom: 1.25rem !important;
+/* Other columns — equal width */
+.lynz-footer > .e-con-inner > .e-con-full:not(:first-child) {
+    flex: 1;
+    gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Footer nav links */
-.lynz-footer-col .elementor-widget-nav-menu a,
-.lynz-footer-col .elementor-nav-menu a,
-.lynz-footer-col .elementor-widget-icon-list .elementor-icon-list-text {
-    font-size: 0.875rem !important;
-    color: rgba(255, 255, 255, 0.45) !important;
-    transition: color var(--lynz-transition) !important;
-    text-decoration: none !important;
+/* Logo image sizing */
+.lynz-footer .elementor-widget-image img {
+    width: 160px;
+    height: auto;
+    display: block;
 }
 
-.lynz-footer-col .elementor-widget-nav-menu a:hover,
-.lynz-footer-col .elementor-nav-menu a:hover,
-.lynz-footer-col .elementor-widget-icon-list .elementor-icon-list-item:hover .elementor-icon-list-text {
-    color: var(--lynz-gold) !important;
+/* Tagline / brand description text */
+.lynz-footer .elementor-widget-text-editor .elementor-widget-container,
+.lynz-footer .elementor-widget-text-editor .elementor-widget-container p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--lynz-mist);
+    font-weight: 400;
 }
 
-.lynz-footer-col .elementor-widget-icon-list .elementor-icon-list-item {
-    padding: 0.35rem 0 !important;
-    border: none !important;
+/* Column headings — lynz-footer-col-head is on the widget div,
+   h6 is inside elementor-widget-container */
+.lynz-footer .lynz-footer-col-head .elementor-widget-container h6.elementor-heading-title,
+.lynz-footer .lynz-footer-col-head .elementor-widget-container h5.elementor-heading-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lynz-copper);
+    margin-bottom: 0.75rem;
 }
 
-.lynz-footer-col .elementor-icon-list-icon {
-    display: none !important;
+/* Footer link lists (your HTML widget ul/li content) */
+.lynz-footer .elementor-widget-html .elementor-widget-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
 }
 
-/* Footer bottom bar */
+.lynz-footer .elementor-widget-html .elementor-widget-container a {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.lynz-footer .elementor-widget-html .elementor-widget-container a:hover {
+    color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION: lynz-footer-bottom
+═══════════════════════════════════════════════════════ */
+
 .lynz-footer-bottom {
+    background-color: var(--lynz-midnight);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 1.5rem 0 !important;
+    padding: 1.25rem 0;
 }
 
-.lynz-footer-bottom .elementor-widget-text-editor p {
-    font-family: var(--lynz-font-mono) !important;
-    font-size: 0.6rem !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    color: rgba(255, 255, 255, 0.2) !important;
-    margin: 0 !important;
+/* The inner flex row — space-between the two HTML widgets */
+.lynz-footer-bottom > .e-con-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.lynz-footer-bottom strong,
-.lynz-footer-bottom b {
+/* Both copyright spans */
+.lynz-footer-bottom .elementor-widget-container span.footer-copy {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    line-height: 1;
+}
+
+.lynz-footer-bottom .elementor-widget-container span.footer-copy strong {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
     color: var(--lynz-gold) !important;
 }
 
@@ -1572,6 +1965,36 @@ a.lynz-btn-ghost:hover {
         --lynz-section-pad: 4rem 0;
     }
 
+    /* Global horizontal padding for all boxed section containers on mobile.
+       Elementor's e-con-boxed sets padding: 0 which causes content to bleed
+       to screen edges. 1.25rem matches the comp's mobile breathing room. */
+    .e-con-boxed > .e-con-inner {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    /* Footer containers */
+    .lynz-footer > .e-con-inner,
+    .lynz-footer-bottom > .e-con-inner {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    /* Footer columns stack vertically */
+    .lynz-footer > .e-con-inner > .e-con-full {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    /* Footer bottom — stack copyright lines vertically */
+    .lynz-footer-bottom > .e-con-inner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+    }
+
     .lynz-hero {
         min-height: 100svh;
     }
@@ -1596,6 +2019,24 @@ a.lynz-btn-ghost:hover {
 
     .lynz-stat-card {
         margin-bottom: 1rem;
+    }
+
+    /* Service card grid — stack to single column on mobile */
+    .service-card-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Testimonials — stack vertically on mobile */
+    .testi-grid.e-flex,
+    .testi-grid.e-con {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .testi-grid.e-flex > .e-con,
+    .testi-grid.e-con > .e-con {
+        width: 100% !important;
+        flex: none !important;
     }
 }
 
@@ -1705,7 +2146,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-logo-slot-text {
     font-family: var(--lynz-font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--lynz-mist);
@@ -1770,7 +2211,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-clients-note {
     font-family: var(--lynz-font-mono);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--lynz-mist);
@@ -1789,7 +2230,7 @@ a.lynz-btn-ghost:hover {
 
 .lynz-clients-cta {
     font-family: var(--lynz-font-mono);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--lynz-anchor);
@@ -2065,7 +2506,7 @@ a.lynz-btn-ghost:hover {
 /* Breadcrumb */
 .lynz-breadcrumb {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.2em !important;
     text-transform: uppercase !important;
     color: rgba(255, 255, 255, 0.3) !important;
@@ -2096,7 +2537,7 @@ a.lynz-btn-ghost:hover {
 /* Hero meta row — stat items stacked */
 .lynz-hero-meta-item .lynz-meta-label {
     font-family: var(--lynz-font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.25);
@@ -2185,7 +2626,7 @@ a.lynz-btn-ghost:hover {
 .lynz-industry-tag,
 .lynz-industry-tag.elementor-button {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
     color: var(--lynz-slate) !important;
@@ -2235,7 +2676,7 @@ a.lynz-btn-ghost:hover {
 /* Project index label */
 .lynz-project-index {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.18em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -2301,7 +2742,7 @@ a.lynz-btn-ghost:hover {
 .lynz-ps-problem .elementor-heading-title,
 .lynz-ps-solution .elementor-heading-title {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.16em !important;
     text-transform: uppercase !important;
     font-weight: 500 !important;
@@ -2326,7 +2767,7 @@ a.lynz-btn-ghost:hover {
 /* Tech label above pills */
 .lynz-tech-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -2365,7 +2806,7 @@ a.lynz-project-link {
     align-items: center !important;
     gap: 0.6rem !important;
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: var(--lynz-midnight) !important;
@@ -2781,7 +3222,7 @@ a.lynz-project-link:hover {
 /* Role label */
 .lynz-persona-role {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.16em !important;
     text-transform: uppercase !important;
     margin-bottom: 0.6rem;
@@ -3124,7 +3565,7 @@ a.lynz-project-link:hover {
 /* Step label above step name */
 .lynz-step-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.55rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.16em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3414,7 +3855,7 @@ a.lynz-project-link:hover {
 
 .lynz-svc-nav-num {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.55rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3586,7 +4027,7 @@ a.lynz-project-link:hover {
 /* "Good fit if" footer note */
 .lynz-svc-item-fit {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3707,7 +4148,7 @@ a.lynz-project-link:hover {
 
 .lynz-btn-sm-ghost {
     font-family: var(--lynz-font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--lynz-mist);
@@ -3735,7 +4176,7 @@ a.lynz-project-link:hover {
 
 .lynz-tier-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.16em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3770,7 +4211,7 @@ a.lynz-project-link:hover {
 
 .lynz-tier-badge {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.55rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3831,7 +4272,7 @@ a.lynz-project-link:hover {
 
 .lynz-engagement-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.16em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -3878,7 +4319,7 @@ a.lynz-project-link:hover {
 
 .lynz-eng-type {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -4389,7 +4830,7 @@ a.lynz-project-link:hover {
 /* "Who's asking" micro-label */
 .lynz-step-asker {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     margin-bottom: 0.5rem;
@@ -4705,7 +5146,7 @@ a.lynz-project-link:hover {
 
 .lynz-connector-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.55rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
 }
@@ -4812,7 +5253,7 @@ a.lynz-project-link:hover {
 
 .lynz-tl-phase {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.55rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: rgba(255, 255, 255, 0.25) !important;
@@ -4841,7 +5282,7 @@ a.lynz-project-link:hover {
     padding-top: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
     color: rgba(255, 255, 255, 0.2) !important;
@@ -4892,7 +5333,7 @@ a.lynz-project-link:hover {
 /* Column labels */
 .lynz-cell-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.52rem !important;
+    font-size: 0.70rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     margin-bottom: 0.5rem;
@@ -5486,7 +5927,7 @@ a.lynz-project-link:hover {
 /* ── Sublabel (used in name/address fields) ── */
 .lynz-contact-form .wpforms-field .wpforms-field-sublabel {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.52rem !important;
+    font-size: 0.70rem !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -5510,7 +5951,7 @@ a.lynz-project-link:hover {
 
 .lynz-contact-form .wpforms-field-divider label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     color: var(--lynz-mist) !important;
@@ -5584,7 +6025,7 @@ a.lynz-project-link:hover {
     content: "No spam. No pitch decks. Just a conversation.";
     display: block;
     font-family: var(--lynz-font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--lynz-mist);
@@ -5761,7 +6202,7 @@ a.lynz-project-link:hover {
 
 .lynz-trust-label {
     font-family: var(--lynz-font-mono) !important;
-    font-size: 0.58rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.12em !important;
     text-transform: uppercase !important;
     color: rgba(255, 255, 255, 0.3) !important;
@@ -5900,3 +6341,2623 @@ a.lynz-project-link:hover {
    </div>
 
    ============================================================ */
+
+/* ============================================================
+   HTML WIDGET INTERIOR CLASSES — COMPREHENSIVE
+   ─────────────────────────────────────────────────────────
+   These classes are used inside HTML widgets throughout the
+   site. They match the class names in the HTML comp files
+   exactly — use them as-is when pasting comp HTML into
+   Elementor HTML widgets. No lynz- prefix needed on these.
+
+   Sections: 22 · 23 · 24 · 25 · 26 · 27 · 28 · 29 ·
+             32 · 33 · 34 · 35 · 36 · 37 · 39 · 40 ·
+             41 · 42 · 43 · 44 · 45 · 46 · 47 · 48 ·
+             50 · 51
+   ============================================================ */
+
+
+/* ─── 22. STATS BAR interior (HTML widget inside lynz-stats-bar) ─── */
+
+.stats-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.stat-item { text-align: center; }
+
+.stat-num {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--lynz-white);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.stat-num em {
+    color: var(--lynz-gold);
+    font-style: normal;
+}
+
+.stat-desc {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 0.4rem;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    align-self: center;
+}
+
+
+/* ─── 23. INDUSTRY TAGS interior (HTML widget inside lynz-industries) ─── */
+
+.industries-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.industries-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.industries-tags {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.industry-tag {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lynz-slate);
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--lynz-rule);
+    background: var(--lynz-white);
+    transition: border-color var(--lynz-transition), color var(--lynz-transition);
+    cursor: default;
+}
+
+.industry-tag:hover {
+    border-color: var(--lynz-gold);
+    color: var(--lynz-copper);
+}
+
+
+/* ─── 24. FEATURED PROJECTS interior (HTML widgets inside lynz-projects) ─── */
+
+.project {
+    padding: 5rem 0;
+    border-top: 1px solid var(--lynz-rule);
+    display: grid;
+    gap: 4rem;
+    align-items: center;
+}
+
+.project:last-child { border-bottom: 1px solid var(--lynz-rule); }
+
+.project--visual-left { grid-template-columns: 1.1fr 1fr; }
+.project--visual-right { grid-template-columns: 1fr 1.1fr; }
+.project--visual-right .project-visual { order: 2; }
+.project--visual-right .project-content { order: 1; }
+
+.project-visual { position: relative; }
+
+.project-visual::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px;
+    width: 32px; height: 32px;
+    border-top: 2px solid var(--lynz-gold);
+    border-left: 2px solid var(--lynz-gold);
+    z-index: 1;
+}
+
+.project--visual-right .project-visual::before {
+    left: auto; right: -8px;
+    border-left: none;
+    border-right: 2px solid var(--lynz-gold);
+}
+
+.project-screen {
+    position: relative;
+    background: var(--lynz-midnight);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.project-screen-chrome {
+    background: #1a2535;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chrome-dot { width: 9px; height: 9px; border-radius: 50%; }
+.chrome-dot:nth-child(1) { background: #FF5F57; }
+.chrome-dot:nth-child(2) { background: #FEBC2E; }
+.chrome-dot:nth-child(3) { background: #28C840; }
+
+.chrome-bar {
+    flex: 1;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    margin: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+}
+
+.chrome-url {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 0.05em;
+}
+
+.project-screen-body {
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-index {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.project-index::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--lynz-gold);
+}
+
+.project-client {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--lynz-midnight);
+    margin-bottom: 0.35rem;
+}
+
+.project-tagline {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--lynz-mist);
+    margin-bottom: 1.75rem;
+    font-family: var(--lynz-font-display);
+    font-weight: 700;
+}
+
+.project-ps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.ps-block {
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--lynz-rule);
+    transition: border-color var(--lynz-transition);
+}
+
+.ps-block:hover { border-color: var(--lynz-gold); }
+.ps-block--problem { border-color: rgba(192, 57, 43, 0.25); }
+.ps-block--solution { border-color: rgba(44, 95, 138, 0.35); }
+
+.ps-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.45rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ps-block--problem .ps-label { color: #C0392B; }
+.ps-block--solution .ps-label { color: var(--lynz-anchor); }
+
+.ps-text {
+    font-size: 0.9rem;
+    color: var(--lynz-slate);
+    line-height: 1.75;
+}
+
+.project-tech { margin-bottom: 1.75rem; }
+
+.tech-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-bottom: 0.65rem;
+}
+
+.tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tech-pill {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.7rem;
+    background: var(--lynz-light);
+    color: var(--lynz-anchor);
+    border: 1px solid var(--lynz-rule);
+    transition:
+        background var(--lynz-transition),
+        border-color var(--lynz-transition),
+        color var(--lynz-transition);
+    cursor: default;
+}
+
+.tech-pill:hover {
+    background: var(--lynz-midnight);
+    color: var(--lynz-gold);
+    border-color: var(--lynz-midnight);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lynz-midnight);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--lynz-midnight);
+    transition: color var(--lynz-transition), border-color var(--lynz-transition);
+}
+
+.project-link:hover {
+    color: var(--lynz-gold);
+    border-color: var(--lynz-gold);
+}
+
+
+/* ─── 25. ALL CLIENTS interior (HTML widget inside lynz-all-clients) ─── */
+
+.clients-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.clients-count {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.06);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.clients-columns {
+    columns: 5;
+    column-gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.client-name {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1.5rem 0.6rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    break-inside: avoid;
+    display: block;
+    transition: color var(--lynz-transition);
+    line-height: 1.4;
+}
+
+.client-name:hover { color: var(--lynz-gold); }
+
+.client-letter {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.12);
+    padding: 1rem 1.5rem 0.4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    break-inside: avoid;
+    display: block;
+    letter-spacing: -0.01em;
+    cursor: default;
+}
+
+.clients-footer-note {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.clients-footer-note::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--lynz-gold);
+}
+
+
+/* ─── 26. WORK PAGE CTA interior ─── */
+
+.cta-box {
+    border: 1px solid var(--lynz-rule);
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--lynz-gold);
+}
+
+.cta-box-tag {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lynz-copper);
+    margin-bottom: 1rem;
+}
+
+.cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+/* ─── 27. TWO-LANGUAGE PERSONAS interior (HTML widgets inside lynz-two-languages) ─── */
+
+.tl-intro {
+    max-width: 640px;
+    margin-bottom: 4rem;
+}
+
+.tl-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--lynz-rule);
+    position: relative;
+}
+
+.tl-bridge {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: var(--lynz-midnight);
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--lynz-gold);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+
+.tl-bridge span {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--lynz-gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.persona-card {
+    background: var(--lynz-white);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: background var(--lynz-transition);
+}
+
+.persona-card:hover { background: var(--lynz-paper); }
+
+.persona-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+}
+
+.persona-card.marketing::before {
+    background: linear-gradient(90deg, var(--lynz-anchor), var(--lynz-steel));
+}
+
+.persona-card.it::before {
+    background: linear-gradient(90deg, var(--lynz-copper), var(--lynz-gold));
+}
+
+.persona-role {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.persona-card.marketing .persona-role { color: var(--lynz-anchor); }
+.persona-card.it .persona-role { color: var(--lynz-copper); }
+
+.persona-title {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--lynz-midnight);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+}
+
+.persona-pain {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+}
+
+.pain-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: var(--lynz-slate);
+    line-height: 1.65;
+}
+
+.pain-icon {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+}
+
+.persona-card.marketing .pain-icon {
+    background: rgba(44, 95, 138, 0.12);
+    color: var(--lynz-anchor);
+}
+
+.persona-card.it .pain-icon {
+    background: rgba(184, 112, 42, 0.12);
+    color: var(--lynz-copper);
+}
+
+.persona-resolution {
+    padding: 1.1rem 1.25rem;
+    border-left: 2px solid var(--lynz-rule);
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--lynz-mist);
+    line-height: 1.65;
+    transition: border-color var(--lynz-transition);
+}
+
+.persona-card:hover .persona-resolution { border-color: var(--lynz-gold); }
+.persona-resolution strong { color: var(--lynz-midnight); font-style: normal; }
+
+
+/* ─── 28. THE DIFFERENCE — VALUES GRID interior ─── */
+
+.diff-header { margin-bottom: 4rem; }
+
+.diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.diff-item {
+    padding: 2.5rem;
+    background: var(--lynz-midnight);
+    position: relative;
+    transition: background var(--lynz-transition);
+}
+
+.diff-item:hover { background: #111e2d; }
+
+.diff-num {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 1.25rem;
+    display: block;
+}
+
+.diff-heading {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    color: var(--lynz-white);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+}
+
+.diff-heading em { color: var(--lynz-gold); font-style: italic; }
+
+.diff-body {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.75;
+}
+
+.diff-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px; width: 0;
+    background: var(--lynz-gold);
+    transition: width 0.35s ease;
+}
+
+.diff-item:hover::after { width: 100%; }
+
+
+/* ─── 29. FOUNDER SECTION interior ─── */
+
+.founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.founder-name-block {
+    position: sticky;
+    top: 100px;
+}
+
+.name-display {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+}
+
+.name-lynz {
+    font-size: clamp(3.5rem, 5.5vw, 5rem);
+    color: var(--lynz-midnight);
+    display: block;
+}
+
+.name-addy {
+    font-size: clamp(3.5rem, 5.5vw, 5rem);
+    color: var(--lynz-gold);
+    font-style: italic;
+    display: block;
+}
+
+.name-annotation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 2.5rem;
+}
+
+.name-annotation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--lynz-slate);
+    line-height: 1.6;
+}
+
+.name-annotation-item strong {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--lynz-midnight);
+    display: block;
+    margin-bottom: 0.1rem;
+}
+
+
+/* ─── 32. SERVICE ANCHOR NAV interior ─── */
+
+.service-nav-inner {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-nav-inner::-webkit-scrollbar { display: none; }
+
+.svc-nav-item {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    border-right: 1px solid var(--lynz-rule);
+    border-bottom: 3px solid transparent;
+    transition: all var(--lynz-transition);
+    gap: 0.4rem;
+    text-align: center;
+}
+
+.svc-nav-item:last-child { border-right: none; }
+.svc-nav-item:hover { background: var(--lynz-paper); border-bottom-color: var(--lynz-gold); }
+.svc-nav-item.active { border-bottom-color: var(--lynz-midnight); background: var(--lynz-paper); }
+
+.svc-nav-num {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+}
+
+.svc-nav-label {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    color: var(--lynz-midnight);
+    font-style: italic;
+}
+
+
+/* ─── 33. SERVICE SECTION SHARED LAYOUT interior ─── */
+
+.svc-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--lynz-rule);
+}
+
+.svc-big-num {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 8rem;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: rgba(0, 0, 0, 0.04);
+    pointer-events: none;
+    flex-shrink: 0;
+    align-self: flex-end;
+    margin-bottom: -0.5rem;
+}
+
+.svc-header-right h2 { margin-bottom: 0.75rem; }
+
+
+/* ─── 34. SERVICE SUB-ITEMS GRID interior ─── */
+
+.svc-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--lynz-rule);
+    margin-bottom: 3rem;
+}
+
+.svc-item {
+    background: var(--lynz-white);
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: background var(--lynz-transition);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.svc-item:hover { background: var(--lynz-paper); }
+
+.svc-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--lynz-rule);
+    transition: background var(--lynz-transition);
+}
+
+.svc-item:hover::before { background: var(--lynz-gold); }
+
+.svc-item-icon {
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lynz-light);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-bottom: 0.25rem;
+    transition: background var(--lynz-transition);
+}
+
+.svc-item:hover .svc-item-icon { background: var(--lynz-midnight); }
+
+.svc-item-name {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--lynz-midnight);
+    line-height: 1.2;
+}
+
+.svc-item-desc {
+    font-size: 0.85rem;
+    color: var(--lynz-slate);
+    line-height: 1.7;
+    flex: 1;
+}
+
+.svc-item-fit {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--lynz-rule);
+    line-height: 1.6;
+}
+
+.svc-item-fit strong { color: var(--lynz-copper); }
+
+
+/* ─── 35. SERVICE CALLOUT BARS interior ─── */
+
+.svc-callout {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.svc-callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+}
+
+.svc-callout-text { flex: 1; }
+
+.svc-callout-text strong {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.svc-callout-text p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.svc-callout-action {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* WordPress callout */
+.wp-callout { background: var(--lynz-midnight); }
+.wp-callout::before { background: var(--lynz-anchor); }
+.wp-callout .svc-callout-text strong { color: var(--lynz-white); }
+.wp-callout .svc-callout-text p { color: rgba(255, 255, 255, 0.45); }
+
+/* Hosting callout */
+.hosting-callout { background: var(--lynz-steel); }
+.hosting-callout::before { background: var(--lynz-gold); }
+.hosting-callout .svc-callout-text strong { color: var(--lynz-white); }
+.hosting-callout .svc-callout-text p { color: rgba(255, 255, 255, 0.45); }
+
+
+/* ─── 36. HOSTING TIER CARDS interior ─── */
+
+.hosting-tiers { margin-bottom: 3rem; }
+
+.hosting-tiers-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.hosting-tiers-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--lynz-rule);
+}
+
+.tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--lynz-rule);
+}
+
+.tier-card {
+    background: var(--lynz-white);
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: background var(--lynz-transition);
+}
+
+.tier-card:hover { background: var(--lynz-paper); }
+.tier-card.tier-featured { background: var(--lynz-midnight); }
+.tier-card.tier-featured:hover { background: var(--lynz-steel); }
+
+.tier-badge {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.tier-card.tier-featured .tier-badge { color: var(--lynz-gold); }
+
+.tier-name {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    color: var(--lynz-midnight);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.tier-card.tier-featured .tier-name { color: var(--lynz-white); }
+
+.tier-desc {
+    font-size: 0.85rem;
+    color: var(--lynz-slate);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+}
+
+.tier-card.tier-featured .tier-desc { color: rgba(255, 255, 255, 0.45); }
+
+.tier-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid var(--lynz-rule);
+    padding-top: 1.25rem;
+}
+
+.tier-card.tier-featured .tier-includes { border-color: rgba(255, 255, 255, 0.1); }
+
+.tier-includes li {
+    font-size: 0.82rem;
+    color: var(--lynz-slate);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.tier-card.tier-featured .tier-includes li { color: rgba(255, 255, 255, 0.55); }
+
+.tier-includes li::before {
+    content: '✓';
+    color: var(--lynz-gold);
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+
+/* ─── 39-40. PROCESS HERO + WHY IT MATTERS interior ─── */
+
+.hero-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.hero-step-pill {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: none;
+    transition: all var(--lynz-transition);
+}
+
+.hero-step-pill:last-child { border-right: 1px solid rgba(255, 255, 255, 0.1); }
+.hero-step-pill em { color: var(--lynz-gold); font-style: italic; font-family: var(--lynz-font-display); font-size: 0.8rem; font-weight: 800; }
+.hero-step-pill:hover { background: rgba(255, 255, 255, 0.05); color: var(--lynz-white); }
+
+.wm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.wm-problems {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: #DDD8CF;
+}
+
+.wm-problem {
+    background: var(--lynz-cream);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: background var(--lynz-transition);
+}
+
+.wm-problem:hover { background: #EDE7DA; }
+
+.wm-problem::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--lynz-gold);
+    transition: width 0.3s ease;
+}
+
+.wm-problem:hover::before { width: 2px; }
+
+.wm-problem-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(192, 57, 43, 0.1);
+    color: #C0392B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
+    font-weight: 700;
+}
+
+.wm-problem-text {
+    font-size: 0.875rem;
+    color: var(--lynz-slate);
+    line-height: 1.65;
+}
+
+.wm-problem-text strong {
+    color: var(--lynz-midnight);
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+
+/* ─── 41-43. STEP SECTIONS — CONVERSATION LAYOUT interior ─── */
+
+.process-step-section {
+    padding: 7rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-bg-white  { background: var(--lynz-white); }
+.step-bg-paper  { background: var(--lynz-paper); }
+.step-bg-dark   { background: var(--lynz-midnight); }
+.step-bg-steel  { background: var(--lynz-steel); }
+
+.step-watermark {
+    position: absolute;
+    top: 50%; right: -0.05em;
+    transform: translateY(-50%);
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: clamp(14rem, 28vw, 28rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+.step-bg-white .step-watermark,
+.step-bg-paper .step-watermark { color: rgba(0, 0, 0, 0.028); }
+.step-bg-dark  .step-watermark,
+.step-bg-steel .step-watermark { color: rgba(255, 255, 255, 0.03); }
+
+.step-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 6rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.step-left {
+    position: sticky;
+    top: 100px;
+}
+
+.step-number-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.step-num-circle {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+    flex-shrink: 0;
+}
+
+.step-bg-white .step-num-circle,
+.step-bg-paper .step-num-circle { background: var(--lynz-midnight); color: var(--lynz-gold); }
+
+.step-bg-dark  .step-num-circle,
+.step-bg-steel .step-num-circle { background: rgba(255, 255, 255, 0.07); color: var(--lynz-gold); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.step-phase-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.step-bg-white .step-phase-label,
+.step-bg-paper .step-phase-label { color: var(--lynz-mist); }
+.step-bg-dark  .step-phase-label,
+.step-bg-steel .step-phase-label { color: rgba(255, 255, 255, 0.28); }
+
+.step-question {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+}
+
+.step-bg-white .step-question,
+.step-bg-paper .step-question { color: var(--lynz-midnight); }
+.step-bg-dark  .step-question,
+.step-bg-steel .step-question { color: var(--lynz-white); }
+
+.step-asker {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.step-bg-white .step-asker,
+.step-bg-paper .step-asker { color: var(--lynz-mist); }
+.step-bg-dark  .step-asker,
+.step-bg-steel .step-asker { color: rgba(255, 255, 255, 0.25); }
+
+.step-name-answer {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+}
+
+.step-bg-white .step-name-answer,
+.step-bg-paper .step-name-answer { color: rgba(0, 0, 0, 0.07); }
+.step-bg-dark  .step-name-answer,
+.step-bg-steel .step-name-answer { color: rgba(255, 255, 255, 0.06); }
+.step-name-answer em { color: var(--lynz-gold); font-style: italic; opacity: 1; }
+
+.step-answer-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.step-bg-white .step-answer-label,
+.step-bg-paper .step-answer-label { color: var(--lynz-copper); }
+.step-bg-dark  .step-answer-label,
+.step-bg-steel .step-answer-label { color: var(--lynz-gold); }
+.step-answer-label::after { content: ''; width: 24px; height: 1px; background: currentColor; }
+
+.step-answer-heading {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+}
+
+.step-bg-white .step-answer-heading,
+.step-bg-paper .step-answer-heading { color: var(--lynz-midnight); }
+.step-bg-dark  .step-answer-heading,
+.step-bg-steel .step-answer-heading { color: var(--lynz-white); }
+.step-answer-heading em { color: var(--lynz-gold); font-style: italic; }
+
+.step-answer-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.step-answer-body p { font-size: 0.975rem; line-height: 1.85; }
+.step-bg-white .step-answer-body p,
+.step-bg-paper .step-answer-body p { color: var(--lynz-slate); }
+.step-bg-dark  .step-answer-body p,
+.step-bg-steel .step-answer-body p { color: rgba(255, 255, 255, 0.5); }
+
+/* Deliverables grid */
+.step-deliverables {
+    border-top: 1px solid;
+    padding-top: 2rem;
+}
+
+.step-bg-white .step-deliverables,
+.step-bg-paper .step-deliverables { border-color: var(--lynz-rule); }
+.step-bg-dark  .step-deliverables,
+.step-bg-steel .step-deliverables { border-color: rgba(255, 255, 255, 0.08); }
+
+.step-del-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.step-bg-white .step-del-label,
+.step-bg-paper .step-del-label { color: var(--lynz-mist); }
+.step-bg-dark  .step-del-label,
+.step-bg-steel .step-del-label { color: rgba(255, 255, 255, 0.25); }
+
+.step-del-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+}
+
+.step-bg-white .step-del-grid { background: var(--lynz-rule); }
+.step-bg-paper .step-del-grid { background: var(--lynz-rule); }
+.step-bg-dark  .step-del-grid { background: rgba(255, 255, 255, 0.06); }
+.step-bg-steel .step-del-grid { background: rgba(255, 255, 255, 0.06); }
+
+.step-del-item {
+    padding: 1rem 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    transition: background var(--lynz-transition);
+}
+
+.step-bg-white .step-del-item { background: var(--lynz-white); }
+.step-bg-paper .step-del-item { background: var(--lynz-paper); }
+.step-bg-dark  .step-del-item { background: var(--lynz-midnight); }
+.step-bg-steel .step-del-item { background: var(--lynz-steel); }
+
+.step-bg-white .step-del-item:hover { background: var(--lynz-paper); }
+.step-bg-dark  .step-del-item:hover { background: #111e2d; }
+.step-bg-steel .step-del-item:hover { background: #172f4e; }
+
+.del-check {
+    color: var(--lynz-gold);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    font-weight: 700;
+}
+
+.del-text { font-size: 0.85rem; line-height: 1.55; }
+.step-bg-white .del-text,
+.step-bg-paper .del-text { color: var(--lynz-midnight); }
+.step-bg-dark  .del-text,
+.step-bg-steel .del-text { color: rgba(255, 255, 255, 0.6); }
+
+/* "What goes wrong without this step" warning */
+.step-without {
+    margin-top: 1.75rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    border-left: 2px solid rgba(192, 57, 43, 0.4);
+    background: rgba(192, 57, 43, 0.05);
+}
+
+.step-without-icon {
+    color: rgba(192, 57, 43, 0.6);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 0.15rem;
+}
+
+.step-without-text { font-size: 0.83rem; line-height: 1.65; }
+.step-bg-white .step-without-text,
+.step-bg-paper .step-without-text { color: var(--lynz-slate); }
+.step-bg-dark  .step-without-text,
+.step-bg-steel .step-without-text { color: rgba(255, 255, 255, 0.4); }
+.step-without-text strong { color: rgba(192, 57, 43, 0.85); }
+
+/* Connector between step sections */
+.step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+    background: var(--lynz-white);
+}
+
+.step-connector-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.connector-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(180deg, var(--lynz-rule), var(--lynz-gold) 50%, var(--lynz-rule));
+}
+
+.connector-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+}
+
+.connector-dark { background: var(--lynz-midnight); }
+.connector-dark .connector-line { background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), var(--lynz-gold) 50%, rgba(255, 255, 255, 0.1)); }
+.connector-dark .connector-label { color: rgba(255, 255, 255, 0.2); }
+
+
+/* ─── 44. TIMELINE interior ─── */
+
+.timeline-header { margin-bottom: 3.5rem; }
+
+.timeline-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: calc(12.5% + 1rem);
+    right: calc(12.5% + 1rem);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lynz-gold) 25%, var(--lynz-gold) 75%, transparent);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.timeline-step {
+    padding: 2rem 1.75rem;
+    background: var(--lynz-midnight);
+    position: relative;
+    z-index: 1;
+    transition: background var(--lynz-transition);
+}
+
+.timeline-step:hover { background: #111e2d; }
+
+.tl-step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tl-step-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--lynz-gold);
+    background: var(--lynz-midnight);
+    flex-shrink: 0;
+    position: relative;
+    transition: background var(--lynz-transition);
+}
+
+.tl-step-dot::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--lynz-gold);
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+
+.timeline-step:hover .tl-step-dot::after { transform: scale(1); }
+
+.tl-phase {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.tl-name {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--lynz-gold);
+    margin-bottom: 0.75rem;
+}
+
+.tl-desc {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.7;
+}
+
+.tl-typical {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.tl-typical span { color: var(--lynz-gold); }
+
+
+/* ─── 45. ANTI-AGENCY MANIFESTO interior ─── */
+
+.manifesto-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.manifesto-tag {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lynz-copper);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.manifesto-tag::after { content: ''; width: 24px; height: 1px; background: var(--lynz-copper); }
+
+.manifesto-contrasts {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: #DDD8CF;
+}
+
+.manifesto-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #DDD8CF;
+}
+
+.manifesto-cell { padding: 1.25rem 1.5rem; }
+.manifesto-cell.them { background: #EDE7DA; }
+.manifesto-cell.us   { background: var(--lynz-white); }
+
+.cell-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.70rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.manifesto-cell.them .cell-label { color: rgba(192, 57, 43, 0.5); }
+.manifesto-cell.us   .cell-label { color: var(--lynz-copper); }
+
+.cell-text { font-size: 0.875rem; color: var(--lynz-slate); line-height: 1.6; }
+.manifesto-cell.us .cell-text { color: var(--lynz-midnight); font-weight: 500; }
+
+
+/* ─── 46. CONTACT HERO interior ─── */
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+}
+
+.hero-breadcrumb {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.28);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-breadcrumb a { color: inherit; text-decoration: none; transition: color var(--lynz-transition); }
+.hero-breadcrumb a:hover { color: var(--lynz-gold); }
+.hero-breadcrumb .sep { color: rgba(255, 255, 255, 0.15); }
+.hero-breadcrumb .current { color: var(--lynz-gold); }
+
+.next-steps-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 1.25rem;
+}
+
+.next-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.next-step {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: background var(--lynz-transition);
+}
+
+.next-step:hover { background: rgba(255, 255, 255, 0.04); }
+
+.next-step-num {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--lynz-gold);
+    flex-shrink: 0;
+    min-width: 1.5rem;
+}
+
+.next-step-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--lynz-white);
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+}
+
+.next-step-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.55;
+}
+
+.hero-rule-strip {
+    background: var(--lynz-midnight);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.1rem 0;
+}
+
+.hero-rule-inner {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-stat {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.hero-stat strong { color: var(--lynz-gold); font-size: 0.75rem; }
+.hero-stat-sep { color: rgba(255, 255, 255, 0.1); }
+
+
+/* ─── 47. CONTACT MAIN — SIDEBAR + FORM interior ─── */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+}
+
+.contact-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--lynz-rule);
+}
+
+.sidebar-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sidebar-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-bottom: 0.75rem;
+}
+
+.sidebar-heading {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+.sidebar-heading em { color: var(--lynz-gold); font-style: italic; }
+
+.sidebar-body {
+    font-size: 0.875rem;
+    color: var(--lynz-slate);
+    line-height: 1.75;
+}
+
+.contact-email {
+    display: block;
+    font-family: var(--lynz-font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--lynz-midnight);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--lynz-rule);
+    padding-bottom: 0.2rem;
+    transition: border-color var(--lynz-transition), color var(--lynz-transition);
+    margin-top: 0.5rem;
+}
+
+.contact-email:hover { border-color: var(--lynz-gold); color: var(--lynz-copper); }
+
+.location-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+    margin-top: 0.75rem;
+}
+
+.location-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--lynz-gold);
+    flex-shrink: 0;
+}
+
+.response-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--lynz-light);
+    padding: 0.6rem 1rem;
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lynz-anchor);
+    margin-top: 0.75rem;
+}
+
+.response-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #2D7A4F;
+    animation: lynz-pulse 2s infinite;
+}
+
+.fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.fit-item {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    color: var(--lynz-slate);
+    line-height: 1.55;
+}
+
+.fit-check {
+    color: var(--lynz-gold);
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    font-weight: 700;
+}
+
+.not-fit-item .fit-check { color: var(--lynz-mist); }
+.not-fit-item { opacity: 0.65; }
+
+.contact-form-wrap {
+    background: var(--lynz-white);
+    border: 1px solid var(--lynz-rule);
+    padding: 3rem;
+    position: relative;
+}
+
+.contact-form-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--lynz-gold);
+}
+
+.form-intro { margin-bottom: 2.5rem; }
+
+.form-intro-tag {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lynz-copper);
+    margin-bottom: 0.5rem;
+}
+
+.form-intro h2 {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.65rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.form-intro h2 em { color: var(--lynz-gold); font-style: italic; }
+
+.form-intro p {
+    font-size: 0.875rem;
+    color: var(--lynz-slate);
+    line-height: 1.7;
+    margin-top: 0.5rem;
+}
+
+
+/* ─── 48. WPFORMS — COMPLETE FIELD STYLING ─── */
+/* Scoped to .lynz-contact-form class applied to the WPForms widget */
+
+.lynz-contact-form .wpforms-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.lynz-contact-form .wpforms-field-label,
+.lynz-contact-form .wpforms-field label {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-midnight) !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5rem !important;
+    display: block;
+}
+
+.lynz-contact-form .wpforms-required-label { color: var(--lynz-copper) !important; }
+
+.lynz-contact-form .wpforms-field input[type="text"],
+.lynz-contact-form .wpforms-field input[type="email"],
+.lynz-contact-form .wpforms-field input[type="tel"],
+.lynz-contact-form .wpforms-field select,
+.lynz-contact-form .wpforms-field textarea {
+    width: 100% !important;
+    background: var(--lynz-paper) !important;
+    border: 1px solid var(--lynz-rule) !important;
+    border-radius: 0 !important;
+    padding: 0.85rem 1rem !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    color: var(--lynz-midnight) !important;
+    transition: border-color var(--lynz-transition), background var(--lynz-transition) !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+}
+
+.lynz-contact-form .wpforms-field input:focus,
+.lynz-contact-form .wpforms-field select:focus,
+.lynz-contact-form .wpforms-field textarea:focus {
+    border-color: var(--lynz-anchor) !important;
+    background: var(--lynz-white) !important;
+    box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.08) !important;
+}
+
+.lynz-contact-form .wpforms-field input::placeholder,
+.lynz-contact-form .wpforms-field textarea::placeholder {
+    color: var(--lynz-mist) !important;
+    font-size: 0.875rem !important;
+}
+
+.lynz-contact-form .wpforms-field textarea { min-height: 140px !important; resize: vertical !important; }
+
+.lynz-contact-form .wpforms-field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238C95A1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+    padding-right: 2.5rem !important;
+    cursor: pointer !important;
+}
+
+.lynz-contact-form .wpforms-field { margin-bottom: 1.5rem !important; }
+
+.lynz-contact-form .wpforms-submit-container { margin-top: 0.5rem !important; }
+
+.lynz-contact-form .wpforms-submit,
+.lynz-contact-form button[type="submit"].wpforms-submit {
+    background: var(--lynz-midnight) !important;
+    color: var(--lynz-white) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem 2.5rem !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.03em !important;
+    cursor: pointer !important;
+    transition: background var(--lynz-transition) !important;
+    width: 100% !important;
+}
+
+.lynz-contact-form .wpforms-submit:hover { background: var(--lynz-steel) !important; }
+
+.lynz-contact-form .wpforms-confirmation-container-full {
+    background: #E8F5EE !important;
+    border: 1px solid #b8ddc8 !important;
+    border-left: 3px solid #2D7A4F !important;
+    padding: 1.5rem !important;
+    font-size: 0.9rem !important;
+    color: #2D7A4F !important;
+    line-height: 1.6 !important;
+}
+
+.lynz-contact-form .wpforms-field input.wpforms-error,
+.lynz-contact-form .wpforms-field textarea.wpforms-error,
+.lynz-contact-form .wpforms-field select.wpforms-error {
+    border-color: #C0392B !important;
+    background: var(--lynz-rl, #fdf0ee) !important;
+}
+
+.lynz-contact-form .wpforms-field label.wpforms-error {
+    color: #C0392B !important;
+    font-size: 0.7rem !important;
+    margin-top: 0.35rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: var(--lynz-font-body) !important;
+    font-weight: 400 !important;
+}
+
+.lynz-contact-form .wpforms-divider-label {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-mist) !important;
+    padding: 1rem 0 0.75rem !important;
+    border-top: 1px solid var(--lynz-rule) !important;
+    margin-top: 0.5rem !important;
+}
+
+
+/* ─── 50. FAQ GRID interior ─── */
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #DDD8CF;
+    margin-top: 3rem;
+}
+
+.faq-item {
+    background: var(--lynz-cream);
+    padding: 2rem 2.25rem;
+    position: relative;
+    transition: background var(--lynz-transition);
+}
+
+.faq-item:hover { background: #EDE7DA; }
+
+.faq-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 0;
+    background: var(--lynz-gold);
+    transition: width 0.3s ease;
+}
+
+.faq-item:hover::before { width: 2px; }
+
+.faq-q {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--lynz-midnight);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+}
+
+.faq-q em { color: var(--lynz-gold); font-style: italic; }
+
+.faq-a {
+    font-size: 0.875rem;
+    color: var(--lynz-slate);
+    line-height: 1.75;
+}
+
+.faq-a strong { color: var(--lynz-midnight); }
+
+
+/* ─── HOMEPAGE — interior classes unique to lynzaddy-website.html ─── */
+
+/* Hero stat card stack (right column of hero, 3 cards stacked with 1px gap) */
+.stat-card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+/* diff-check — the square icon in homepage Difference section diff items */
+.diff-check {
+    width: 32px;
+    height: 32px;
+    background: rgba(212, 148, 58, 0.1);
+    border: 1px solid rgba(212, 148, 58, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--lynz-gold);
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
+}
+
+/* Homepage service preview cards (3-card 1px gap grid) */
+.service-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--lynz-rule);
+    margin-bottom: 2.5rem;
+}
+
+.service-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--lynz-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.service-title {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--lynz-midnight);
+    line-height: 1.15;
+    margin-bottom: 0.85rem;
+}
+
+.service-desc {
+    font-size: 0.875rem;
+    color: var(--lynz-slate);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+.service-link {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lynz-anchor);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: color var(--lynz-transition);
+}
+
+.service-link::after { content: '→'; }
+.service-link:hover { color: var(--lynz-gold); }
+
+/* Homepage process overview steps (the 4-step list, not the full process page steps) */
+
+/* The step row — flex layout with badge + content side by side.
+   Using .lynz-process context parent to beat any conflicting rules. */
+.lynz-process .process-step,
+.process-right .process-step {
+    display: flex !important;
+    gap: 1.5rem;
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--lynz-rule);
+    align-items: flex-start;
+    position: relative;
+}
+
+.lynz-process .process-step:first-child,
+.process-right .process-step:first-child { padding-top: 0; }
+
+.lynz-process .process-step:last-child,
+.process-right .process-step:last-child { border-bottom: none; }
+
+/* Vertical connector line between steps */
+.lynz-process .process-step .step-connector,
+.process-right .process-step .step-connector {
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    bottom: 0;
+    width: 1px;
+    background: var(--lynz-rule);
+}
+
+.lynz-process .process-step:last-child .step-connector,
+.process-right .process-step:last-child .step-connector { display: none; }
+
+/* Also keep the standalone rules as fallback */
+.process-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--lynz-rule);
+    align-items: flex-start;
+    position: relative;
+}
+
+.process-step:first-child { padding-top: 0; }
+.process-step:last-child { border-bottom: none; }
+
+.process-step .step-connector {
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    bottom: 0;
+    width: 1px;
+    background: var(--lynz-rule);
+}
+
+.process-step:last-child .step-connector { display: none; }
+
+.step-num-badge {
+    width: 56px;
+    height: 56px;
+    background: var(--lynz-white);
+    border: 1px solid var(--lynz-rule);
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--lynz-midnight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: all 0.2s ease;
+}
+
+.process-step:hover .step-num-badge {
+    background: var(--lynz-midnight);
+    color: var(--lynz-gold);
+    border-color: var(--lynz-midnight);
+}
+
+.step-content { padding-top: 0.5rem; }
+
+.step-title {
+    font-family: var(--lynz-font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--lynz-midnight);
+    margin-bottom: 0.4rem;
+}
+
+.step-desc {
+    font-size: 0.925rem;
+    color: var(--lynz-slate);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+}
+
+.step-tag {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lynz-mist);
+}
+
+/* Homepage audience cards (Who We Serve section) */
+.audience-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.aud-card-headline {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+.lynz-aud-primary .aud-card-headline { color: var(--lynz-white) !important; }
+.lynz-aud-secondary .aud-card-headline { color: var(--lynz-midnight) !important; }
+
+.aud-card-body {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+.lynz-aud-primary .aud-card-body { color: rgba(255, 255, 255, 0.5) !important; }
+.lynz-aud-secondary .aud-card-body { color: var(--lynz-slate) !important; }
+
+.pain-section-label {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-top: 1.25rem;
+    margin-top: 1.25rem;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.lynz-aud-primary .pain-section-label {
+    color: rgba(255, 255, 255, 0.25) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.lynz-aud-secondary .pain-section-label {
+    color: var(--lynz-mist) !important;
+    border-top: 1px solid var(--lynz-rule);
+}
+
+.pain-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pain-items li {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.pain-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+}
+
+.lynz-aud-primary .pain-items li { color: rgba(255, 255, 255, 0.4) !important; }
+.lynz-aud-primary .pain-items li::before { color: rgba(255, 255, 255, 0.2) !important; }
+.lynz-aud-secondary .pain-items li { color: var(--lynz-slate) !important; }
+.lynz-aud-secondary .pain-items li::before { color: var(--lynz-mist) !important; }
+
+/* Also add lynz-aud-primary to the dark sections list in Section 52 so
+   all heading widgets inside it inherit white automatically */
+.lynz-aud-primary {
+    color: var(--lynz-white) !important;
+}
+
+/* Homepage testimonials grid wrapper.
+   testi-grid is applied to an Elementor Container (flex) not a CSS div,
+   so children are flex Column Containers, not direct grid cells. */
+.testi-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    align-items: stretch !important;
+}
+
+/* Each Column Container child should stretch to fill equal height */
+.testi-grid > .e-con {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* The HTML widget and its container must also stretch */
+.testi-grid > .e-con .elementor-widget-html,
+.testi-grid > .e-con .elementor-widget-container {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* The card itself fills the full column height */
+.lynz-testi-card {
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Gold rule divider inside testi cards */
+.testi-rule {
+    width: 32px;
+    height: 1px;
+    background: var(--lynz-gold);
+    margin-bottom: 1rem;
+}
+
+/* Homepage CTA section interior layout */
+.cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-left { flex: 1; }
+
+.cta-eyebrow {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.cta-headline {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--lynz-white);
+}
+
+.cta-headline em { color: var(--lynz-gold); font-style: italic; }
+
+.cta-right {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+
+/* ─── RESPONSIVE — all interior classes ─── */
+@media (max-width: 960px) {
+    .project--visual-left,
+    .project--visual-right { grid-template-columns: 1fr; }
+    .project--visual-right .project-visual { order: 1; }
+    .project--visual-right .project-content { order: 2; }
+    .clients-columns { columns: 3; }
+    .cta-box { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    .tl-cards { grid-template-columns: 1fr; }
+    .founder-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder-name-block { position: static; }
+    .step-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .step-left { position: static; }
+    .timeline-track { grid-template-columns: 1fr 1fr; }
+    .timeline-track::before { display: none; }
+    .manifesto-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .manifesto-row { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-sidebar { position: static; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .diff-grid { grid-template-columns: 1fr 1fr; }
+    .svc-items { grid-template-columns: 1fr 1fr; }
+    .wm-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .lynz-contact-form .wpforms-field-row { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 640px) {
+    .clients-columns { columns: 2; }
+    .timeline-track { grid-template-columns: 1fr; }
+    .step-del-grid { grid-template-columns: 1fr; }
+    .step-watermark { display: none; }
+    .hero-steps { flex-wrap: wrap; }
+    .hero-step-pill { border-right: 1px solid rgba(255, 255, 255, 0.1); }
+    .diff-grid { grid-template-columns: 1fr; }
+    .svc-items { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .cta-box { padding: 2.5rem; }
+    .contact-form-wrap { padding: 2rem; }
+}
+
+
+   ────────────────────────────────────────────────────────────
+   These rules are written against Elementor's actual rendered
+   HTML — specifically Flexbox Containers mode. They beat
+   reset.css and Hello Elementor's base styles by using
+   longer selector chains that always win on specificity.
+
+   RULE: any time a new section needs color control, add it
+   to the dark or light list below. Children inherit automatically.
+   ============================================================ */
+
+/* ── Color context: dark sections inherit white text ── */
+.lynz-hero,
+.lynz-footer,
+.lynz-footer-bottom,
+.lynz-cta,
+.lynz-difference,
+.lynz-work-hero,
+.lynz-contact-hero,
+.lynz-contact-stat-strip,
+.lynz-contact-trust,
+.lynz-tech-stack,
+.lynz-all-clients,
+.lynz-process-timeline,
+.lynz-step-dark,
+.lynz-stats-bar {
+    color: var(--lynz-white);
+}
+
+/* ── Color context: light sections inherit dark text ── */
+.lynz-services,
+.lynz-process,
+.lynz-testimonials,
+.lynz-founder,
+.lynz-industries,
+.lynz-contact-main,
+.lynz-contact-faq,
+.lynz-manifesto-strip,
+.lynz-step-white,
+.lynz-step-paper,
+.lynz-two-languages,
+.lynz-why-matters {
+    color: var(--lynz-midnight);
+}
+
+/* ── Headings: always inherit from container, beat reset.css ──
+   Selector depth (3 levels) outranks reset.css's flat h1-h6 rule */
+[class*="lynz-"] .elementor-widget-container .elementor-heading-title,
+[class*="lynz-"] .elementor-widget-container h1,
+[class*="lynz-"] .elementor-widget-container h2,
+[class*="lynz-"] .elementor-widget-container h3,
+[class*="lynz-"] .elementor-widget-container h4,
+[class*="lynz-"] .elementor-widget-container h5,
+[class*="lynz-"] .elementor-widget-container h6 {
+    color: inherit;
+}
+
+/* ── Paragraphs and spans: inherit ── */
+[class*="lynz-"] .elementor-widget-container p,
+[class*="lynz-"] .elementor-widget-container li,
+[class*="lynz-"] .elementor-widget-container span:not([class]) {
+    color: inherit;
+}
+
+/* ── Links in dark sections ── */
+.lynz-hero .elementor-widget-container a,
+.lynz-footer .elementor-widget-container a,
+.lynz-cta .elementor-widget-container a,
+.lynz-difference .elementor-widget-container a,
+.lynz-work-hero .elementor-widget-container a,
+.lynz-contact-hero .elementor-widget-container a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color var(--lynz-transition);
+}
+
+.lynz-hero .elementor-widget-container a:hover,
+.lynz-footer .elementor-widget-container a:hover,
+.lynz-cta .elementor-widget-container a:hover,
+.lynz-difference .elementor-widget-container a:hover,
+.lynz-work-hero .elementor-widget-container a:hover,
+.lynz-contact-hero .elementor-widget-container a:hover {
+    color: var(--lynz-white);
+}
+
+/* ── Links in light sections ── */
+.lynz-services .elementor-widget-container a,
+.lynz-process .elementor-widget-container a,
+.lynz-contact-main .elementor-widget-container a,
+.lynz-contact-faq .elementor-widget-container a {
+    color: var(--lynz-anchor);
+    text-decoration: none;
+    transition: color var(--lynz-transition);
+}
+
+.lynz-services .elementor-widget-container a:hover,
+.lynz-process .elementor-widget-container a:hover,
+.lynz-contact-main .elementor-widget-container a:hover,
+.lynz-contact-faq .elementor-widget-container a:hover {
+    color: var(--lynz-copper);
+}
+
+/* ── Footer link lists (HTML widget) ──
+   Already in Section 17 — these are kept here as a safety net
+   in case the widget-container path differs between WP versions */
+.lynz-footer .elementor-widget-html .elementor-widget-container a {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.lynz-footer .elementor-widget-html .elementor-widget-container a:hover {
+    color: var(--lynz-white);
+}
+
+/* ── Footer column headings (lynz-footer-col-head on widget wrapper div) ──
+   The h5/h6 is two levels deep: .lynz-footer-col-head > .elementor-widget-container > h6 */
+.lynz-footer .lynz-footer-col-head .elementor-widget-container h5.elementor-heading-title,
+.lynz-footer .lynz-footer-col-head .elementor-widget-container h6.elementor-heading-title {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lynz-copper);
+    margin-bottom: 0.75rem;
+}
+
+/* ── Footer tagline (text-editor widget in brand column) ── */
+.lynz-footer .elementor-widget-text-editor .elementor-widget-container p {
+    font-family: var(--lynz-font-body);
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--lynz-mist);
+    font-weight: 400;
+}
+
+/* ── Footer bottom copyright spans ── */
+.lynz-footer-bottom .elementor-widget-container span.footer-copy {
+    font-family: var(--lynz-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    line-height: 1;
+}
+
+.lynz-footer-bottom .elementor-widget-container span.footer-copy strong {
+    font-family: var(--lynz-font-mono);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Nav links (lynz-header outer container → elementor-nav-menu) ──
+   Already in Section 7 — duplicated here with higher specificity
+   as a final guarantee against any reset.css bleed */
+.lynz-header .elementor-nav-menu .elementor-item,
+.lynz-header .elementor-nav-menu a.elementor-item:link,
+.lynz-header .elementor-nav-menu a.elementor-item:visited {
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+}
+
+.lynz-header .elementor-nav-menu a.elementor-item:hover,
+.lynz-header .elementor-nav-menu a.elementor-item.elementor-item-active {
+    color: var(--lynz-white) !important;
+}
+
+/* ── Elementor heading widget: Playfair Display globally ──
+   Belt-and-suspenders — ensures the display font loads on ALL
+   heading widgets sitewide, not just inside lynz- containers */
+.elementor-widget-heading .elementor-heading-title {
+    font-family: var(--lynz-font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* ── Elementor text-editor widget: body font globally ── */
+.elementor-widget-text-editor .elementor-widget-container p {
+    font-family: var(--lynz-font-body);
+    line-height: 1.75;
+}
+
