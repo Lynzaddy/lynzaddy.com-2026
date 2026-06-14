@@ -1065,6 +1065,110 @@ a:hover { color: var(--lynz-copper); }
 
 
 /* ============================================================
+   15b. PROCESS PAGE
+   class="lynz-process" on step sections (white)
+   class="lynz-process lynz-process-alt" for the paper variant
+   class="lynz-timeline" on the dark timeline band
+   ============================================================ */
+
+.lynz-process     { background: var(--lynz-white); padding: var(--lynz-section-pad) !important; }
+.lynz-process-alt { background: var(--lynz-paper) !important; }
+
+/* ── Numbered step block ────────────────────────────────────
+   Build each step as a Row Container:
+     class="lynz-step"
+     ├─ Heading widget (the number) — class: lynz-step-num
+     └─ Column Container (the body)
+         ├─ Heading H3
+         ├─ Text Editor (description)
+         └─ Text Editor (deliverable) — class: lynz-step-deliver
+   Steps live inside a max-820px centered wrapper.            */
+.lynz-step {
+    border-bottom: var(--lynz-border) !important;
+    padding: 2.5rem 0 !important;
+    align-items: flex-start !important;
+    gap: 2rem !important;
+}
+
+.lynz-step:last-child { border-bottom: none !important; }
+
+/* The big italic gold number — Heading widget, class: lynz-step-num */
+.lynz-step-num .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-weight: 800 !important;
+    font-style: italic !important;
+    font-size: 3.5rem !important;
+    line-height: 0.9 !important;
+    color: rgba(212, 148, 58, 0.28) !important;
+}
+
+/* Deliverable line — Text Editor, class: lynz-step-deliver */
+.lynz-step-deliver .elementor-widget-container,
+.lynz-step-deliver .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0.08em !important;
+    color: var(--lynz-mist) !important;
+    padding-top: 0.875rem;
+    border-top: var(--lynz-border);
+}
+
+.lynz-step-deliver .elementor-widget-container::before {
+    content: '\2192  ';
+    color: var(--lynz-gold);
+}
+
+/* ── Timeline band (dark) ───────────────────────────────────
+   class="lynz-timeline" on a midnight ROW Container.
+   Inside: 4 Column Containers (no class needed) — each with
+   a phase-week Text Editor + Heading H3 + Text Editor.        */
+.lynz-timeline {
+    background: var(--lynz-midnight);
+    padding: 4rem 0 !important;
+}
+
+.lynz-timeline .elementor-heading-title {
+    color: var(--lynz-white) !important;
+}
+
+/* Phase columns get a thin divider grid look */
+.lynz-timeline .e-con-inner > .e-con > .e-con {
+    padding: 1.75rem !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.lynz-timeline .e-con-inner > .e-con > .e-con:first-child {
+    border-left: none !important;
+}
+
+/* Phase H3 — gold italic */
+.lynz-timeline .e-con > .e-con .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-style: italic !important;
+    font-size: 1.2rem !important;
+    color: var(--lynz-gold) !important;
+}
+
+/* Phase body + week label */
+.lynz-timeline .elementor-widget-text-editor .elementor-widget-container,
+.lynz-timeline .elementor-widget-text-editor .elementor-widget-container p {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.82rem !important;
+    line-height: 1.6 !important;
+}
+
+/* Week label — Text Editor, class: lynz-phase-week */
+.lynz-phase-week .elementor-widget-container,
+.lynz-phase-week .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+/* ============================================================
    16. RESPONSIVE
    Elementor handles column stacking via per-breakpoint widths
    (set in the editor). These rules cover everything Elementor
@@ -1090,8 +1194,33 @@ a:hover { color: var(--lynz-copper); }
     .lynz-contact,
     .lynz-flex,
     .lynz-svc-row,
-    .lynz-svc-row-alt {
+    .lynz-svc-row-alt,
+    .lynz-process {
         padding: var(--lynz-section-pad-sm) !important;
+    }
+
+    /* Process: stack step number above body; timeline goes 1-up */
+    .lynz-step {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+    }
+
+    .lynz-step-num .elementor-heading-title {
+        font-size: 2.5rem !important;
+    }
+
+    .lynz-timeline .e-con-inner > .e-con {
+        flex-direction: column !important;
+    }
+
+    .lynz-timeline .e-con-inner > .e-con > .e-con {
+        width: 100% !important;
+        border-left: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .lynz-timeline .e-con-inner > .e-con > .e-con:first-child {
+        border-top: none !important;
     }
 
     .lynz-hero { min-height: 480px; padding: 4rem 0 !important; }

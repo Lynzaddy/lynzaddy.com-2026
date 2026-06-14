@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynzaddy — Process v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --midnight:#0D1B2A;--steel:#1E3A5F;--anchor:#2C5F8A;--gold:#D4943A;--copper:#B8702A;
+  --paper:#F9F8F6;--light:#EEF2F7;--slate:#4A5568;--mist:#8C95A1;--rule:#E2E5E9;--white:#FFFFFF;
+  --df:'Playfair Display',Georgia,serif;--sf:'DM Sans',system-ui,sans-serif;--mf:'JetBrains Mono',monospace;
+  --shadow:0 1px 3px rgba(0,0,0,0.07),0 6px 20px rgba(0,0,0,0.07);
+  --shadow-h:0 4px 10px rgba(0,0,0,0.1),0 16px 40px rgba(0,0,0,0.12);
+  --t:0.22s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sf);color:var(--midnight);background:var(--white);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:var(--anchor);transition:color var(--t);}
+img{max-width:100%;display:block;}
+h1,h2{font-family:var(--df);font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
+h2{font-size:clamp(1.75rem,3vw,2.4rem);color:var(--midnight);}
+h3{font-family:var(--sf);font-size:1.1rem;font-weight:600;color:var(--midnight);letter-spacing:-0.01em;}
+p{font-size:0.975rem;line-height:1.75;color:var(--slate);}
+.wrap{max-width:1160px;margin:0 auto;padding:0 2rem;}
+.note{font-family:var(--mf);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--copper);background:rgba(212,148,58,0.08);border-left:2px solid var(--gold);padding:0.2rem 0.55rem;display:inline-block;margin-bottom:0.5rem;}
+.note.ondark{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-left-color:rgba(255,255,255,0.35);}
+.btn-gold{background:var(--gold);color:var(--white);padding:0.85rem 1.9rem;font-weight:600;font-size:0.95rem;display:inline-block;transition:background var(--t);}
+.btn-gold:hover{background:var(--copper);color:var(--white);}
+.btn-white-outline{background:transparent;color:var(--white);padding:0.85rem 1.9rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid rgba(255,255,255,0.65);transition:all var(--t);}
+.btn-white-outline:hover{background:rgba(255,255,255,0.12);border-color:var(--white);color:var(--white);}
+.btn-dark-outline{background:transparent;color:var(--midnight);padding:0.8rem 1.75rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid var(--midnight);transition:all var(--t);}
+.btn-dark-outline:hover{background:var(--midnight);color:var(--white);}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+.sec-head p{margin-top:0.6rem;font-size:1rem;color:var(--mist);}
+.hdr{background:var(--white);border-bottom:1px solid var(--rule);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--df);font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;}
+.logo .a{color:var(--midnight);}.logo .b{color:var(--gold);font-style:italic;}
+.nav{display:flex;align-items:center;gap:0.25rem;}
+.nav a{font-size:0.9rem;font-weight:500;color:var(--slate);padding:0.5rem 0.8rem;}
+.nav a:hover,.nav a.on{color:var(--midnight);}
+.nav .talk{background:var(--gold);color:var(--white);padding:0.6rem 1.4rem;font-weight:600;margin-left:0.6rem;transition:background var(--t);}
+.nav .talk:hover{background:var(--copper);}
+/* Inner page banner — photo + overlay, smaller than homepage hero */
+.banner{position:relative;min-height:300px;display:flex;align-items:center;background:linear-gradient(rgba(13,27,42,0.72),rgba(13,27,42,0.78)),linear-gradient(135deg,#1E3A5F 0%,#0D1B2A 60%);background-size:cover;background-position:center;}
+.banner-content{max-width:1160px;margin:0 auto;padding:4rem 2rem;width:100%;}
+.banner .crumb{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:1rem;}
+.banner .crumb a{color:rgba(255,255,255,0.45);}
+.banner .crumb a:hover{color:var(--gold);}
+.banner .crumb .cur{color:var(--gold);}
+.banner h1{font-size:clamp(2.25rem,4.5vw,3.25rem);color:var(--white);}
+.banner p{font-size:1.1rem;color:rgba(255,255,255,0.7);margin-top:0.875rem;max-width:560px;}
+/* CTA */
+.cta{position:relative;padding:5rem 0;text-align:center;background:linear-gradient(rgba(13,27,42,0.82),rgba(13,27,42,0.86)),linear-gradient(135deg,#1E3A5F,#0D1B2A);background-size:cover;background-position:center;}
+.cta h2{color:var(--white);font-size:clamp(1.85rem,3.2vw,2.6rem);}
+.cta h2 em{color:var(--gold);font-style:italic;}
+.cta p{color:rgba(255,255,255,0.65);font-size:1.05rem;margin:1rem auto 2rem;max-width:480px;}
+/* Footer */
+.ftr{background:var(--midnight);padding:4rem 0 0;border-top:3px solid var(--gold);}
+.ftr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;}
+.ftr-logo{font-family:var(--df);font-size:1.45rem;font-weight:800;margin-bottom:1rem;}
+.ftr-logo .a{color:var(--white);}.ftr-logo .b{color:var(--gold);font-style:italic;}
+.ftr-brand p{font-size:0.875rem;color:rgba(255,255,255,0.45);line-height:1.7;}
+.ftr-phone{font-family:var(--mf);font-size:0.8rem;color:var(--gold);margin-top:1rem;display:block;letter-spacing:0.04em;}
+.ftr h6{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;}
+.ftr ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.ftr ul a{font-size:0.875rem;color:rgba(255,255,255,0.45);}
+.ftr ul a:hover{color:var(--white);}
+.ftr-bot{border-top:1px solid rgba(255,255,255,0.08);padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+.ftr-copy{font-family:var(--mf);font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.ftr-copy strong{color:rgba(255,255,255,0.4);}
+/* Services page */
+.svc-row{background:var(--white);padding:5rem 0;}
+.svc-row.alt{background:var(--paper);}
+.svc-cols{display:grid;grid-template-columns:1fr 1.05fr;gap:4rem;align-items:center;}
+.svc-cols.rev .svc-photo{order:2;}
+.svc-cols.rev .svc-text{order:1;}
+.svc-photo .ph{height:340px;background:linear-gradient(135deg,var(--light),#d8e0ea);display:flex;align-items:center;justify-content:center;font-family:var(--mf);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);border-bottom:3px solid var(--gold);box-shadow:var(--shadow);}
+.svc-text h2{margin-bottom:1rem;}
+.svc-text > p{margin-bottom:1.5rem;}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:0.875rem;}
+.why-list li{display:flex;gap:0.9rem;align-items:flex-start;font-size:0.925rem;color:var(--slate);line-height:1.6;}
+.why-list li::before{content:'';width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.05rem;background:rgba(212,148,58,0.12);border:1.5px solid var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23D4943A' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:10px;}
+.flex-sec{background:var(--paper);padding:5rem 0;border-top:1px solid var(--rule);}
+.flex-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;max-width:820px;margin:0 auto;}
+.flex-card{background:var(--white);border:1px solid var(--rule);padding:1.75rem;display:flex;align-items:flex-start;gap:1.25rem;text-align:left;transition:box-shadow var(--t);}
+.flex-card:hover{box-shadow:var(--shadow-h);}
+.flex-icon{width:44px;height:44px;border-radius:50%;background:rgba(212,148,58,0.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.flex-card h3{font-size:1rem;margin-bottom:0.3rem;}
+.flex-card p{font-size:0.875rem;color:var(--slate);}
+
+
+/* ===== PROCESS PAGE ===== */
+.proc{background:var(--white);padding:5rem 0;}
+.proc.alt{background:var(--paper);}
+.step{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;max-width:820px;margin:0 auto;padding:2.5rem 0;border-bottom:1px solid var(--rule);}
+.step:last-child{border-bottom:none;}
+.step-num{font-family:var(--df);font-weight:800;font-style:italic;font-size:3.5rem;line-height:0.9;color:rgba(212,148,58,0.28);}
+.step-body h3{font-size:1.25rem;margin-bottom:0.5rem;}
+.step-body>p{margin-bottom:1rem;}
+.step-deliver{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.08em;color:var(--mist);padding-top:0.875rem;border-top:1px solid var(--rule);}
+.step-deliver::before{content:'\2192  ';color:var(--gold);}
+.tl-band{background:var(--midnight);padding:4rem 0;}
+.tl-band .sec-head h2{color:var(--white);}
+.tl-band .sec-head p{color:rgba(255,255,255,0.5);}
+.tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);}
+.tl-phase{background:var(--midnight);padding:1.75rem;}
+.tl-phase .ph-n{font-family:var(--mf);font-size:0.6rem;letter-spacing:0.12em;color:rgba(255,255,255,0.3);margin-bottom:0.6rem;text-transform:uppercase;}
+.tl-phase h3{color:var(--gold);font-family:var(--df);font-style:italic;font-size:1.2rem;margin-bottom:0.5rem;}
+.tl-phase p{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6;}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+.why-list li{display:flex;gap:0.9rem;align-items:flex-start;font-size:0.95rem;color:var(--slate);line-height:1.6;}
+.why-list li::before{content:'';width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.1rem;background:rgba(212,148,58,0.12);border:1.5px solid var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23D4943A' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:10px;}
+
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+  <nav class="nav"><a href="/">Home</a><a href="/services">Services</a><a href="/work">Work</a><a href="/about">About</a><a href="/contact" class="talk">Let's Talk</a></nav>
+</header>
+
+<!--
+╔══════════════════════════════════════════════════════════
+  PROCESS PAGE — v3
+  banner -> intro + 4 numbered steps -> dark timeline band ->
+  why-it-matters checklist -> CTA.
+  REUSES: lynz-banner, lynz-cta, sec-head, why-list, btn-gold.
+  NEW CSS: .proc section + .step block + .tl-band timeline.
+╚══════════════════════════════════════════════════════════
+-->
+
+<section class="banner">
+  <div class="banner-content">
+    <div class="crumb"><a href="/">Home</a> / <span class="cur">Process</span></div>
+    <h1>How We Work</h1>
+    <p>Amateurs go right for design. We start with the problem.</p>
+  </div>
+</section>
+
+<section class="proc">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>A process built to make the build the easy part.</h2>
+      <p>Four steps, every engagement. No wireframes in week one. No code until the structure is right.</p>
+    </div>
+
+    <div class="note">Each step = a .step block: big italic number left, Heading + Text + deliverable right</div>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Discover</h3>
+        <p>A structured conversation about the business problem — not the website. We want to understand what success looks like before we scope a single page: who you're trying to reach, what has to happen, and what winning looks like six months out.</p>
+        <div class="step-deliver">Deliverable: Scope document + written brief</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Architecture</h3>
+        <p>Site structure, CMS plan, plugin selection, and hosting environment — all decided before design begins. This is the work most agencies skip, and it's the reason their builds fall apart six months later. We map it first.</p>
+        <div class="step-deliver">Deliverable: Technical architecture document</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Build</h3>
+        <p>Design and development happen in tandem on a staged environment. Regular check-ins, no surprises at launch. You review your site in context — real content, real layouts — not in flat mockups that hide the hard parts.</p>
+        <div class="step-deliver">Deliverable: Staged site for review</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Sustain</h3>
+        <p>Post-launch support, managed hosting, and ongoing development as your team's trusted WordPress partner — not a one-time vendor who disappears after the invoice clears. We're here for the long run.</p>
+        <div class="step-deliver">Deliverable: Monthly support retainer</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="tl-band">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What a typical engagement looks like</h2>
+      <p>Most projects run six to twelve weeks from kickoff to launch.</p>
+    </div>
+    <div class="tl-grid">
+      <div class="tl-phase">
+        <div class="ph-n">Week 1</div>
+        <h3>Discover</h3>
+        <p>Kickoff call, stakeholder interviews, and a written brief you sign off on.</p>
+      </div>
+      <div class="tl-phase">
+        <div class="ph-n">Week 2-3</div>
+        <h3>Architect</h3>
+        <p>Structure, tech decisions, and the plan — before any pixels.</p>
+      </div>
+      <div class="tl-phase">
+        <div class="ph-n">Week 4-9</div>
+        <h3>Build</h3>
+        <p>Staged development with regular reviews in real context.</p>
+      </div>
+      <div class="tl-phase">
+        <div class="ph-n">Ongoing</div>
+        <h3>Sustain</h3>
+        <p>Launch, then hosting and support as your partner.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proc alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Why the process matters</h2>
+      <p>What goes wrong when you skip the first two steps.</p>
+    </div>
+    <div style="max-width:680px;margin:0 auto;">
+      <ul class="why-list">
+        <li>Projects that start with design have no foundation — they collapse the moment requirements change</li>
+        <li>Skipping architecture means rebuilding mid-project, doubling the timeline and the cost</li>
+        <li>No written brief means endless revisions, scope creep, and a finished site nobody agreed to</li>
+        <li>Vendors who disappear post-launch leave you stranded the first time something breaks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Ready to do it <em>right?</em></h2>
+    <p>Tell us the problem. We'll start with discovery — no commitment.</p>
+    <a href="/contact" class="btn-gold">Start the Conversation</a>
+  </div>
+</section>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-brand">
+        <div class="ftr-logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+        <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor. Midwest-based. Nationally trusted.</p>
+        <a href="mailto:hello@lynzaddy.com" class="ftr-phone">hello@lynzaddy.com</a>
+      </div>
+      <div>
+        <h6>Services</h6>
+        <ul>
+          <li><a href="/services#development">WordPress Development</a></li>
+          <li><a href="/services#hosting">Managed Hosting</a></li>
+          <li><a href="/services#consulting">Consulting</a></li>
+          <li><a href="/services#audit">Site Audits</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Company</h6>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/work">Our Work</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Connect</h6>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="/contact">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-bot">
+      <span class="ftr-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+      <span class="ftr-copy">Built the right way. Obviously.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
