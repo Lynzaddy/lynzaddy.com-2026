@@ -1,0 +1,1134 @@
+/*
+Theme Name:  Lynzaddy Child
+Template:    hello-elementor
+Version:     3.0.0
+Description: Lynzaddy v3 — traditional image-forward design. Token-driven, Elementor native.
+*/
+
+/* ============================================================
+   TABLE OF CONTENTS
+   ──────────────────────────────────────────────────────────
+   1.  Tokens (:root)            — change once, cascades everywhere
+   2.  Base / Reset
+   3.  Global Typography         — Elementor Heading + Text Editor
+   4.  Buttons                   — lynz-btn-gold / outline / outline-white / nav-cta
+   5.  Elementor Fixes           — nav, hamburger, containers (hard-won)
+   6.  Shared Components         — lynz-card, lynz-box, lynz-checklist, lynz-sub, etc.
+   7.  Header                    — lynz-header
+   8.  Homepage Hero             — lynz-hero
+   9.  Inner Page Banner         — lynz-banner
+   10. Section Classes           — one class per section, bg + padding only
+   11. Stats / Name Band / Misc  — about page bands
+   12. Contact + WPForms         — lynz-contact, lynz-form
+   13. CTA                       — lynz-cta
+   14. Footer                    — lynz-footer, lynz-footer-bottom
+   15. Interior Text Classes     — lynz-stars, lynz-quote, lynz-meta, etc.
+   16. Responsive
+   ──────────────────────────────────────────────────────────
+   RULES OF THIS FILE
+   ─ Section classes set background + padding ONLY
+   ─ lynz-card = image-topped card (padding 0, auto-padded body)
+   ─ lynz-box  = padded bordered box (testimonials, why items, etc.)
+   ─ Apply classes in Elementor: Advanced tab → CSS Classes
+   ─ Photos and overlays are set in Elementor's Style tab, not CSS
+   ============================================================ */
+
+
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+
+:root {
+    /* ─ Brand colors ─────────────────────────────────────── */
+    --lynz-midnight:  #0D1B2A;
+    --lynz-steel:     #1E3A5F;
+    --lynz-anchor:    #2C5F8A;
+    --lynz-gold:      #D4943A;
+    --lynz-copper:    #B8702A;
+    --lynz-cream:     #F5F0E8;
+    --lynz-paper:     #F9F8F6;
+    --lynz-light:     #EEF2F7;
+    --lynz-slate:     #4A5568;
+    --lynz-mist:      #8C95A1;
+    --lynz-rule:      #E2E5E9;
+    --lynz-white:     #FFFFFF;
+
+    /* ─ Typography ───────────────────────────────────────── */
+    --lynz-font-display: 'Playfair Display', Georgia, serif;
+    --lynz-font-body:    'DM Sans', system-ui, sans-serif;
+    --lynz-font-mono:    'JetBrains Mono', monospace;
+
+    /* ─ Layout ───────────────────────────────────────────── */
+    --lynz-max-width:      1160px;
+    --lynz-section-pad:    5.5rem 0;
+    --lynz-section-pad-sm: 4rem 0;
+    --lynz-banner-height:  300px;
+    --lynz-hero-height:    560px;
+    --lynz-card-img:       190px;   /* service card image height */
+    --lynz-work-img:       150px;   /* work card image height */
+    --lynz-gap:            1.75rem;
+
+    /* ─ Surfaces ─────────────────────────────────────────── */
+    --lynz-radius:       0px;
+    --lynz-border:       1px solid var(--lynz-rule);
+    --lynz-accent-bar:   3px solid var(--lynz-gold);
+    --lynz-shadow:       0 1px 3px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.07);
+    --lynz-shadow-hover: 0 4px 10px rgba(0,0,0,0.10), 0 16px 40px rgba(0,0,0,0.12);
+
+    /* ─ Dark-section overlay (set in Elementor, value noted here) ─ */
+    /*   Hero overlay:   #0D1B2A at 75%                              */
+    /*   Banner overlay: #0D1B2A at 75%                              */
+    /*   CTA overlay:    #0D1B2A at 82%                              */
+
+    /* ─ Motion ───────────────────────────────────────────── */
+    --lynz-transition: 0.22s ease;
+}
+
+
+/* ============================================================
+   2. BASE / RESET
+   ============================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--lynz-font-body);
+    color: var(--lynz-midnight);
+    background: var(--lynz-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+    color: var(--lynz-anchor);
+    text-decoration: none;
+    transition: color var(--lynz-transition);
+}
+
+a:hover { color: var(--lynz-copper); }
+
+
+/* ============================================================
+   3. GLOBAL TYPOGRAPHY
+   Elementor Heading + Text Editor widgets are styled globally.
+   No class needed on individual headings or paragraphs.
+   ============================================================ */
+
+.elementor-widget-heading .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+    color: var(--lynz-midnight) !important;
+}
+
+.elementor-widget-heading h1.elementor-heading-title {
+    font-size: clamp(2.25rem, 4.5vw, 3.25rem) !important;
+    line-height: 1.08 !important;
+}
+
+.elementor-widget-heading h2.elementor-heading-title {
+    font-size: clamp(1.75rem, 3vw, 2.4rem) !important;
+}
+
+/* H3 = card titles — body font, semibold */
+.elementor-widget-heading h3.elementor-heading-title {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* H4 = small card titles */
+.elementor-widget-heading h4.elementor-heading-title {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.975rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+}
+
+/* Gold italic — wrap words in <em> inside Heading widget HTML */
+.elementor-heading-title em {
+    color: var(--lynz-gold) !important;
+    font-style: italic !important;
+}
+
+/* Body text */
+.elementor-widget-text-editor .elementor-widget-container,
+.elementor-widget-text-editor .elementor-widget-container p {
+    font-family: var(--lynz-font-body);
+    font-size: 0.975rem;
+    line-height: 1.75;
+    color: var(--lynz-slate);
+}
+
+/* White headings + muted white body inside dark sections */
+.lynz-hero .elementor-heading-title,
+.lynz-banner .elementor-heading-title,
+.lynz-cta .elementor-heading-title,
+.lynz-footer .elementor-heading-title {
+    color: var(--lynz-white) !important;
+}
+
+.lynz-hero .elementor-widget-text-editor .elementor-widget-container,
+.lynz-hero .elementor-widget-text-editor .elementor-widget-container p,
+.lynz-banner .elementor-widget-text-editor .elementor-widget-container,
+.lynz-banner .elementor-widget-text-editor .elementor-widget-container p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.1rem;
+}
+
+.lynz-cta .elementor-widget-text-editor .elementor-widget-container,
+.lynz-cta .elementor-widget-text-editor .elementor-widget-container p {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.05rem;
+}
+
+
+/* ============================================================
+   4. BUTTONS
+   Apply class to Button widget: Advanced → CSS Classes.
+   Leave the widget's Style tab COMPLETELY blank.
+   ============================================================ */
+
+/* Wrapper resets — kills Elementor's default button chrome and
+   prevents full-width stretch inside column containers */
+.lynz-btn-gold,
+.lynz-btn-outline,
+.lynz-btn-outline-white,
+.lynz-nav-cta {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    align-self: flex-start !important;
+    width: auto !important;
+}
+
+.lynz-btn-gold .elementor-widget-container,
+.lynz-btn-outline .elementor-widget-container,
+.lynz-btn-outline-white .elementor-widget-container,
+.lynz-nav-cta .elementor-widget-container,
+.lynz-btn-gold .elementor-button-wrapper,
+.lynz-btn-outline .elementor-button-wrapper,
+.lynz-btn-outline-white .elementor-button-wrapper,
+.lynz-nav-cta .elementor-button-wrapper {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    width: auto !important;
+}
+
+/* Shared <a> base */
+.lynz-btn-gold .elementor-button,
+.lynz-btn-outline .elementor-button,
+.lynz-btn-outline-white .elementor-button {
+    border-radius: var(--lynz-radius) !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    padding: 0.85rem 1.9rem !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    transition:
+        background var(--lynz-transition),
+        border-color var(--lynz-transition),
+        color var(--lynz-transition) !important;
+}
+
+.lynz-btn-gold .elementor-button-text,
+.lynz-btn-outline .elementor-button-text,
+.lynz-btn-outline-white .elementor-button-text,
+.lynz-nav-cta .elementor-button-text {
+    font-family: var(--lynz-font-body) !important;
+    font-weight: 600 !important;
+}
+
+/* Gold fill — primary action */
+.lynz-btn-gold .elementor-button {
+    background-color: var(--lynz-gold) !important;
+    color: var(--lynz-white) !important;
+    border: 2px solid var(--lynz-gold) !important;
+}
+
+.lynz-btn-gold .elementor-button:hover {
+    background-color: var(--lynz-copper) !important;
+    border-color: var(--lynz-copper) !important;
+    color: var(--lynz-white) !important;
+}
+
+/* Dark outline — secondary on light backgrounds */
+.lynz-btn-outline .elementor-button {
+    background-color: transparent !important;
+    color: var(--lynz-midnight) !important;
+    border: 2px solid var(--lynz-midnight) !important;
+    font-weight: 500 !important;
+}
+
+.lynz-btn-outline .elementor-button:hover {
+    background-color: var(--lynz-midnight) !important;
+    color: var(--lynz-white) !important;
+}
+
+/* White outline — secondary on dark/photo backgrounds */
+.lynz-btn-outline-white .elementor-button {
+    background-color: transparent !important;
+    color: var(--lynz-white) !important;
+    border: 2px solid rgba(255, 255, 255, 0.65) !important;
+    font-weight: 500 !important;
+}
+
+.lynz-btn-outline-white .elementor-button:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    border-color: var(--lynz-white) !important;
+    color: var(--lynz-white) !important;
+}
+
+/* Header CTA — gold, slightly smaller */
+.lynz-nav-cta .elementor-button {
+    background-color: var(--lynz-gold) !important;
+    color: var(--lynz-white) !important;
+    border: 2px solid var(--lynz-gold) !important;
+    border-radius: var(--lynz-radius) !important;
+    padding: 0.6rem 1.4rem !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: background var(--lynz-transition) !important;
+}
+
+.lynz-nav-cta .elementor-button:hover {
+    background-color: var(--lynz-copper) !important;
+    border-color: var(--lynz-copper) !important;
+}
+
+
+/* ============================================================
+   5. ELEMENTOR FIXES
+   Hard-won rules from the v1 build. Do not remove.
+   Requires functions.php to list 'elementor-frontend' as a
+   dependency of this stylesheet so these rules load last.
+   ============================================================ */
+
+/* Boxed containers respect our max width */
+.e-con-boxed > .e-con-inner {
+    max-width: var(--lynz-max-width);
+}
+
+/* Nav widget container — strip Elementor's border at ALL sizes
+   (this was the double-hamburger-border culprit in v1) */
+.lynz-header .elementor-widget-nav-menu .elementor-widget-container {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* Force nav items horizontal — prevents Elementor's overflow JS
+   from collapsing desktop links into the mobile dropdown */
+.lynz-header .elementor-nav-menu--main > ul.elementor-nav-menu {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+}
+
+.lynz-header .elementor-nav-menu--main > ul.elementor-nav-menu > li {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Desktop: hide hamburger even though Elementor renders it in DOM */
+@media (min-width: 768px) {
+    .lynz-header .elementor-nav-menu--toggle .elementor-menu-toggle,
+    .lynz-header .elementor-nav-menu--burger .elementor-menu-toggle,
+    .lynz-header .elementor-widget-nav-menu .elementor-menu-toggle {
+        display: none !important;
+    }
+
+    .lynz-header .elementor-nav-menu--main {
+        display: flex !important;
+    }
+
+    .lynz-header .elementor-nav-menu--dropdown {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+
+/* ============================================================
+   6. SHARED COMPONENTS
+   ============================================================ */
+
+/* ── lynz-card — IMAGE-TOPPED CARD ──────────────────────────
+   Apply to a Column Container. Structure inside:
+     1. Image widget  (the photo — fills edge to edge)
+     2. Nested Container (the text body — auto-padded by CSS)
+        └ Heading H3 + Text Editor + optional link
+   Used for: homepage service cards, work/portfolio cards.    */
+.lynz-card {
+    background: var(--lynz-white) !important;
+    border: var(--lynz-border) !important;
+    padding: 0 !important;
+    overflow: hidden;
+    transition:
+        box-shadow var(--lynz-transition),
+        transform var(--lynz-transition) !important;
+}
+
+.lynz-card:hover {
+    box-shadow: var(--lynz-shadow-hover) !important;
+    transform: translateY(-3px) !important;
+}
+
+/* The photo fills the card width, fixed crop height, gold bar */
+.lynz-card .elementor-widget-image {
+    width: 100% !important;
+}
+
+.lynz-card .elementor-widget-image img {
+    width: 100% !important;
+    height: var(--lynz-card-img) !important;
+    object-fit: cover !important;
+    border-bottom: var(--lynz-accent-bar) !important;
+    border-radius: 0 !important;
+}
+
+/* The text body container inside the card — auto-padded.
+   No class needed on it: any nested Container inside lynz-card
+   becomes the padded body automatically. */
+.lynz-card > .e-con {
+    padding: 1.5rem 1.6rem 1.75rem !important;
+    flex: 1 !important;
+}
+
+/* Work/portfolio cards use the shorter image crop */
+.lynz-work .lynz-card .elementor-widget-image img,
+.lynz-portfolio .lynz-card .elementor-widget-image img {
+    height: var(--lynz-work-img) !important;
+    border-bottom: none !important;
+}
+
+/* ── lynz-box — PADDED BORDERED BOX ─────────────────────────
+   Apply to a Column Container. Normal padding, border, hover
+   shadow. Used for: testimonial cards, why-partner items,
+   flexible-option cards, the homepage why box.               */
+.lynz-box {
+    background: var(--lynz-white) !important;
+    border: var(--lynz-border) !important;
+    padding: 1.75rem !important;
+    transition: box-shadow var(--lynz-transition) !important;
+}
+
+.lynz-box:hover {
+    box-shadow: var(--lynz-shadow-hover) !important;
+}
+
+/* Context variants — no extra classes needed */
+.lynz-why .lynz-box {
+    background: var(--lynz-paper) !important;
+    border-top: var(--lynz-accent-bar) !important;
+}
+
+.lynz-about .lynz-box {
+    background: var(--lynz-paper) !important;
+    padding: 2.25rem !important;
+}
+
+/* ── lynz-checklist — apply to Icon List widget ───────────── */
+.lynz-checklist .elementor-icon-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.lynz-checklist .elementor-icon-list-item {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+}
+
+.lynz-checklist .elementor-icon-list-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(212, 148, 58, 0.12);
+    border: 1.5px solid var(--lynz-gold);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lynz-gold) !important;
+    font-size: 0.6rem;
+}
+
+.lynz-checklist .elementor-icon-list-icon i,
+.lynz-checklist .elementor-icon-list-icon svg {
+    color: var(--lynz-gold) !important;
+    fill: var(--lynz-gold) !important;
+    font-size: 0.6rem !important;
+    width: 10px !important;
+}
+
+.lynz-checklist .elementor-icon-list-text {
+    font-size: 0.925rem;
+    color: var(--lynz-slate);
+    line-height: 1.6;
+}
+
+/* ── lynz-sub — section subtitle under centered H2 ──────────
+   Apply to Text Editor widget. Pairs with a centered H2.     */
+.lynz-sub .elementor-widget-container,
+.lynz-sub .elementor-widget-container p {
+    font-size: 1rem !important;
+    color: var(--lynz-mist) !important;
+    text-align: center;
+}
+
+/* ── lynz-callout — gold-tinted callout (daughters note) ──── */
+.lynz-callout .elementor-widget-container {
+    background: rgba(212, 148, 58, 0.07);
+    border-left: var(--lynz-accent-bar);
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--lynz-slate);
+}
+
+.lynz-callout strong { color: var(--lynz-midnight); }
+
+
+/* ============================================================
+   7. HEADER
+   class="lynz-header" on the ROW Container (Theme Builder)
+   class="lynz-nav-links" on the Nav Menu widget
+   class="lynz-nav-cta" on the Button widget
+   ============================================================ */
+
+.lynz-header {
+    background: var(--lynz-white);
+    border-bottom: var(--lynz-border);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    overflow: visible !important;
+    min-height: 72px;
+    transition: box-shadow var(--lynz-transition);
+}
+
+/* Desktop nav links */
+.lynz-header .elementor-nav-menu a.elementor-item,
+.lynz-header .elementor-nav-menu--main .elementor-item {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: var(--lynz-slate) !important;
+    letter-spacing: 0.01em !important;
+    padding: 0.5rem 0.8rem !important;
+    text-decoration: none !important;
+    transition: color var(--lynz-transition) !important;
+}
+
+.lynz-header .elementor-nav-menu a.elementor-item:hover,
+.lynz-header .elementor-nav-menu--main .elementor-item:hover,
+.lynz-header .elementor-nav-menu--main .elementor-item.elementor-item-active {
+    color: var(--lynz-midnight) !important;
+}
+
+/* Mobile dropdown panel */
+.lynz-header .elementor-nav-menu--dropdown,
+.lynz-header .elementor-nav-menu--dropdown.elementor-nav-menu__container {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    background-color: var(--lynz-white) !important;
+    border-top: var(--lynz-border) !important;
+    border-bottom: var(--lynz-border) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    z-index: 9998 !important;
+    padding: 0.5rem 0 1rem !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item {
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.975rem !important;
+    font-weight: 500 !important;
+    color: var(--lynz-slate) !important;
+    padding: 0.875rem 2rem !important;
+    display: block !important;
+    width: 100% !important;
+    border-bottom: var(--lynz-border) !important;
+    text-decoration: none !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item:last-child {
+    border-bottom: none !important;
+}
+
+.lynz-header .elementor-nav-menu--dropdown .elementor-item:hover {
+    color: var(--lynz-midnight) !important;
+    background: var(--lynz-paper) !important;
+}
+
+/* Mobile hamburger — scoped to mobile ONLY (v1 lesson: unscoped
+   hamburger styles re-show the toggle on desktop) */
+@media (max-width: 767px) {
+    .lynz-header .elementor-menu-toggle {
+        color: var(--lynz-midnight) !important;
+        background: transparent !important;
+        border: 2px solid var(--lynz-rule) !important;
+        outline: none !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        box-shadow: none !important;
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .lynz-header .elementor-menu-toggle:focus,
+    .lynz-header .elementor-menu-toggle:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .lynz-header .elementor-menu-toggle:hover {
+        border-color: var(--lynz-midnight) !important;
+    }
+
+    .lynz-header .elementor-menu-toggle i,
+    .lynz-header .elementor-menu-toggle svg {
+        color: var(--lynz-midnight) !important;
+        fill: currentColor !important;
+        font-size: 1rem !important;
+    }
+}
+
+
+/* ============================================================
+   8. HOMEPAGE HERO
+   class="lynz-hero" on the ROW Container.
+   Background PHOTO + overlay are set in Elementor:
+     Style → Background → Image (your photo, cover, center)
+     Style → Background Overlay → #0D1B2A at 75%
+   ============================================================ */
+
+.lynz-hero {
+    min-height: var(--lynz-hero-height);
+    display: flex;
+    align-items: center;
+    padding: 5rem 0 !important;
+    /* Fallback if no photo is set yet: */
+    background-color: var(--lynz-midnight);
+}
+
+.lynz-hero .elementor-heading-title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem) !important;
+    line-height: 1.08 !important;
+}
+
+
+/* ============================================================
+   9. INNER PAGE BANNER
+   class="lynz-banner" on the ROW Container.
+   Same photo + overlay technique as the hero, shorter.
+   Used on: Services, Work, About, Contact.
+   ============================================================ */
+
+.lynz-banner {
+    min-height: var(--lynz-banner-height);
+    display: flex;
+    align-items: center;
+    padding: 4rem 0 !important;
+    background-color: var(--lynz-midnight); /* fallback */
+}
+
+/* Breadcrumb — Text Editor widget, class: lynz-crumb */
+.lynz-crumb .elementor-widget-container,
+.lynz-crumb .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.lynz-crumb a { color: rgba(255, 255, 255, 0.45) !important; }
+.lynz-crumb a:hover { color: var(--lynz-gold) !important; }
+.lynz-crumb strong { color: var(--lynz-gold); font-weight: 400; }
+
+
+/* ============================================================
+   10. SECTION CLASSES — background + padding only
+   ============================================================ */
+
+/* Homepage */
+.lynz-services { background: var(--lynz-white);  padding: var(--lynz-section-pad) !important; }
+.lynz-work     { background: var(--lynz-paper);  padding: var(--lynz-section-pad) !important; }
+.lynz-about    { background: var(--lynz-white);  padding: var(--lynz-section-pad) !important; }
+
+/* Services page — alternating rows */
+.lynz-svc-row     { background: var(--lynz-white); padding: 5rem 0 !important; }
+.lynz-svc-row-alt { background: var(--lynz-paper); padding: 5rem 0 !important; }
+
+/* Service row photos get the gold bar + shadow treatment */
+.lynz-svc-row .elementor-widget-image img,
+.lynz-svc-row-alt .elementor-widget-image img {
+    border-bottom: var(--lynz-accent-bar) !important;
+    box-shadow: var(--lynz-shadow) !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Flexible options section (services page + homepage strip) */
+.lynz-flex {
+    background: var(--lynz-paper);
+    padding: var(--lynz-section-pad) !important;
+    border-top: var(--lynz-border);
+}
+
+/* Flex option cards — icon + text row layout inside lynz-box */
+.lynz-flex .lynz-box,
+.lynz-services .lynz-box {
+    background: var(--lynz-white) !important;
+}
+
+/* Work page */
+.lynz-portfolio { background: var(--lynz-white); padding: var(--lynz-section-pad) !important; }
+.lynz-testi {
+    background: var(--lynz-paper);
+    padding: var(--lynz-section-pad) !important;
+    border-top: var(--lynz-border);
+}
+
+/* About page */
+.lynz-story { background: var(--lynz-white); padding: var(--lynz-section-pad) !important; }
+.lynz-why   { background: var(--lynz-white); padding: var(--lynz-section-pad) !important; }
+
+.lynz-story .elementor-widget-image img {
+    border-bottom: var(--lynz-accent-bar) !important;
+    box-shadow: var(--lynz-shadow) !important;
+}
+
+
+/* ============================================================
+   11. ABOUT PAGE BANDS
+   ============================================================ */
+
+/* The daughters band — gold-tinted full-width strip */
+.lynz-name-band {
+    background: rgba(212, 148, 58, 0.07);
+    border-top: 1px solid rgba(212, 148, 58, 0.2);
+    border-bottom: 1px solid rgba(212, 148, 58, 0.2);
+    padding: 3rem 0 !important;
+}
+
+.lynz-name-band .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem) !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+    color: var(--lynz-midnight) !important;
+    line-height: 1.5 !important;
+    text-align: center;
+}
+
+.lynz-name-band .elementor-heading-title strong {
+    color: var(--lynz-copper);
+}
+
+/* Stats band — 4 stat columns, light background.
+   Build: Row Container with 4 Column Containers.
+   Each column: Heading H3 (the number) + Text Editor (the label).
+   The CSS below styles them automatically — no extra classes. */
+.lynz-stats {
+    background: var(--lynz-light);
+    padding: 3.5rem 0 !important;
+}
+
+.lynz-stats .elementor-heading-title {
+    font-family: var(--lynz-font-display) !important;
+    font-weight: 800 !important;
+    font-size: 2.25rem !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1 !important;
+    color: var(--lynz-midnight) !important;
+    text-align: center;
+}
+
+.lynz-stats .elementor-heading-title em {
+    color: var(--lynz-gold) !important;
+    font-style: normal !important;
+}
+
+.lynz-stats .elementor-widget-text-editor .elementor-widget-container,
+.lynz-stats .elementor-widget-text-editor .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-mist) !important;
+    text-align: center;
+    margin-top: 0.3rem;
+}
+
+
+/* ============================================================
+   12. CONTACT PAGE + WPFORMS
+   class="lynz-contact" on the section Container
+   class="lynz-form" on the WPForms widget
+   ============================================================ */
+
+.lynz-contact { background: var(--lynz-white); padding: var(--lynz-section-pad) !important; }
+
+/* Info labels — Text Editor, class: lynz-info-label */
+.lynz-info-label .elementor-widget-container,
+.lynz-info-label .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-mist) !important;
+}
+
+/* "What happens next" box — lynz-box with gold left border */
+.lynz-contact .lynz-box {
+    background: var(--lynz-paper) !important;
+    border-left: var(--lynz-accent-bar) !important;
+}
+
+/* WPForms — complete branded styling */
+.lynz-form {
+    background: var(--lynz-white);
+    border: var(--lynz-border);
+    border-top: var(--lynz-accent-bar);
+    padding: 2.25rem !important;
+    box-shadow: var(--lynz-shadow);
+}
+
+.lynz-form .wpforms-field-label,
+.lynz-form .wpforms-field label {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-midnight) !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.45rem !important;
+    display: block;
+}
+
+.lynz-form .wpforms-required-label { color: var(--lynz-copper) !important; }
+
+.lynz-form .wpforms-field input[type="text"],
+.lynz-form .wpforms-field input[type="email"],
+.lynz-form .wpforms-field input[type="tel"],
+.lynz-form .wpforms-field select,
+.lynz-form .wpforms-field textarea {
+    width: 100% !important;
+    background: var(--lynz-paper) !important;
+    border: var(--lynz-border) !important;
+    border-radius: 0 !important;
+    padding: 0.85rem 1rem !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.9rem !important;
+    color: var(--lynz-midnight) !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    transition: border-color var(--lynz-transition), background var(--lynz-transition) !important;
+}
+
+.lynz-form .wpforms-field input:focus,
+.lynz-form .wpforms-field select:focus,
+.lynz-form .wpforms-field textarea:focus {
+    border-color: var(--lynz-anchor) !important;
+    background: var(--lynz-white) !important;
+    box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.08) !important;
+}
+
+.lynz-form .wpforms-field textarea { min-height: 130px !important; resize: vertical !important; }
+
+.lynz-form .wpforms-field { margin-bottom: 1.25rem !important; }
+
+.lynz-form .wpforms-submit,
+.lynz-form button[type="submit"].wpforms-submit {
+    background: var(--lynz-gold) !important;
+    color: var(--lynz-white) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem 2.5rem !important;
+    font-family: var(--lynz-font-body) !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    transition: background var(--lynz-transition) !important;
+}
+
+.lynz-form .wpforms-submit:hover { background: var(--lynz-copper) !important; }
+
+.lynz-form .wpforms-confirmation-container-full {
+    background: #E8F5EE !important;
+    border: 1px solid #b8ddc8 !important;
+    border-left: 3px solid #2D7A4F !important;
+    padding: 1.5rem !important;
+    font-size: 0.9rem !important;
+    color: #2D7A4F !important;
+}
+
+.lynz-form .wpforms-field label.wpforms-error {
+    color: #C0392B !important;
+    font-size: 0.7rem !important;
+    margin-top: 0.35rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: var(--lynz-font-body) !important;
+    font-weight: 400 !important;
+}
+
+
+/* ============================================================
+   13. CTA
+   class="lynz-cta" on the ROW Container.
+   Background photo + overlay set in Elementor (#0D1B2A at 82%),
+   or just solid midnight if no photo.
+   ============================================================ */
+
+.lynz-cta {
+    padding: 5rem 0 !important;
+    background-color: var(--lynz-midnight); /* fallback */
+}
+
+.lynz-cta .elementor-heading-title {
+    font-size: clamp(1.85rem, 3.2vw, 2.6rem) !important;
+    text-align: center;
+}
+
+
+/* ============================================================
+   14. FOOTER
+   class="lynz-footer" — main footer Container
+   class="lynz-footer-bottom" — copyright bar Container
+   ============================================================ */
+
+.lynz-footer {
+    background: var(--lynz-midnight);
+    padding: 4rem 0 0 !important;
+    border-top: var(--lynz-accent-bar);
+}
+
+/* Column headings — Heading H6 widgets */
+.lynz-footer .elementor-heading-title {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    color: var(--lynz-gold) !important;
+}
+
+.lynz-footer .elementor-widget-text-editor .elementor-widget-container,
+.lynz-footer .elementor-widget-text-editor .elementor-widget-container p {
+    font-size: 0.875rem !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    line-height: 1.7 !important;
+}
+
+.lynz-footer a {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.lynz-footer a:hover { color: var(--lynz-white); }
+
+/* Email/phone accent link — Text Editor, class: lynz-footer-contact */
+.lynz-footer-contact .elementor-widget-container,
+.lynz-footer-contact a {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.04em !important;
+    color: var(--lynz-gold) !important;
+}
+
+.lynz-footer-bottom {
+    background: var(--lynz-midnight);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.25rem 0 !important;
+}
+
+.lynz-footer-bottom .elementor-widget-text-editor .elementor-widget-container,
+.lynz-footer-bottom .elementor-widget-text-editor .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.lynz-footer-bottom strong { color: rgba(255, 255, 255, 0.4); }
+
+
+/* ============================================================
+   15. INTERIOR TEXT CLASSES
+   Small classes applied to Text Editor widgets inside cards.
+   ============================================================ */
+
+/* ★★★★★ stars — Text Editor */
+.lynz-stars .elementor-widget-container {
+    color: var(--lynz-gold) !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 2px !important;
+}
+
+/* Quote — Text Editor inside testimonial box */
+.lynz-quote .elementor-widget-container,
+.lynz-quote .elementor-widget-container p {
+    font-family: var(--lynz-font-display) !important;
+    font-style: italic !important;
+    font-weight: 700 !important;
+    font-size: 0.975rem !important;
+    color: var(--lynz-midnight) !important;
+    line-height: 1.7 !important;
+}
+
+/* Client name — Text Editor */
+.lynz-name .elementor-widget-container,
+.lynz-name .elementor-widget-container p {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--lynz-midnight) !important;
+    border-top: 2px solid var(--lynz-gold);
+    display: inline-block;
+    padding-top: 0.75rem;
+}
+
+/* Role / meta line — Text Editor (testimonial roles, work card meta) */
+.lynz-meta .elementor-widget-container,
+.lynz-meta .elementor-widget-container p {
+    font-family: var(--lynz-font-mono) !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: var(--lynz-mist) !important;
+}
+
+/* "Learn More →" card link — Text Editor with an <a> inside */
+.lynz-more a {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--lynz-anchor);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.lynz-more a::after {
+    content: '→';
+    transition: transform var(--lynz-transition);
+}
+
+.lynz-card:hover .lynz-more a { color: var(--lynz-gold); }
+.lynz-card:hover .lynz-more a::after { transform: translateX(3px); }
+
+/* Icon circle for flexible-option cards — Icon widget */
+.lynz-flex-icon .elementor-icon,
+.lynz-box .elementor-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(212, 148, 58, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lynz-copper) !important;
+    font-size: 1.1rem;
+}
+
+
+/* ============================================================
+   16. RESPONSIVE
+   Elementor handles column stacking via per-breakpoint widths
+   (set in the editor). These rules cover everything Elementor
+   can't do on its own.
+   ============================================================ */
+
+@media (max-width: 767px) {
+    /* Global mobile gutters — v1 lesson: e-con-boxed has zero
+       padding on mobile and content bleeds to screen edges */
+    .e-con-boxed > .e-con-inner {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    /* Reduced section padding */
+    .lynz-services,
+    .lynz-work,
+    .lynz-about,
+    .lynz-portfolio,
+    .lynz-testi,
+    .lynz-story,
+    .lynz-why,
+    .lynz-contact,
+    .lynz-flex,
+    .lynz-svc-row,
+    .lynz-svc-row-alt {
+        padding: var(--lynz-section-pad-sm) !important;
+    }
+
+    .lynz-hero { min-height: 480px; padding: 4rem 0 !important; }
+    .lynz-banner { min-height: 220px; padding: 3rem 0 !important; }
+    .lynz-cta { padding: 3.5rem 0 !important; }
+
+    /* Safety net: stack any custom-classed flex row that Elementor
+       didn't stack. v1 lesson: needs .e-flex in the selector to
+       beat Elementor's own flex rules. */
+    .lynz-services .e-con.e-flex > .e-con,
+    .lynz-work .e-con.e-flex > .e-con,
+    .lynz-portfolio .e-con.e-flex > .e-con,
+    .lynz-testi .e-con.e-flex > .e-con,
+    .lynz-why .e-con.e-flex > .e-con {
+        width: 100% !important;
+    }
+
+    /* Footer stacks */
+    .lynz-footer .e-con-inner {
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    .lynz-footer-bottom .e-con-inner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.4rem !important;
+    }
+}
+
+/* Tablet: work grid 2-up instead of 4-up */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .lynz-portfolio .e-con.e-flex {
+        flex-wrap: wrap !important;
+    }
+
+    .lynz-portfolio .e-con.e-flex > .e-con {
+        flex: 0 0 calc(50% - 0.875rem) !important;
+    }
+}

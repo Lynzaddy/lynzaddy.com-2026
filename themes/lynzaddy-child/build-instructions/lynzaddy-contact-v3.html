@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynzaddy — Contact v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --midnight:#0D1B2A;--steel:#1E3A5F;--anchor:#2C5F8A;--gold:#D4943A;--copper:#B8702A;
+  --paper:#F9F8F6;--light:#EEF2F7;--slate:#4A5568;--mist:#8C95A1;--rule:#E2E5E9;--white:#FFFFFF;
+  --df:'Playfair Display',Georgia,serif;--sf:'DM Sans',system-ui,sans-serif;--mf:'JetBrains Mono',monospace;
+  --shadow:0 1px 3px rgba(0,0,0,0.07),0 6px 20px rgba(0,0,0,0.07);
+  --shadow-h:0 4px 10px rgba(0,0,0,0.1),0 16px 40px rgba(0,0,0,0.12);
+  --t:0.22s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sf);color:var(--midnight);background:var(--white);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:var(--anchor);transition:color var(--t);}
+img{max-width:100%;display:block;}
+h1,h2{font-family:var(--df);font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
+h2{font-size:clamp(1.75rem,3vw,2.4rem);color:var(--midnight);}
+h3{font-family:var(--sf);font-size:1.1rem;font-weight:600;color:var(--midnight);letter-spacing:-0.01em;}
+p{font-size:0.975rem;line-height:1.75;color:var(--slate);}
+.wrap{max-width:1160px;margin:0 auto;padding:0 2rem;}
+.note{font-family:var(--mf);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--copper);background:rgba(212,148,58,0.08);border-left:2px solid var(--gold);padding:0.2rem 0.55rem;display:inline-block;margin-bottom:0.5rem;}
+.note.ondark{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-left-color:rgba(255,255,255,0.35);}
+.btn-gold{background:var(--gold);color:var(--white);padding:0.85rem 1.9rem;font-weight:600;font-size:0.95rem;display:inline-block;transition:background var(--t);}
+.btn-gold:hover{background:var(--copper);color:var(--white);}
+.btn-white-outline{background:transparent;color:var(--white);padding:0.85rem 1.9rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid rgba(255,255,255,0.65);transition:all var(--t);}
+.btn-white-outline:hover{background:rgba(255,255,255,0.12);border-color:var(--white);color:var(--white);}
+.btn-dark-outline{background:transparent;color:var(--midnight);padding:0.8rem 1.75rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid var(--midnight);transition:all var(--t);}
+.btn-dark-outline:hover{background:var(--midnight);color:var(--white);}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+.sec-head p{margin-top:0.6rem;font-size:1rem;color:var(--mist);}
+.hdr{background:var(--white);border-bottom:1px solid var(--rule);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--df);font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;}
+.logo .a{color:var(--midnight);}.logo .b{color:var(--gold);font-style:italic;}
+.nav{display:flex;align-items:center;gap:0.25rem;}
+.nav a{font-size:0.9rem;font-weight:500;color:var(--slate);padding:0.5rem 0.8rem;}
+.nav a:hover,.nav a.on{color:var(--midnight);}
+.nav .talk{background:var(--gold);color:var(--white);padding:0.6rem 1.4rem;font-weight:600;margin-left:0.6rem;transition:background var(--t);}
+.nav .talk:hover{background:var(--copper);}
+/* Inner page banner — photo + overlay, smaller than homepage hero */
+.banner{position:relative;min-height:300px;display:flex;align-items:center;background:linear-gradient(rgba(13,27,42,0.72),rgba(13,27,42,0.78)),linear-gradient(135deg,#1E3A5F 0%,#0D1B2A 60%);background-size:cover;background-position:center;}
+.banner-content{max-width:1160px;margin:0 auto;padding:4rem 2rem;width:100%;}
+.banner .crumb{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:1rem;}
+.banner .crumb a{color:rgba(255,255,255,0.45);}
+.banner .crumb a:hover{color:var(--gold);}
+.banner .crumb .cur{color:var(--gold);}
+.banner h1{font-size:clamp(2.25rem,4.5vw,3.25rem);color:var(--white);}
+.banner p{font-size:1.1rem;color:rgba(255,255,255,0.7);margin-top:0.875rem;max-width:560px;}
+/* CTA */
+.cta{position:relative;padding:5rem 0;text-align:center;background:linear-gradient(rgba(13,27,42,0.82),rgba(13,27,42,0.86)),linear-gradient(135deg,#1E3A5F,#0D1B2A);background-size:cover;background-position:center;}
+.cta h2{color:var(--white);font-size:clamp(1.85rem,3.2vw,2.6rem);}
+.cta h2 em{color:var(--gold);font-style:italic;}
+.cta p{color:rgba(255,255,255,0.65);font-size:1.05rem;margin:1rem auto 2rem;max-width:480px;}
+/* Footer */
+.ftr{background:var(--midnight);padding:4rem 0 0;border-top:3px solid var(--gold);}
+.ftr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;}
+.ftr-logo{font-family:var(--df);font-size:1.45rem;font-weight:800;margin-bottom:1rem;}
+.ftr-logo .a{color:var(--white);}.ftr-logo .b{color:var(--gold);font-style:italic;}
+.ftr-brand p{font-size:0.875rem;color:rgba(255,255,255,0.45);line-height:1.7;}
+.ftr-phone{font-family:var(--mf);font-size:0.8rem;color:var(--gold);margin-top:1rem;display:block;letter-spacing:0.04em;}
+.ftr h6{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;}
+.ftr ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.ftr ul a{font-size:0.875rem;color:rgba(255,255,255,0.45);}
+.ftr ul a:hover{color:var(--white);}
+.ftr-bot{border-top:1px solid rgba(255,255,255,0.08);padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+.ftr-copy{font-family:var(--mf);font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.ftr-copy strong{color:rgba(255,255,255,0.4);}
+/* Contact page */
+.contact{background:var(--white);padding:5rem 0;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4.5rem;align-items:flex-start;}
+.contact-info h2{margin-bottom:1rem;}
+.contact-info > p{margin-bottom:2rem;}
+.info-block{margin-bottom:1.5rem;}
+.info-block h6{font-family:var(--mf);font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;font-weight:500;}
+.info-link{font-size:1rem;font-weight:600;color:var(--anchor);border-bottom:1px solid var(--rule);padding-bottom:1px;}
+.info-link:hover{color:var(--gold);border-color:var(--gold);}
+.info-val{font-size:0.95rem;color:var(--midnight);}
+.next-box{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--gold);padding:1.75rem;margin-top:2.25rem;}
+.next-box h3{font-size:1rem;margin-bottom:1rem;}
+.next-list{list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:0.875rem;}
+.next-list li{counter-increment:n;display:flex;gap:0.875rem;font-size:0.9rem;color:var(--slate);line-height:1.6;}
+.next-list li::before{content:counter(n);font-family:var(--df);font-weight:800;font-style:italic;color:var(--gold);font-size:1.2rem;line-height:1.3;flex-shrink:0;}
+.next-list strong{color:var(--midnight);}
+.contact-form .form-mock{background:var(--white);border:1px solid var(--rule);border-top:3px solid var(--gold);padding:2.25rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:1rem;}
+.fm-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fm-field{background:var(--paper);border:1px solid var(--rule);padding:0.9rem 1rem;font-size:0.875rem;color:var(--mist);}
+.fm-field.tall{min-height:130px;}
+.fm-btn{background:var(--gold);color:var(--white);padding:1rem;text-align:center;font-weight:600;cursor:pointer;}
+
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+  <nav class="nav"><a href="/">Home</a><a href="/services">Services</a><a href="/work">Work</a><a href="/about">About</a><a href="/contact" class="talk">Let's Talk</a></nav>
+</header>
+
+<!--
+  Pattern: banner → 2-col (info left, WPForms right) → what happens next.
+  No CTA banner — this page IS the CTA.
+-->
+
+<section class="banner">
+  <div class="banner-content">
+    <div class="crumb"><a href="/">Home</a> / <span class="cur">Contact</span></div>
+    <h1>Let's Talk</h1>
+    <p>Tell us the problem. We'll figure out the rest.</p>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- LEFT — info column -->
+      <div class="contact-info">
+        <h2>Start a conversation.</h2>
+        <p>No pitch deck, no commitment. Describe what you're trying to accomplish and we'll tell you honestly whether we're the right fit.</p>
+
+        <div class="info-block">
+          <h6>Email</h6>
+          <a href="mailto:hello@lynzaddy.com" class="info-link">hello@lynzaddy.com</a>
+        </div>
+        <div class="info-block">
+          <h6>Location</h6>
+          <p class="info-val">Omaha, NE — Midwest-based, remote-ready</p>
+        </div>
+        <div class="info-block">
+          <h6>Response Time</h6>
+          <p class="info-val">Within one business day</p>
+        </div>
+
+        <div class="next-box">
+          <h3>What happens next</h3>
+          <ol class="next-list">
+            <li><strong>We read your message.</strong> A real person, not an autoresponder.</li>
+            <li><strong>Discovery call.</strong> 30 minutes. We listen before we propose anything.</li>
+            <li><strong>Written proposal.</strong> Scope, timeline, and investment — in writing.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- RIGHT — form column (WPForms in Elementor) -->
+      <div class="contact-form">
+        <div class="note">WPForms widget — class: lynz-form · fields: Name, Email, Company, What can we help with? (textarea)</div>
+        <div class="form-mock">
+          <div class="fm-row"><div class="fm-field">Name *</div><div class="fm-field">Email *</div></div>
+          <div class="fm-field">Company</div>
+          <div class="fm-field tall">What can we help with? *</div>
+          <div class="fm-btn">Send Message</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-brand">
+        <div class="ftr-logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+        <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor. Midwest-based. Nationally trusted.</p>
+        <a href="mailto:hello@lynzaddy.com" class="ftr-phone">hello@lynzaddy.com</a>
+      </div>
+      <div>
+        <h6>Services</h6>
+        <ul>
+          <li><a href="/services#development">WordPress Development</a></li>
+          <li><a href="/services#hosting">Managed Hosting</a></li>
+          <li><a href="/services#consulting">Consulting</a></li>
+          <li><a href="/services#audit">Site Audits</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Company</h6>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/work">Our Work</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Connect</h6>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="/contact">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-bot">
+      <span class="ftr-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+      <span class="ftr-copy">Built the right way. Obviously.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

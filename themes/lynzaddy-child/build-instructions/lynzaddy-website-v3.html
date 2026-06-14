@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynzaddy — Homepage v3 · Traditional Image-Forward</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════
+   TOKENS — same brand, same colors, same fonts
+   ════════════════════════════════════════════════════ */
+:root {
+  --midnight: #0D1B2A;
+  --steel:    #1E3A5F;
+  --anchor:   #2C5F8A;
+  --gold:     #D4943A;
+  --copper:   #B8702A;
+  --paper:    #F9F8F6;
+  --light:    #EEF2F7;
+  --slate:    #4A5568;
+  --mist:     #8C95A1;
+  --rule:     #E2E5E9;
+  --white:    #FFFFFF;
+  --df: 'Playfair Display', Georgia, serif;
+  --sf: 'DM Sans', system-ui, sans-serif;
+  --mf: 'JetBrains Mono', monospace;
+  --shadow:   0 1px 3px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.07);
+  --shadow-h: 0 4px 10px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.12);
+  --t: 0.22s ease;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sf);color:var(--midnight);background:var(--white);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:var(--anchor);transition:color var(--t);}
+img{max-width:100%;display:block;}
+
+h1,h2{font-family:var(--df);font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
+h2{font-size:clamp(1.75rem,3vw,2.4rem);color:var(--midnight);}
+h3{font-family:var(--sf);font-size:1.1rem;font-weight:600;color:var(--midnight);letter-spacing:-0.01em;}
+p{font-size:0.975rem;line-height:1.75;color:var(--slate);}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 2rem;}
+
+/* Build note chrome */
+.note{font-family:var(--mf);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--copper);background:rgba(212,148,58,0.08);border-left:2px solid var(--gold);padding:0.2rem 0.55rem;display:inline-block;margin-bottom:0.5rem;}
+.note.ondark{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-left-color:rgba(255,255,255,0.35);}
+
+/* Buttons */
+.btn-gold{background:var(--gold);color:var(--white);padding:0.85rem 1.9rem;font-weight:600;font-size:0.95rem;display:inline-block;transition:background var(--t);}
+.btn-gold:hover{background:var(--copper);color:var(--white);}
+.btn-white-outline{background:transparent;color:var(--white);padding:0.85rem 1.9rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid rgba(255,255,255,0.65);transition:all var(--t);}
+.btn-white-outline:hover{background:rgba(255,255,255,0.12);border-color:var(--white);color:var(--white);}
+.btn-dark-outline{background:transparent;color:var(--midnight);padding:0.8rem 1.75rem;font-weight:500;font-size:0.95rem;display:inline-block;border:2px solid var(--midnight);transition:all var(--t);}
+.btn-dark-outline:hover{background:var(--midnight);color:var(--white);}
+
+/* Section header pattern: H2 + one-line subtitle, used by EVERY section */
+.sec-head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+.sec-head p{margin-top:0.6rem;font-size:1rem;color:var(--mist);}
+
+/* ════════ HEADER ════════ */
+.hdr{background:var(--white);border-bottom:1px solid var(--rule);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--df);font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;}
+.logo .a{color:var(--midnight);}
+.logo .b{color:var(--gold);font-style:italic;}
+.nav{display:flex;align-items:center;gap:0.25rem;}
+.nav a{font-size:0.9rem;font-weight:500;color:var(--slate);padding:0.5rem 0.8rem;}
+.nav a:hover{color:var(--midnight);}
+.nav .talk{background:var(--gold);color:var(--white);padding:0.6rem 1.4rem;font-weight:600;margin-left:0.6rem;transition:background var(--t);}
+.nav .talk:hover{background:var(--copper);}
+
+/* ════════ HERO — full-bleed photo ════════ */
+.hero{
+  position:relative;
+  min-height:560px;
+  display:flex;
+  align-items:center;
+  /* Placeholder gradient — replace with real photo in Elementor */
+  background:
+    linear-gradient(rgba(13,27,42,0.72), rgba(13,27,42,0.78)),
+    linear-gradient(135deg, #1E3A5F 0%, #0D1B2A 55%, #16263a 100%);
+  background-size:cover;
+  background-position:center;
+}
+.hero-content{max-width:1160px;margin:0 auto;padding:5rem 2rem;width:100%;}
+.hero h1{font-size:clamp(2.5rem,5.5vw,4rem);color:var(--white);line-height:1.08;max-width:720px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.75);max-width:540px;margin:1.5rem 0 2.25rem;line-height:1.7;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+
+/* ════════ SERVICES — image-topped cards ════════ */
+.svc{background:var(--white);padding:5.5rem 0;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;}
+.svc-card{
+  background:var(--white);
+  border:1px solid var(--rule);
+  overflow:hidden;
+  transition:box-shadow var(--t), transform var(--t);
+  display:flex;
+  flex-direction:column;
+}
+.svc-card:hover{box-shadow:var(--shadow-h);transform:translateY(-3px);}
+.svc-img{
+  height:190px;
+  background:linear-gradient(135deg,var(--light),#dde5ee);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mf);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);
+  border-bottom:3px solid var(--gold);
+}
+.svc-body{padding:1.75rem;flex:1;display:flex;flex-direction:column;}
+.svc-body h3{margin-bottom:0.6rem;}
+.svc-body p{font-size:0.925rem;flex:1;}
+.svc-more{margin-top:1.25rem;font-weight:600;font-size:0.875rem;color:var(--anchor);display:inline-flex;align-items:center;gap:0.4rem;}
+.svc-more::after{content:'→';transition:transform var(--t);}
+.svc-card:hover .svc-more{color:var(--gold);}
+.svc-card:hover .svc-more::after{transform:translateX(3px);}
+
+/* Secondary options strip */
+.flex-strip{margin-top:3rem;text-align:center;}
+.flex-strip-label{font-family:var(--mf);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--mist);margin-bottom:1.25rem;}
+.flex-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;max-width:760px;margin:0 auto;}
+.flex-card{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:1.5rem 1.75rem;
+  display:flex;align-items:center;gap:1.25rem;
+  text-align:left;
+  transition:box-shadow var(--t);
+}
+.flex-card:hover{box-shadow:var(--shadow);}
+.flex-icon{width:44px;height:44px;border-radius:50%;background:rgba(212,148,58,0.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.flex-card h3{font-size:0.975rem;margin-bottom:0.15rem;}
+.flex-card p{font-size:0.83rem;color:var(--mist);}
+
+/* ════════ WORK — portfolio cards (the "fleet" section) ════════ */
+.work{background:var(--paper);padding:5.5rem 0;}
+.work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.work-card{
+  background:var(--white);
+  border:1px solid var(--rule);
+  overflow:hidden;
+  transition:box-shadow var(--t), transform var(--t);
+}
+.work-card:hover{box-shadow:var(--shadow-h);transform:translateY(-3px);}
+.work-img{
+  height:150px;
+  background:linear-gradient(135deg,#e8edf3,#d4dde8);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mf);font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);
+}
+.work-body{padding:1.25rem 1.4rem;}
+.work-body h3{font-size:0.95rem;margin-bottom:0.2rem;}
+.work-meta{font-family:var(--mf);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist);}
+.work-cta{text-align:center;margin-top:2.5rem;}
+
+/* ════════ ABOUT ════════ */
+.about{background:var(--white);padding:5.5rem 0;}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4.5rem;align-items:center;}
+.about-text h2{margin-bottom:1.25rem;}
+.about-text p{margin-bottom:1rem;}
+.about-name{
+  background:rgba(212,148,58,0.07);
+  border-left:3px solid var(--gold);
+  padding:1rem 1.25rem;
+  font-size:0.9rem;color:var(--slate);
+  margin:1.5rem 0;
+}
+.about-name strong{color:var(--midnight);}
+.why-box{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:2.25rem;
+}
+.why-box h3{font-size:1.05rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:1.1rem;}
+.why-list li{
+  display:flex;gap:0.9rem;align-items:flex-start;
+  font-size:0.925rem;color:var(--slate);line-height:1.65;
+}
+.why-list li::before{
+  content:'';
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.1rem;
+  background:rgba(212,148,58,0.12);
+  border:1.5px solid var(--gold);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23D4943A' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:center;background-size:10px;
+}
+
+/* ════════ CTA — photo background ════════ */
+.cta{
+  position:relative;
+  padding:5rem 0;
+  text-align:center;
+  background:
+    linear-gradient(rgba(13,27,42,0.82), rgba(13,27,42,0.86)),
+    linear-gradient(135deg, #1E3A5F, #0D1B2A);
+  background-size:cover;background-position:center;
+}
+.cta h2{color:var(--white);font-size:clamp(1.85rem,3.2vw,2.6rem);}
+.cta h2 em{color:var(--gold);font-style:italic;}
+.cta p{color:rgba(255,255,255,0.65);font-size:1.05rem;margin:1rem auto 2rem;max-width:480px;}
+
+/* ════════ FOOTER ════════ */
+.ftr{background:var(--midnight);padding:4rem 0 0;border-top:3px solid var(--gold);}
+.ftr-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;}
+.ftr-brand img,.ftr-logo{margin-bottom:1rem;}
+.ftr-logo{font-family:var(--df);font-size:1.45rem;font-weight:800;}
+.ftr-logo .a{color:var(--white);}
+.ftr-logo .b{color:var(--gold);font-style:italic;}
+.ftr-brand p{font-size:0.875rem;color:rgba(255,255,255,0.45);line-height:1.7;}
+.ftr-phone{font-family:var(--mf);font-size:0.8rem;color:var(--gold);margin-top:1rem;display:block;letter-spacing:0.04em;}
+.ftr h6{font-family:var(--mf);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;}
+.ftr ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.ftr ul a{font-size:0.875rem;color:rgba(255,255,255,0.45);}
+.ftr ul a:hover{color:var(--white);}
+.ftr-bot{border-top:1px solid rgba(255,255,255,0.08);padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+.ftr-copy{font-family:var(--mf);font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.ftr-copy strong{color:rgba(255,255,255,0.4);}
+</style>
+</head>
+<body>
+
+<!--
+╔════════════════════════════════════════════════════════════════
+  LYNZADDY HOMEPAGE — v3 · TRADITIONAL IMAGE-FORWARD
+  Inspired by: greatnorthairlines.com
+  ────────────────────────────────────────────────────────────────
+  WHAT CHANGED FROM v2:
+  ─ Full-bleed PHOTO hero with dark overlay (the biggest shift)
+  ─ Every section follows ONE pattern: centered H2 + subtitle + cards
+  ─ Cards are image-topped: Image / Title / Text / Link
+  ─ No sticky columns, no decorative numbers, no mono labels
+  ─ Section count: 6 (Hero, Services, Work, About, CTA, Footer)
+  ─ Elementor build: Image widget + Heading + Text + Button per card.
+    That's the entire vocabulary.
+  ────────────────────────────────────────────────────────────────
+  PHOTOS NEEDED (replace gradient placeholders):
+  1. Hero background — wide shot: workspace, code on screen, or
+     abstract dark texture. Dark enough for white text, or rely
+     on the CSS overlay.
+  2. Service card images × 3 — Development / Hosting / Consulting
+  3. Work card images × 4 — real client site screenshots
+  4. CTA background — can reuse hero photo or a second texture.
+╚════════════════════════════════════════════════════════════════
+-->
+
+<!-- HEADER — Theme Builder. Same as before: white bar, logo, nav, gold CTA -->
+<header class="hdr">
+  <div class="logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+  <nav class="nav">
+    <a href="/services">Services</a>
+    <a href="/work">Work</a>
+    <a href="/about">About</a>
+    <a href="/contact" class="talk">Let's Talk</a>
+  </nav>
+</header>
+
+
+<!-- ══ HERO — FULL-BLEED PHOTO ══════════════════════════════════
+  ROW Container (class: lynz-hero)
+    Content Width: Full Width · Min Height: 560px
+    Style → Background: IMAGE (your photo) + overlay
+      Background Overlay: #0D1B2A at 75% opacity
+    Layout → Align Items: Center
+    └─ Inner boxed Column (1160px)
+        [H] H1 — white, gold italic em
+        [T] Sub paragraph
+        Nested Row: [B] gold button + [B] white outline button
+  ──────────────────────────────────────────────────────────────
+  ELEMENTOR: Background photo set directly in the Container's
+  Style tab → Background → Image. Overlay in Background Overlay
+  tab. No CSS class needed for the photo itself.
+══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="note ondark">Container bg: photo + midnight overlay 75% · set in Elementor Style tab</div>
+    <h1>Tell us the problem.<br>We'll figure out the <em>rest.</em></h1>
+    <p class="hero-sub">Senior WordPress development, hosting, and consulting for teams who need a trusted partner — not another vendor to manage.</p>
+    <div class="hero-btns">
+      <a href="/contact" class="btn-gold">Start a Conversation</a>
+      <a href="/services" class="btn-white-outline">Our Services</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SERVICES — IMAGE-TOPPED CARDS ═══════════════════════════
+  ROW Container (class: lynz-services) · BG: White
+    [H] H2 centered — "Our Services"
+    [T] Subtitle centered
+    Row of 3 Column Containers (class: lynz-card each)
+      [I] Image widget (photo, 190px crop)
+      [H] H3
+      [T] Description
+      [T] "Learn More →" link
+  ──────────────────────────────────────────────────────────────
+  The card images: use real photos — your workspace, a hosting
+  dashboard, a whiteboard session. Replace placeholders.
+══════════════════════════════════════════════════════════════ -->
+<section class="svc">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Our Services</h2>
+      <p>Senior WordPress expertise for essential business projects.</p>
+    </div>
+
+    <div class="svc-grid">
+
+      <div class="svc-card">
+        <div class="svc-img">Photo: code editor / build in progress</div>
+        <div class="svc-body">
+          <h3>WordPress Development</h3>
+          <p>Custom builds, complex themes, WooCommerce, and performance overhauls — built for the long run, not the demo.</p>
+          <a href="/services#development" class="svc-more">Learn More</a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-img">Photo: server / dashboard</div>
+        <div class="svc-body">
+          <h3>Managed Hosting</h3>
+          <p>Managed WP Engine hosting with proactive updates, monitoring, and someone who actually picks up the phone.</p>
+          <a href="/services#hosting" class="svc-more">Learn More</a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-img">Photo: whiteboard / strategy session</div>
+        <div class="svc-body">
+          <h3>WordPress Consulting</h3>
+          <p>Fractional senior WordPress expertise for teams that need direction without a full-time hire.</p>
+          <a href="/services#consulting" class="svc-more">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Secondary options — mirrors GNA's "Flexible Options" strip -->
+    <div class="flex-strip">
+      <div class="flex-strip-label">Other Ways to Work With Us</div>
+      <div class="flex-cards">
+        <a href="/services#audit" class="flex-card">
+          <div class="flex-icon">🔍</div>
+          <div>
+            <h3>Site Audits</h3>
+            <p>One-time codebase, security & performance review</p>
+          </div>
+        </a>
+        <a href="/services#training" class="flex-card">
+          <div class="flex-icon">🎓</div>
+          <div>
+            <h3>Team Training</h3>
+            <p>Get your team confident managing WordPress</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ RECENT WORK — PORTFOLIO CARDS ═══════════════════════════
+  ROW Container (class: lynz-work) · BG: Paper
+  Mirrors GNA's "Our Trusted Fleet" — 4 image cards in a row.
+    [H] H2 centered + [T] subtitle
+    Row of 4 Column Containers (class: lynz-card each)
+      [I] Screenshot of client site (150px crop)
+      [H] H3 — client/project name
+      [T] One-line meta (industry · year)
+    [B] "View All Work" centered below
+══════════════════════════════════════════════════════════════ -->
+<section class="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Recent Work</h2>
+      <p>Trusted by 100+ businesses since 2008. Mostly referrals.</p>
+    </div>
+
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="work-img">Client site screenshot</div>
+        <div class="work-body">
+          <h3>[Client Name]</h3>
+          <div class="work-meta">E-Commerce · 2025</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-img">Client site screenshot</div>
+        <div class="work-body">
+          <h3>[Client Name]</h3>
+          <div class="work-meta">Healthcare · 2025</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-img">Client site screenshot</div>
+        <div class="work-body">
+          <h3>[Client Name]</h3>
+          <div class="work-meta">Manufacturing · 2024</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-img">Client site screenshot</div>
+        <div class="work-body">
+          <h3>[Client Name]</h3>
+          <div class="work-meta">Professional Services · 2024</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="work-cta">
+      <a href="/work" class="btn-dark-outline">View All Work</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ABOUT LYNZADDY ══════════════════════════════════════════
+  ROW Container (class: lynz-about) · BG: White
+  Mirrors GNA's About section: text left, "Why Partner" box right.
+    Left Column (~55%):
+      [H] H2 — "About Lynzaddy"
+      [T] Two paragraphs
+      [T] The daughters callout (class: lynz-callout)
+      [B] "Learn More" outline button
+    Right Column (~45%):
+      Column Container (class: lynz-card)
+        [H] H3 — "Why Partner with Lynzaddy?"
+        Icon List widget (class: lynz-checklist) — 4 items
+══════════════════════════════════════════════════════════════ -->
+<section class="about">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div class="about-text">
+        <h2>About Lynzaddy</h2>
+        <p>Since 2008, Lynzaddy has provided senior WordPress development, managed hosting, and consulting for businesses that need a trusted technical partner. We've built our reputation on referrals — roughly 90% of new business comes from clients recommending us.</p>
+        <p>We speak both languages — Marketing and IT — fluently. We can present to your CMO and your CTO in the same meeting, and we build sites your future developers will thank you for.</p>
+        <div class="about-name">
+          Named after two daughters: <strong>Lynz</strong>dsay and <strong>Addy</strong>son. Built with the same care.
+        </div>
+        <a href="/about" class="btn-dark-outline">Learn More</a>
+      </div>
+
+      <div class="why-box">
+        <h3>Why Partner with Lynzaddy?</h3>
+        <ul class="why-list">
+          <li>Senior talent on every engagement — the person you talk to writes your code</li>
+          <li>Architecture-first process with a written plan before any build begins</li>
+          <li>Clean, documented code built to be inherited by any future developer</li>
+          <li>Trusted by 100+ businesses since 2008 — roughly 90% referral business</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CTA — PHOTO BACKGROUND ══════════════════════════════════
+  ROW Container (class: lynz-cta)
+    Style → Background: photo + midnight overlay 82%
+    Centered single column:
+      [H] H2 white + gold em
+      [T] Subtitle
+      [B] Gold button
+══════════════════════════════════════════════════════════════ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="note ondark">Container bg: photo + midnight overlay 82% · or solid midnight if no second photo</div>
+    <h2>Ready to work <em>together?</em></h2>
+    <p>Tell us the problem. We'll figure out the rest. No pitch deck, no commitment — just a conversation.</p>
+    <a href="/contact" class="btn-gold">Start the Conversation</a>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER — Theme Builder ══════════════════════════════════
+  Same structure as before. ALL-WHITE logo variant in column 1.
+══════════════════════════════════════════════════════════════ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-brand">
+        <div class="ftr-logo"><span class="a">Lynz</span><span class="b">addy</span></div>
+        <!-- In Elementor: Image widget → lynzaddy-all-white.svg -->
+        <p>Senior WordPress expertise for the teams who need a trusted partner, not another vendor. Midwest-based. Nationally trusted.</p>
+        <a href="mailto:hello@lynzaddy.com" class="ftr-phone">hello@lynzaddy.com</a>
+      </div>
+      <div>
+        <h6>Services</h6>
+        <ul>
+          <li><a href="/services#development">WordPress Development</a></li>
+          <li><a href="/services#hosting">Managed Hosting</a></li>
+          <li><a href="/services#consulting">Consulting</a></li>
+          <li><a href="/services#audit">Site Audits</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Company</h6>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/work">Our Work</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Connect</h6>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="/contact">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-bot">
+      <span class="ftr-copy">© 2026 <strong>Lynzaddy</strong> · All rights reserved</span>
+      <span class="ftr-copy">Built the right way. Obviously.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
